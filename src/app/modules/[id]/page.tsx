@@ -79,8 +79,6 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
     const currentIdx = allModules.findIndex(m => m.id === id);
     const moduleData = currentIdx !== -1 ? allModules[currentIdx] : null;
     const rumpunData = moduleData ? curriculumData.rumpun.find(r => r.id === moduleData.rumpun_id) : null;
-    const quizzes = curriculumData.quiz.filter(q => q.modul_id === id);
-
     const prevModule = currentIdx > 0 ? allModules[currentIdx - 1] : null;
     const nextModule = currentIdx < allModules.length - 1 ? allModules[currentIdx + 1] : null;
 
@@ -215,56 +213,7 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
                     <Lightbulb className="w-6 h-6 mr-3 text-yellow-400" /> Visualisasi Interaktif
                 </h2>
                 <InteractiveVisualization moduleId={moduleData.id} description={moduleData.visualisasi_interaktif} />
-            </section>
-
-            {/* Quizzes Section */}
-            {quizzes.length > 0 && (
-                <section className="mb-16">
-                    <h2 className="text-2xl font-bold flex items-center border-b border-white/10 pb-4 mb-6 text-white">
-                        <HelpCircle className="w-6 h-6 mr-3 text-emerald-400" /> Kuis Pemahaman
-                    </h2>
-                    <div className="space-y-6">
-                        {quizzes.map((quiz, qIdx) => (
-                            <div key={quiz.id} className="glass-card p-6 border-emerald-500/10">
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className="text-emerald-400 font-bold">Pertanyaan {qIdx + 1}</span>
-                                    <span className="text-xs bg-emerald-500/10 text-emerald-300 px-2 py-1 rounded">
-                                        {quiz.poin} Poin &bull; {quiz.tingkat}
-                                    </span>
-                                </div>
-                                <p className="text-lg text-gray-200 mb-6">{quiz.pertanyaan}</p>
-
-                                <div className="space-y-3 mb-6">
-                                    {quiz.pilihan.map((pil, pIdx) => (
-                                        <div key={pIdx} className="p-3 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer text-gray-300">
-                                            {pil}
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Spoiler / Answer section - Simplified for layout demonstration */}
-                                <details className="group border border-white/10 rounded-lg open:bg-white/5 transition-all">
-                                    <summary className="p-4 cursor-pointer font-medium text-emerald-400 flex items-center justify-between">
-                                        Lihat Jawaban & Penjelasan
-                                        <span className="text-xl group-open:rotate-180 transition-transform">↓</span>
-                                    </summary>
-                                    <div className="p-4 pt-0 text-gray-300 border-t border-white/10 mt-2">
-                                        <div className="mb-2">
-                                            <span className="font-bold text-white">Jawaban Benar: </span>
-                                            <span className="text-emerald-400">{quiz.jawaban_benar}</span>
-                                        </div>
-                                        <p className="italic bg-black/30 p-4 rounded-lg border-l-2 border-emerald-500 text-sm">
-                                            "{quiz.penjelasan}"
-                                        </p>
-                                    </div>
-                                </details>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-            )}
-
-            {/* Academic Citations Section */}
+            </section>{/* Academic Citations Section */}
             <section className="mt-16 pt-12 border-t border-white/10">
                 <h2 className="text-2xl font-bold flex items-center mb-6">
                     <Microscope className="w-6 h-6 mr-3 text-fuchsia-400" /> Sitasi Akademik Modul
@@ -325,6 +274,6 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
                 </div>
             </section>
 
-        </div>
+        </div >
     );
 }

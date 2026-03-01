@@ -29,6 +29,10 @@ export default function InteractiveVisualization({ moduleId, description }: { mo
         case "MOD-22": return <QLearningVisualizer description={description} />
         case "MOD-23": return <TimeSeriesVisualizer description={description} />
         case "MOD-24": return <ViTVisualizer description={description} />
+        case "MOD-25": return <AudioSpectrogramVisualizer description={description} />
+        case "MOD-26": return <MultimodalCLIPVisualizer description={description} />
+        case "MOD-27": return <GNNVisualizer description={description} />
+        case "MOD-28": return <BayesianOptVisualizer description={description} />
         default:
             return (
                 <div className="glass-card p-8 border-yellow-500/20 bg-gradient-to-br from-yellow-500/5 to-transparent relative overflow-hidden">
@@ -43,6 +47,313 @@ export default function InteractiveVisualization({ moduleId, description }: { mo
                 </div>
             );
     }
+}
+
+// ==========================================
+// MOD-25: Audio Spectrogram Synthesizer
+// ==========================================
+function AudioSpectrogramVisualizer({ description }: { description: string }) {
+    const ROWS = 24; // freq bins
+    const COLS = 60; // time frames
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [playPos, setPlayPos] = useState(0);
+    const [waveType, setWaveType] = useState<'human' | 'music' | 'noise'>('human');
+    const [volume, setVolume] = useState(80);
+
+    const generateSpec = (type: 'human' | 'music' | 'noise') => {
+        return Array.from({ length: ROWS }, (_, r) =>
+            Array.from({ length: COLS }, (_, c) => {
+                if (type === 'human') {
+                    const f1 = Math.exp(-((r - 5) ** 2) / 4) * Math.sin(c * 0.3) * 0.5 + 0.5;
+                    const f2 = Math.exp(-((r - 11) ** 2) / 5) * Math.cos(c * 0.2) * 0.4 + 0.3;
+                    return Math.max(0, Math.min(1, f1 * 0.7 + f2 * 0.5 + (Math.sin(c + r) * 0.05)));
+                } else if (type === 'music') {
+                    const harmonics = [2, 4, 6, 8, 12, 16].map(h =>
+                        Math.exp(-((r - h) ** 2) / 1.5) * (0.6 + 0.4 * Math.sin(c * 0.5 + h))
+                    );
+                    return Math.max(0, Math.min(1, harmonics.reduce((a, b: number) => a + b, 0) * 0.5));
+                } else {
+                    return Math.max(0, Math.min(1, Math.abs(Math.sin(r * 7.3 + c * 3.1 + r * c * 0.01)) * 0.8));
+                }
+            })
+        );
+    };
+
+    const spec = generateSpec(waveType);
+
+    useEffect(() => {
+        if (!isPlaying) return;
+        const id = setInterval(() => {
+            setPlayPos(p => {
+                if (p >= COLS - 1) { setIsPlaying(false); return 0; }
+                return p + 1;
+            });
+        }, 60);
+        return () => clearInterval(id);
+    }, [isPlaying]);
+
+    return (
+        <div className="glass-card p-6 border-green-500/20 bg-gradient-to-br from-green-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-green-400 mb-1 flex items-center">
+                <Activity className="mr-3 w-6 h-6" /> Audio Spectrogram Visualizer
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <div className="lg:col-span-2">
+                    <div className="text-xs text-green-400/70 font-mono mb-2 flex justify-between">
+                        <span>Frekuensi (Mel Scale) ↑</span>
+                        <span className={isPlaying ? 'text-green-400 animate-pulse' : 'text-gray-500'}>
+                            {isPlaying ? '▶ PLAYING...' : '■ STOPPED'} frame {playPos}/{COLS}
+                        </span>
+                    </div>
+                    <div className="relative border border-green-500/20 rounded overflow-hidden" style={{ fontSize: 0 }}>
+                        {spec.slice().reverse().map((row, ri) => (
+                            <div key={ri} className="flex">
+                                {row.map((val, ci) => {
+                                    const isHead = ci === playPos && isPlaying;
+                                    const brightness = val * (volume / 100);
+                                    return (
+                                        <div key={ci} style={{
+                                            width: `${100 / COLS}%`,
+                                            height: 6,
+                                            background: isHead
+                                                ? 'rgba(255,255,255,0.9)'
+                                                : `hsl(${Math.round(120 - brightness * 120)}, 90%, ${Math.round(15 + brightness * 55)}%)`,
+                                            transition: 'background 0.05s'
+                                        }} />
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>t=0</span><span>← Waktu (frame) →</span><span>t={COLS}</span>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                    <div>
+                        <div className="text-xs text-green-400 mb-2 font-bold">Tipe Sinyal Audio</div>
+                        {(['human', 'music', 'noise'] as const).map(t => (
+                            <button key={t} onClick={() => { setWaveType(t); setPlayPos(0); setIsPlaying(false); }}
+                                className={`w-full mb-1 px-3 py-2 rounded text-sm text-left font-medium border transition-all ${waveType === t ? 'bg-green-500/20 text-green-300 border-green-500/40' : 'bg-white/5 text-gray-400 border-white/10 hover:border-green-500/30'
+                                    }`}>
+                                {t === 'human' ? '🗣️ Suara Manusia' : t === 'music' ? '🎵 Musik (Harmonik)' : '📻 Noise (Acak)'}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="bg-black/30 rounded p-3 border border-white/5">
+                        <div className="text-xs text-green-400 mb-1 font-bold">Volume: {volume}%</div>
+                        <input type="range" min={10} max={100} value={volume} onChange={(e: any) => setVolume(Number(e.target.value))} className="w-full accent-green-500" />
+                    </div>
+
+                    <div className="flex gap-2">
+                        <button onClick={() => { setPlayPos(0); setIsPlaying(true); }}
+                            disabled={isPlaying}
+                            className="flex-1 px-3 py-2 bg-green-500/20 text-green-300 border border-green-500/40 rounded text-sm font-bold hover:bg-green-500 hover:text-black transition-all disabled:opacity-40">
+                            ▶ Play
+                        </button>
+                        <button onClick={() => { setIsPlaying(false); setPlayPos(0); }}
+                            className="flex-1 px-3 py-2 bg-white/5 text-gray-400 border border-white/10 rounded text-sm hover:bg-white/10 transition-all">
+                            ■ Stop
+                        </button>
+                    </div>
+
+                    <div className="bg-black/20 rounded p-3 border border-white/5 text-xs text-gray-400 leading-relaxed">
+                        <span className="text-green-400 font-bold">Mel Scale:</span> Sumbu frekuensi dikompres sesuai persepsi manusia.
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-26: Multimodal CLIP Similarity Demo
+// ==========================================
+function MultimodalCLIPVisualizer({ description }: { description: string }) {
+    const ITEMS = [
+        { image: '🐕', label: 'Anjing berlari', tags: ['anjing', 'hewan', 'berlari', 'mamalia'] },
+        { image: '🍕', label: 'Pizza margherita', tags: ['pizza', 'makanan', 'Italia', 'lezat'] },
+        { image: '🌅', label: 'Matahari terbenam', tags: ['alam', 'langit', 'matahari', 'indah'] },
+        { image: '🚗', label: 'Mobil sport merah', tags: ['mobil', 'kendaraan', 'merah', 'cepat'] },
+        { image: '📚', label: 'Tumpukan buku', tags: ['buku', 'pengetahuan', 'belajar', 'perpustakaan'] },
+        { image: '🏔️', label: 'Puncak gunung bersalju', tags: ['gunung', 'alam', 'salju', 'tinggi'] },
+    ];
+
+    const [query, setQuery] = useState('');
+    const [searched, setSearched] = useState(false);
+
+    const computeSimilarity = (q: string, tags: string[], label: string) => {
+        if (!q.trim()) return 0;
+        const qLow = q.toLowerCase();
+        const allTerms = [...tags, ...label.toLowerCase().split(' ')];
+        const exact = allTerms.filter(t => t.includes(qLow) || qLow.includes(t)).length;
+        const partial = allTerms.filter(t => t.slice(0, 3) === qLow.slice(0, 3)).length;
+        return Math.min(1, (exact * 0.4 + partial * 0.15) + (Math.random() * 0.05));
+    };
+
+    const scores = searched && query
+        ? ITEMS.map(item => ({ ...item, score: computeSimilarity(query, item.tags, item.label) }))
+            .sort((a, b) => b.score - a.score)
+        : ITEMS.map(item => ({ ...item, score: 0 }));
+
+    const handleSearch = () => setSearched(true);
+
+    return (
+        <div className="glass-card p-6 border-pink-500/20 bg-gradient-to-br from-pink-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-pink-400 mb-1 flex items-center">
+                <Search className="mr-3 w-6 h-6" /> CLIP: Multimodal Text-Image Search
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+
+            <div className="flex gap-2 mb-5">
+                <input
+                    value={query}
+                    onChange={(e: any) => { setQuery(e.target.value); setSearched(false); }}
+                    onKeyDown={(e: any) => e.key === 'Enter' && handleSearch()}
+                    placeholder="Ketik teks query (contoh: 'anjing', 'makanan', 'alam')..."
+                    className="flex-1 bg-black/40 border border-pink-500/30 rounded px-4 py-2 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-pink-400"
+                />
+                <button onClick={handleSearch}
+                    className="px-4 py-2 bg-pink-500/20 text-pink-300 border border-pink-500/40 rounded text-sm font-bold hover:bg-pink-500 hover:text-white transition-all">
+                    🔍 Cari
+                </button>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                {scores.map((item, i) => (
+                    <div key={item.label} className={`relative rounded-xl border p-4 text-center transition-all duration-300 ${searched && item.score > 0.3 ? 'border-pink-400 bg-pink-500/10 scale-105 shadow-lg shadow-pink-500/20'
+                        : searched && item.score > 0.1 ? 'border-pink-500/30 bg-pink-900/10'
+                            : 'border-white/10 bg-white/5 opacity-60'
+                        }`}>
+                        {searched && i === 0 && <div className="absolute -top-2 -right-2 text-xs bg-pink-500 text-white px-2 py-0.5 rounded-full font-bold">TOP</div>}
+                        <div className="text-4xl mb-2">{item.image}</div>
+                        <div className="text-xs text-gray-300 mb-2">{item.label}</div>
+                        {searched && (
+                            <div className="mt-2">
+                                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                                    <div className="h-full bg-gradient-to-r from-pink-500 to-violet-500 rounded-full transition-all duration-700"
+                                        style={{ width: `${item.score * 100}%` }} />
+                                </div>
+                                <div className="text-xs text-pink-400 font-mono mt-1">
+                                    sim = {item.score.toFixed(2)}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+
+            <div className="text-xs text-gray-500 bg-black/20 rounded p-3 border border-white/5 text-xs text-gray-400 leading-relaxed">
+                <span className="text-pink-400 font-bold">CLIP Principle:</span> Model mengembedding teks dan gambar ke ruang vektor yang sama.
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-27: GNN Message Passing Visualizer
+// ==========================================
+function GNNVisualizer({ description }: { description: string }) {
+    const NODES = [
+        { id: 0, x: 200, y: 80, label: 'A', feature: 1.0, color: '#8b5cf6' },
+        { id: 1, x: 80, y: 200, label: 'B', feature: 0.6, color: '#06b6d4' },
+        { id: 2, x: 320, y: 200, label: 'C', feature: 0.8, color: '#10b981' },
+        { id: 3, x: 130, y: 330, label: 'D', feature: 0.3, color: '#f59e0b' },
+        { id: 4, x: 270, y: 330, label: 'E', feature: 0.9, color: '#ef4444' },
+        { id: 5, x: 200, y: 420, label: 'F', feature: 0.5, color: '#ec4899' },
+    ];
+    const EDGES = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 4], [3, 4], [3, 5], [4, 5]];
+
+    const [layer, setLayer] = useState(0);
+    const [activeEdge, setActiveEdge] = useState<number[] | null>(null);
+    const [hoveredNode, setHoveredNode] = useState<number | null>(null);
+
+    const computeFeatures = (l: number) => {
+        let feats = NODES.map(n => n.feature);
+        for (let i = 0; i < l; i++) {
+            const newFeats = feats.map((f, n) => {
+                const neighbors = EDGES.filter(([a, b]: any) => a === n || b === n)
+                    .map(([a, b]: any) => a === n ? b : a);
+                if (neighbors.length === 0) return f;
+                const agg = neighbors.reduce((sum: number, nb: number) => sum + feats[nb], 0) / neighbors.length;
+                return Math.min(1, (f + agg) / 2 * 1.05);
+            });
+            feats = newFeats;
+        }
+        return feats;
+    };
+
+    const feats = computeFeatures(layer);
+
+    const getNodeNeighbors = (id: number) =>
+        EDGES.filter(([a, b]: any) => a === id || b === id).map(([a, b]: any) => a === id ? b : a);
+
+    return (
+        <div className="glass-card p-6 border-cyan-500/20 bg-gradient-to-br from-cyan-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-cyan-400 mb-1 flex items-center">
+                <Network className="mr-3 w-6 h-6" /> GNN — Message Passing Simulator
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                <svg viewBox="0 0 400 500" className="w-full max-h-80 border border-cyan-500/20 rounded bg-black/30">
+                    {EDGES.map(([a, b], i) => {
+                        const na = NODES[a], nb = NODES[b];
+                        const isActive = activeEdge && ((activeEdge[0] === a && activeEdge[1] === b) || (activeEdge[0] === b && activeEdge[1] === a));
+                        return <line key={i} x1={na.x} y1={na.y} x2={nb.x} y2={nb.y} stroke={isActive ? '#22d3ee' : 'rgba(255,255,255,0.1)'} strokeWidth={isActive ? 2.5 : 1} />;
+                    })}
+                    {NODES.map(n => (
+                        <g key={n.id} onMouseEnter={() => setHoveredNode(n.id)} onMouseLeave={() => setHoveredNode(null)}>
+                            <circle cx={n.x} cy={n.y} r={22 + feats[n.id] * 10} fill={n.color} opacity={0.2 + feats[n.id] * 0.7} />
+                            <text x={n.x} y={n.y} textAnchor="middle" fill="white" fontSize={12} fontWeight="bold">{n.label}</text>
+                        </g>
+                    ))}
+                </svg>
+                <div className="flex flex-col gap-3">
+                    <div className="bg-black/30 rounded p-3 border border-white/5">
+                        <div className="text-xs text-cyan-400 mb-2 font-bold">Layer GNN: {layer}</div>
+                        <input type="range" min={0} max={4} value={layer} onChange={(e: any) => setLayer(Number(e.target.value))} className="w-full accent-cyan-500" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-28: Bayesian HPO Optimizer Visualizer
+// ==========================================
+function BayesianOptVisualizer({ description }: { description: string }) {
+    const [observations, setObservations] = useState<{ x: number, y: number }[]>([]);
+    const [step, setStep] = useState(0);
+    const [best, setBest] = useState<{ x: number, y: number } | null>(null);
+
+    const trueFunc = (x: number) => 0.4 * Math.sin(x * 0.8) + 0.3 * Math.cos(x * 2.1) + 0.2 * Math.sin(x * 4.5) + 0.6;
+
+    const sampleNext = () => {
+        const nextX = Math.random() * 10;
+        const nextY = trueFunc(nextX);
+        const newObs = [...observations, { x: nextX, y: nextY }];
+        setObservations(newObs);
+        if (!best || nextY > best.y) setBest({ x: nextX, y: nextY });
+        setStep(s => s + 1);
+    };
+
+    return (
+        <div className="glass-card p-6 border-orange-500/20 bg-gradient-to-br from-orange-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-orange-400 mb-1 flex items-center">
+                <Brain className="mr-3 w-6 h-6" /> Bayesian HPO Simulator
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+            <div className="flex gap-4 items-center">
+                <button onClick={sampleNext} className="px-4 py-2 bg-orange-500/20 text-orange-400 border border-orange-500/40 rounded font-bold">Lakukan Evaluasi (Step {step})</button>
+                {best && <div className="text-amber-400 font-mono text-sm">Best Accuracy: {best.y.toFixed(3)}</div>}
+            </div>
+        </div>
+    );
 }
 
 // ==========================================
@@ -1168,7 +1479,7 @@ function VectorVisualizer({ description }: { description: string }) {
             <h3 className="text-2xl font-bold text-indigo-400 mb-4 flex items-center">
                 <Target className="w-6 h-6 mr-3" /> Visualisasi Geometri Kata (Word Embeddings)
             </h3>
-            <p className="text-gray-300 mb-8">{description}. <br /><strong>Instruksi:</strong> Amati bagaimana rumus algebra (Rajin - Pria + Wanita) menghasilkan orientasi koordinat yang bermakna relasional di tata surya 2D.</p>
+            <p className="text-gray-300 mb-8">{description}. <br /><strong>Instruksi:</strong> Amati bagaimana rumus algebra (Raja - Pria + Wanita) menghasilkan orientasi koordinat yang bermakna relasional di tata surya 2D.</p>
 
             <div className="relative h-96 bg-black/50 rounded-xl border border-white/10 overflow-hidden flex items-center justify-center">
                 {/* 2D Coordinate System Background */}
@@ -1197,31 +1508,32 @@ function VectorVisualizer({ description }: { description: string }) {
                         </marker>
                     </defs>
 
-                    {/* Gender Vectors */}
-                    <line x1="50%" y1="50%" x2="20%" y2="70%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
-                    <line x1="50%" y1="50%" x2="20%" y2="30%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
+                    {/* Gender Vectors (Shifted left to ensure they stay on the left half) */}
+                    <line x1="33%" y1="50%" x2="12%" y2="75%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
+                    <line x1="33%" y1="50%" x2="12%" y2="25%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
 
-                    {/* Role Vectors (Parallel transformation showing Male->King equals Female->Queen) */}
-                    <line x1="50%" y1="50%" x2="70%" y2="70%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
-                    <line x1="50%" y1="50%" x2="70%" y2="30%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
+                    {/* Role Vectors (Shifted to end around 45%) */}
+                    <line x1="33%" y1="50%" x2="45%" y2="75%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
+                    <line x1="33%" y1="50%" x2="45%" y2="25%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
 
                     {/* The Transformation Equation connection */}
-                    <line x1="20%" y1="70%" x2="20%" y2="30%" stroke="#a855f7" strokeWidth="2" strokeDasharray="5" markerEnd="url(#arrowhead-purple)" />
-                    <line x1="70%" y1="70%" x2="70%" y2="30%" stroke="#a855f7" strokeWidth="2" strokeDasharray="5" markerEnd="url(#arrowhead-purple)" />
+                    <line x1="12%" y1="75%" x2="12%" y2="25%" stroke="#a855f7" strokeWidth="2" strokeDasharray="5" markerEnd="url(#arrowhead-purple)" />
+                    <line x1="45%" y1="75%" x2="45%" y2="25%" stroke="#a855f7" strokeWidth="2" strokeDasharray="5" markerEnd="url(#arrowhead-purple)" />
                 </svg>
 
                 {/* Labels */}
-                <div className="absolute z-20 font-bold px-2 py-1 bg-blue-900/80 rounded border border-blue-500/50 text-blue-200" style={{ left: '25%', top: '70%', transform: 'translate(-50%, -50%)' }}>Pria</div>
-                <div className="absolute z-20 font-bold px-2 py-1 bg-pink-900/80 rounded border border-pink-500/50 text-pink-200" style={{ left: '25%', top: '30%', transform: 'translate(-50%, -50%)' }}>Wanita</div>
+                <div className="absolute z-20 font-bold px-2 py-1 bg-blue-900/80 rounded border border-blue-500/50 text-blue-200" style={{ left: '12%', top: '75%', transform: 'translate(-50%, -50%)' }}>Pria</div>
+                <div className="absolute z-20 font-bold px-2 py-1 bg-pink-900/80 rounded border border-pink-500/50 text-pink-200" style={{ left: '12%', top: '25%', transform: 'translate(-50%, -50%)' }}>Wanita</div>
 
-                <div className="absolute z-20 font-bold px-2 py-1 bg-blue-900/80 rounded border border-blue-500/50 text-blue-200" style={{ left: '75%', top: '70%', transform: 'translate(-50%, -50%)' }}>Raja</div>
-                <div className="absolute z-20 font-bold px-2 py-1 bg-pink-900/80 rounded border border-pink-500/50 text-pink-200" style={{ left: '75%', top: '30%', transform: 'translate(-50%, -50%)' }}>Ratu</div>
+                <div className="absolute z-20 font-bold px-2 py-1 bg-blue-900/80 rounded border border-blue-500/50 text-blue-200" style={{ left: '46%', top: '75%', transform: 'translate(-50%, -50%)' }}>Raja</div>
+                <div className="absolute z-20 font-bold px-2 py-1 bg-pink-900/80 rounded border border-pink-500/50 text-pink-200" style={{ left: '46%', top: '25%', transform: 'translate(-50%, -50%)' }}>Ratu</div>
 
-                <div className="absolute bottom-6 right-6 bg-black/80 border border-indigo-500/30 p-4 rounded-xl max-w-xs shadow-2xl backdrop-blur-md">
-                    <div className="text-xs text-indigo-300 font-mono mb-2">Vektor Transformasi:</div>
-                    <div className="font-mono text-sm font-bold tracking-tight text-white mb-1"><span className="text-blue-400">Raja</span> - <span className="text-blue-400">Pria</span> + <span className="text-pink-400">Wanita</span></div>
-                    <div className="font-mono text-sm font-bold tracking-tight text-white mb-2">= <span className="text-pink-400">Ratu</span></div>
-                    <p className="text-xs text-gray-400 mt-2">Mesin mengetahui Ratu tanpa diberitahu karena ia mendeteksi pararel kosinus geometri posisi kata di internet yang sama persis konfigurasinya.</p>
+                {/* Info block pushed to bottom right */}
+                <div className="absolute bottom-4 right-4 bg-black/90 border border-indigo-500/50 p-5 rounded-xl shadow-2xl backdrop-blur-md z-30 w-full sm:w-auto sm:max-w-xs">
+                    <div className="text-sm text-indigo-300 font-mono mb-3 uppercase tracking-wider">Vektor Transformasi</div>
+                    <div className="font-mono text-base font-bold tracking-tight text-white mb-2"><span className="text-blue-400">Raja</span> - <span className="text-blue-400">Pria</span> + <span className="text-pink-400">Wanita</span></div>
+                    <div className="font-mono text-base font-bold tracking-tight text-white mb-3">= <span className="text-pink-400">Ratu</span></div>
+                    <p className="text-xs text-gray-400 leading-relaxed border-t border-white/10 pt-3">Mesin mengetahui <strong>Ratu</strong> karena mendeteksi geometri kata di internet yang paralel dan ekuivalen.</p>
                 </div>
             </div>
         </div>
