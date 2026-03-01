@@ -1,0 +1,153 @@
+[
+    {
+        "id": "activation-function",
+        "term": "Activation Function",
+        "category": "Neural Networks",
+        "definition": "Kalkulasi matematis yang menentukan apakah sebuah neuron harus aktif atau tidak (besarnya sinyal yang diteruskan ke layer berikutnya). Menambahkan sifat non-linearitas, memungkinkan jaringan mempelajari pola yang sangat kompleks.",
+        "libraries": [
+            "PyTorch (`torch.nn.functional.relu`)",
+            "TensorFlow (`tf.keras.activations`)"
+        ],
+        "citation": "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press."
+    },
+    {
+        "id": "attention-mechanism",
+        "term": "Attention Mechanism",
+        "category": "NLP / Transformers",
+        "definition": "Teknik yang memungkinkan model (seperti Transformer) berfokus (memberi 'perhatian' berbeda) pada bagian tertentu dari input saat memproses data berurutan, jauh mengungguli arsitektur RNN/LSTM tradisional.",
+        "libraries": [
+            "HuggingFace Transformers",
+            "PyTorch (`torch.nn.MultiheadAttention`)"
+        ],
+        "citation": "Vaswani, A., et al. (2017). Attention is all you need. Advances in neural information processing systems."
+    },
+    {
+        "id": "backpropagation",
+        "term": "Backpropagation",
+        "category": "Neural Networks",
+        "definition": "Algoritma fundamental untuk melatih Neural Network. Mengukur seberapa besar setiap bobot berkontribusi terhadap eror total, lalu mendistribusikan koreksi (gradient) kembali dari output menuju input layer.",
+        "libraries": [
+            "PyTorch (`loss.backward()`, `optimizer.step()`)"
+        ],
+        "citation": "Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. Nature."
+    },
+    {
+        "id": "convolution",
+        "term": "Convolution",
+        "category": "Computer Vision",
+        "definition": "Operasi matematis pada dua fungsi (gambar dan filter/kernel) untuk menghasilkan fungsi ketiga (feature map) yang mengekstrak fitur lokal seperti tepi, tekstur, atau bentuk.",
+        "libraries": [
+            "PyTorch (`torch.nn.Conv2d`)",
+            "OpenCV (`cv2.filter2D`)"
+        ],
+        "citation": "LeCun, Y., et al. (1989). Backpropagation applied to handwritten zip code recognition. Neural computation."
+    },
+    {
+        "id": "dropout",
+        "term": "Dropout",
+        "category": "Regularization",
+        "definition": "Teknik mencegah overfitting di mana sekumpulan neuron dipilih secara acak lalu diabaikan (di-drop) selama fase training. Memaksa jaringan untuk tidak bergantung hanya pada neuron tertentu.",
+        "libraries": [
+            "PyTorch (`torch.nn.Dropout`)",
+            "TensorFlow/Keras (`layers.Dropout`)"
+        ],
+        "citation": "Srivastava, N., et al. (2014). Dropout: a simple way to prevent neural networks from overfitting. The journal of machine learning research."
+    },
+    {
+        "id": "epoch",
+        "term": "Epoch",
+        "category": "Training Process",
+        "definition": "Satu siklus/putaran di mana model Machine Learning melihat SELURUH dataset training (satu kali lewatan maju dan mundur). Model biasanya membutuhkan puluhan hingga ribuan epoch untuk konvergen.",
+        "libraries": [
+            "Scikit-Learn (`max_iter`)",
+            "PyTorch (Training Loop)"
+        ],
+        "citation": "Bishop, C. M. (2006). Pattern recognition and machine learning. Springer."
+    },
+    {
+        "id": "faiss",
+        "term": "FAISS (Facebook AI Similarity Search)",
+        "category": "Libraries / Vector DB",
+        "definition": "Library yang sangat efisien untuk mencari kesamaan (similarity search) antar dense vectors (embedding). Sangat krusial dalam sistem RAG (Retrieval-Augmented Generation).",
+        "libraries": [
+            "FAISS (`faiss.IndexFlatL2`)"
+        ],
+        "citation": "Johnson, J., Douze, M., & Jégou, H. (2019). Billion-scale similarity search with GPUs. IEEE Transactions on Big Data."
+    },
+    {
+        "id": "gradient-descent",
+        "term": "Gradient Descent",
+        "category": "Optimization",
+        "definition": "Algoritma optimisasi untuk menemukan nilai minimum lokal (solusi paling optimal) dari fungsi objektif. Algoritma ini ibarat menuruni lembah dalam kabut dengan melangkah ke arah kemiringan paling curam.",
+        "libraries": [
+            "Scikit-Learn (`linear_model.SGDRegressor`)",
+            "PyTorch (`torch.optim.SGD`)"
+        ],
+        "citation": "Ruder, S. (2016). An overview of gradient descent optimization algorithms. arXiv preprint."
+    },
+    {
+        "id": "lora",
+        "term": "LoRA (Low-Rank Adaptation)",
+        "category": "LLM / Fine-Tuning",
+        "definition": "Teknik merekayasa parameter efisien (Parameter-Efficient Fine-Tuning / PEFT) yang menyisipkan dua matriks kecil (low-rank) ke dalam model raksasa. Hal ini mengurangi kebutuhan VRAM GPU dari 80GB menjadi hanya 8GB saat melatih model sekelas GPT.",
+        "libraries": [
+            "PEFT by HuggingFace",
+            "BitsAndBytes"
+        ],
+        "citation": "Hu, E. J., et al. (2021). LoRA: Low-rank adaptation of large language models. ICLR."
+    },
+    {
+        "id": "rag",
+        "term": "RAG (Retrieval-Augmented Generation)",
+        "category": "LLM Architecture",
+        "definition": "Sistem yang menggabungkan kemampuan pemahaman bahasa dari LLM dengan mesin pencari database eksternal. Membuat LLM tidak berhalusinasi dengan mewajibkannya berpedoman pada dokumen spesifik perusahaan.",
+        "libraries": [
+            "LangChain",
+            "LlamaIndex"
+        ],
+        "citation": "Lewis, P., et al. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. NeurIPS."
+    },
+    {
+        "id": "relu",
+        "term": "ReLU (Rectified Linear Unit)",
+        "category": "Neural Networks",
+        "definition": "Fungsi aktivasi paling populer. Sangat sederhana: mengubah semua angka negatif menjadi 0, dan meneruskan angka positif apa adanya. Mencegah vanishing gradient pada deep network.",
+        "libraries": [
+            "PyTorch (`nn.ReLU`)",
+            "Keras (`activation=\"relu\"`)"
+        ],
+        "citation": "Nair, V., & Hinton, G. E. (2010). Rectified linear units improve restricted boltzmann machines. ICML."
+    },
+    {
+        "id": "smote",
+        "term": "SMOTE (Synthetic Minority Over-sampling Technique)",
+        "category": "Data Preprocessing",
+        "definition": "Metode penyelesaian imbalanced data. Mengatasi kelas minoritas bukan dengan menduplikat data, melainkan menginterpolasi/mensintesis titik data palsu (kriminal digital) baru yang mirip aslinya. Sangat krusial dalam deteksi Fraud.",
+        "libraries": [
+            "Imbalanced-Learn (`imblearn.over_sampling.SMOTE`)"
+        ],
+        "citation": "Chawla, N. V., et al. (2002). SMOTE: synthetic minority over-sampling technique. Journal of artificial intelligence research."
+    },
+    {
+        "id": "svm",
+        "term": "SVM (Support Vector Machine)",
+        "category": "Classical ML",
+        "definition": "Algoritma yang mencari dinding pembatas (hyperplane) terbaik dengan margin terluas yang memisahkan berbagai kelas. Sangat ampuh untuk dataset ukuran kecil hingga menengah.",
+        "libraries": [
+            "Scikit-Learn (`sklearn.svm.SVC`)"
+        ],
+        "citation": "Cortes, C., & Vapnik, V. (1995). Support-vector networks. Machine learning."
+    },
+    {
+        "id": "tensor",
+        "term": "Tensor",
+        "category": "Mathematics / Core Concept",
+        "definition": "Wadah data struktural bagi Machine Learning. Skalar adalah Tensor 0-dimensi, Vektor (1D), Matriks (2D), Gambar RGB (3D), dan Batch Gambar RGB adalah Tensor 4D.",
+        "libraries": [
+            "Numpy (`np.array`)",
+            "PyTorch (`torch.Tensor`)",
+            "TensorFlow (`tf.Tensor`)"
+        ],
+        "citation": "Abadi, M., et al. (2016). TensorFlow: A System for Large-Scale Machine Learning. OSDI."
+    }
+]

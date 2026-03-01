@@ -14,6 +14,7 @@ export function Navbar() {
         { href: "/", label: "Home" },
         { href: "/modules", label: "Materi Belajar", icon: <BookOpen className="w-4 h-4" /> },
         { href: "/paths", label: "Learning Paths" },
+        { href: "/glossary", label: "Kamus AI" },
         { href: "/about", label: "Tentang" },
     ];
 
