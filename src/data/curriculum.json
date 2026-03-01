@@ -3,47 +3,56 @@
     {
       "id": "R1",
       "nama": "Fondasi AI & Machine Learning",
-      "deskripsi": "Mempelajari konsep dasar kecerdasan buatan dan bagaimana mesin belajar dari sekumpulan data."
+      "deskripsi": "Mempelajari konsep dasar kecerdasan buatan dan bagaimana mesin belajar dari sekumpulan data.",
+      "estimasi_waktu": "4 Minggu"
     },
     {
       "id": "R2",
       "nama": "Machine Learning Klasik",
-      "deskripsi": "Menyelami teknik-teknik prediktif dan klasifikasi di mana komputer mencari pola dari historical data."
+      "deskripsi": "Menyelami teknik-teknik prediktif dan klasifikasi di mana komputer mencari pola dari historical data.",
+      "estimasi_waktu": "3 Minggu"
     },
     {
       "id": "R3",
       "nama": "Deep Learning & Neural Networks",
-      "deskripsi": "Masuk ke dunia jaringan saraf tiruan berlapis-lapis dan teknik Computer Vision."
+      "deskripsi": "Masuk ke dunia jaringan saraf tiruan berlapis-lapis dan teknik Computer Vision.",
+      "estimasi_waktu": "4 Minggu"
     },
     {
       "id": "R4",
       "nama": "Natural Language Processing (NLP)",
-      "deskripsi": "Mempelajari teknik mengajarkan mesin memahami bahasa manusia, dari RNN hingga Transformer."
+      "deskripsi": "Mempelajari teknik mengajarkan mesin memahami bahasa manusia, dari RNN hingga Transformer.",
+      "estimasi_waktu": "5 Minggu"
     },
     {
       "id": "R5",
       "nama": "Computer Vision Lanjutan",
-      "deskripsi": "Mendalami arsitektur Vision Transformer dan teknik segmentasi gambar mutakhir."
+      "deskripsi": "Mendalami arsitektur Vision Transformer dan teknik segmentasi gambar mutakhir.",
+      "estimasi_waktu": "3 Minggu"
     },
     {
       "id": "R6",
       "nama": "Generative AI & LLM",
-      "deskripsi": "Era kecerdasan buatan generatif: Diffusion, RAG, dan Fine-Tuning model bahasa besar."
+      "deskripsi": "Era kecerdasan buatan generatif: Diffusion, RAG, dan Fine-Tuning model bahasa besar.",
+      "estimasi_waktu": "3 Minggu"
     },
     {
       "id": "R7",
       "nama": "Reinforcement Learning",
-      "deskripsi": "Cara mesin belajar melalui percobaan dan penghargaan, seperti melatih agen game dari nol."
+      "deskripsi": "Cara mesin belajar melalui percobaan dan penghargaan, seperti melatih agen game dari nol.",
+      "estimasi_waktu": "4 Minggu"
     },
     {
       "id": "R8",
       "nama": "MLOps & Time Series",
-      "deskripsi": "Produksi model AI ke dunia nyata dan peramalan data deret waktu."
+      "deskripsi": "Produksi model AI ke dunia nyata dan peramalan data deret waktu.",
+      "estimasi_waktu": "3 Minggu"
     },
     {
       "id": "R9",
       "nama": "Frontier AI",
-      "deskripsi": "Teknologi AI paling mutakhir: Audio, Multimodal, Graph Networks, dan AutoML."
+      "deskripsi": "Teknologi AI paling mutakhir: Audio, Multimodal, Graph Networks, dan AutoML.",
+      "estimasi_waktu": "2 Minggu"
     }
   ],
   "modul": [
