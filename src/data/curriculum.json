@@ -106,6 +106,38 @@
         "GA-02",
         "GA-07"
       ]
+    },
+    {
+      "id": "R8",
+      "nama": "Reinforcement Learning",
+      "deskripsi": "Cara mesin belajar melalui percobaan dan penghargaan, seperti melatih agen game dari nol.",
+      "analogi": "Melatih anjing dengan reward biskuit setiap kali melakukan trik yang benar.",
+      "prasyarat": [
+        "R2",
+        "R3"
+      ],
+      "estimasi_waktu": "6 Jam",
+      "referensi_utama": [
+        "RL-01",
+        "RL-02",
+        "RL-03"
+      ]
+    },
+    {
+      "id": "R9",
+      "nama": "Time Series & Advanced CV",
+      "deskripsi": "Memprediksi masa depan dari masa lalu (Time Series) dan arsitektur Vision Transformer terkini.",
+      "analogi": "Seorang peramal cuaca yang menganalisis tren awan selama 30 hari untuk meramal besok.",
+      "prasyarat": [
+        "R3",
+        "R5"
+      ],
+      "estimasi_waktu": "6 Jam",
+      "referensi_utama": [
+        "TS-01",
+        "CV-10",
+        "CV-11"
+      ]
     }
   ],
   "modul": [
@@ -753,7 +785,7 @@
       "rumpun_id": "R7",
       "nomor": 14,
       "judul": "Large Language Models Modern",
-      "objektif": "Mengenal jenis model GPT.",
+      "objektif": "Memahami arsitektur decoder-only LLM (GPT), mekanisme Scaling Laws, teknik fine-tuning efisien (LoRA/PEFT), Tokenisasi, inferensi berbasis sampling, dan kerangka RLHF untuk alignment model bahasa.",
       "topik": [
         "Definisi Parameter LLM",
         "Tebak-tebakan Next-Token Prediction Task",
@@ -845,7 +877,7 @@
       "rumpun_id": "R7",
       "nomor": 16,
       "judul": "AI Ethics & Responsible AI",
-      "objektif": "Memahami bahaya halusinasi.",
+      "objektif": "Memahami risiko multi-dimensi AI: halusinasi LLM, bias algoritmik, teknologi Deepfake, perlindungan privasi via Federated Learning, serta kerangka regulasi (EU AI Act) dan teknik pengamanan model (Guardrails, Red Teaming, Constitutional AI).",
       "topik": [
         "Stochastic Parrots",
         "Halusinasi Fakta & Bahaya Hoaks Akut",
@@ -1099,6 +1131,147 @@
           "sitasi": "Lazer, D. et al. (2009). Computational Social Science.",
           "url": "",
           "bab": "Science Ethics"
+        }
+      ]
+    },
+    {
+      "id": "MOD-22",
+      "rumpun_id": "R8",
+      "nomor": 22,
+      "judul": "Reinforcement Learning — Belajar Melalui Penghargaan",
+      "objektif": "Memahami paradigma belajar agen melalui interaksi dengan lingkungan, memahami konsep Markov Decision Process, Q-Learning, dan Policy Gradient yang mendasari sistem seperti AlphaGo dan ChatGPT (RLHF).",
+      "topik": [
+        "Agen, Lingkungan, State, Action & Reward",
+        "Markov Decision Process (MDP)",
+        "Q-Learning & Deep Q-Network (DQN)",
+        "Policy Gradient & Actor-Critic (PPO)",
+        "RL Modern: AlphaGo, RLHF"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Kerangka Dasar: Agen-Lingkungan (MDP)",
+          "analogi": "Bayangkan seekor tikus di labirin. Tikus = Agen. Labirin = Lingkungan. Setiap persimpangan = State. Pilihan belok = Action. Menemukan keju = Reward. Nabrak dinding = Punishment.",
+          "penjelasan_awam": "Reinforcement Learning (RL) adalah cara ketiga mesin belajar — bukan dari label (Supervised) maupun pola tersembunyi (Unsupervised), tapi dari **konsekuensi aksi**. Agen (mesin) berinteraksi dengan lingkungan, mencoba berbagai aksi, dan belajar memaksimalkan total reward jangka panjang. Fondasi teori RL adalah **Markov Decision Process (MDP)**.",
+          "penjelasan_teknis": "**MDP** didefinisikan sebagai tuple $(S, A, P, R, \\gamma)$: $S$ = ruang state, $A$ = ruang aksi, $P(s'|s,a)$ = probabilitas transisi, $R(s,a)$ = fungsi reward, $\\gamma \\in [0,1]$ = discount factor. Tujuan agen adalah menemukan **policy** $\\pi^*$ yang memaksimalkan **Expected Cumulative Reward**: $$ G_t = \\sum_{k=0}^{\\infty} \\gamma^k R_{t+k+1} $$ **Keterangan:**\\n- $G_t$ = total reward diskon dari waktu $t$\\n- $\\gamma$ = discount factor (0=shortsighted, 1=long-term)\\n- $R_{t+k+1}$ = reward pada langkah $k$ ke depan. **Value Function** $V^{\\pi}(s) = \\mathbb{E}_{\\pi}[G_t | S_t = s]$ mengukur 'seberapa bagus' suatu state di bawah policy $\\pi$.",
+          "contoh_nyata": "Sistem pendingin data center Google DeepMind menggunakan RL untuk mengoptimasi penggunaan energi, berhasil menurunkan konsumsi listrik 40% tanpa instruksi manual."
+        },
+        {
+          "judul": "Q-Learning & Deep Q-Network (DQN)",
+          "analogi": "Q-Learning ibarat membuat buku skor rahasia: untuk setiap kombinasi (posisi saya, aksi yang saya ambil), saya catat seberapa bagus outcome-nya. Makin sering mencoba, catatannya makin akurat.",
+          "penjelasan_awam": "**Q-Learning** mempelajari 'nilai' setiap pasangan (state, action) — disebut Q-value. Agen selalu memilih aksi dengan Q-value tertinggi. **DQN (Deep Q-Network)** menggunakan Neural Network untuk mengestimasi Q-value pada state yang sangat kompleks (misal pixel game Atari), karena tabel Q manual mustahil untuk state space sebesar itu.",
+          "penjelasan_teknis": "**Bellman Equation** untuk Q-value: $$ Q(s_t, a_t) \\leftarrow Q(s_t, a_t) + \\alpha \\left[ r_t + \\gamma \\max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t) \\right] $$ **Keterangan:**\\n- $Q(s,a)$ = Q-value estimasi saat ini\\n- $\\alpha$ = learning rate\\n- $r_t$ = reward langsung\\n- $\\gamma \\max_{a'} Q(s_{t+1}, a')$ = Q-value terbaik di state berikutnya (target)\\n- Ekspresi dalam kurung siku = **TD Error** (kesalahan yang diperbaiki). **DQN** (Mnih et al., 2015) menggunakan jaringan $\\theta$ sebagai fungsi aproksimasi: $\\hat{Q}(s, a; \\theta) \\approx Q^*(s, a)$, dengan dua inovasi kunci: **Experience Replay** (menyimpan dan sampling pengalaman acak) dan **Target Network** (jaringan terpisah yang di-update perlahan untuk stabilitas training).",
+          "contoh_nyata": "DQN milik DeepMind mengalahkan skor manusia terbaik di 49 game Atari (Pong, Breakout, Space Invaders) hanya dari pixel mentah, tanpa pengetahuan aturan game apapun."
+        },
+        {
+          "judul": "Policy Gradient & PPO: Fondasi RLHF di ChatGPT",
+          "analogi": "Alih-alih menghitung 'seberapa bagus posisi ini', Policy Gradient langsung belajar 'manakah aksi yang paling sering membuahkan reward'. Ibarat pelatih yang memberi tepuk tangan lebih keras saat muridnya melakukan gerakan yang benar.",
+          "penjelasan_awam": "**Policy Gradient** mengoptimalkan policy secara langsung dengan meningkatkan probabilitas aksi yang menghasilkan reward tinggi. **PPO (Proximal Policy Optimization)** adalah versi canggihnya — stabil dan mudah di-tune. PPO adalah algoritma yang persis dipakai OpenAI dalam tahap **RLHF** (belajar dari feedback manusia) untuk membuat ChatGPT responsif, sopan, dan berguna.",
+          "penjelasan_teknis": "**REINFORCE** (dasar Policy Gradient): $$ \\nabla_{\\theta} J(\\theta) = \\mathbb{E}_{\\pi_{\\theta}} \\left[ \\nabla_{\\theta} \\log \\pi_{\\theta}(a|s) \\cdot G_t \\right] $$ **PPO** menggunakan Clipped Surrogate Objective untuk mencegah update yang terlalu besar: $$ L^{CLIP}(\\theta) = \\mathbb{E}_t \\left[ \\min(r_t(\\theta) \\hat{A}_t,\\ \\text{clip}(r_t(\\theta), 1 \\pm \\epsilon) \\hat{A}_t) \\right] $$ **Keterangan:**\\n- $r_t(\\theta) = \\frac{\\pi_\\theta(a_t|s_t)}{\\pi_{\\theta_{old}}(a_t|s_t)}$ = rasio probabilitas aksi policy baru vs lama\\n- $\\hat{A}_t$ = Advantage estimate (seberapa lebih baik aksi ini vs baseline)\\n- $\\epsilon \\approx 0.2$ = batas clip. **RLHF Pipeline ChatGPT**: (1) SFT (Supervised Fine-Tuning), (2) Train Reward Model dari preferensi manusia, (3) Optimasi policy (LLM) via PPO terhadap Reward Model.",
+          "contoh_nyata": "PPO digunakan oleh OpenAI Dota 2 bot (OpenAI Five) untuk mengalahkan tim professional Dota 2 dunia. PPO juga menjadi backbone RLHF yang membuat GPT-3 menjadi ChatGPT — dari model 'asal prediksi token' menjadi asisten yang sopan dan helpful."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Simulator Agen Labirin Q-Learning Interaktif.",
+      "references": [
+        {
+          "kode": "RL-01",
+          "sitasi": "Sutton, R. S. & Barto, A. G. (2018). Reinforcement Learning: An Introduction. MIT Press.",
+          "url": "",
+          "bab": "Chapter 1-6"
+        }
+      ]
+    },
+    {
+      "id": "MOD-23",
+      "rumpun_id": "R9",
+      "nomor": 23,
+      "judul": "Time Series Forecasting",
+      "objektif": "Memahami struktur data deret waktu, perbedaan model statistika klasik (ARIMA) vs modern (LSTM, Transformer), serta teknik evaluasi forecasting yang relevan untuk prediksi bisnis dan keuangan.",
+      "topik": [
+        "Komponen Time Series: Tren, Musiman, Residual",
+        "Stationarity & Uji Augmented Dickey-Fuller (ADF)",
+        "Model Klasik: ARIMA & SARIMA",
+        "Deep Learning untuk Time Series: LSTM & Temporal Fusion Transformer",
+        "Evaluasi: MAE, RMSE, MAPE"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Anatomi Data Deret Waktu",
+          "analogi": "Data penjualan eskrim seperti lagu dengan 4 instrumen: melodi utama yang naik terus (Tren), chorus yang berulang tiap musim panas (Seasonality), harmoni acak (Cyclicality), dan suara berisik di latar (Residual/Noise).",
+          "penjelasan_awam": "Data time series berbeda dari data biasa karena **urutan waktu sangat penting** — mengurutkan ulang observasi akan menghancurkan maknanya. Setiap seri waktu bisa didekomposisi menjadi: **Tren** (kecenderungan jangka panjang), **Seasonality** (pola berulang periodik), **Cyclicality** (siklus tak periodik), dan **Noise** (gangguan acak).",
+          "penjelasan_teknis": "**Classical Decomposition** (Additive): $Y_t = T_t + S_t + R_t$ di mana $T_t$ = komponen tren, $S_t$ = komponen musiman, $R_t$ = residual. **STL (Seasonal-Trend decomposition using LOESS)** adalah versi robust modern yang tahan outlier. Syarat krusial hampir semua model statistik time series: **Stationarity** — statistik (mean, variance) tidak berubah terhadap waktu. Diuji dengan **Augmented Dickey-Fuller (ADF) Test**: $H_0$ = terdapat unit root (non-stationary). Jika $p < 0.05$, tolak $H_0$ → series sudah stasioner.",
+          "contoh_nyata": "Tom AI milik toko e-commerce menganalisis tren penjualan selama 3 tahun untuk memprediksi kebutuhan stok produk Lebaran dan Natal, menghindari kekurangan atau kelebihan stok yang membuang modal."
+        },
+        {
+          "judul": "ARIMA & SARIMA: Model Statistik Klasik",
+          "analogi": "ARIMA ibarat peramal cuaca berbasis rumus: ia melihat selisih suhu 3 hari terakhir (AR) + rata-rata error peramalannya kemarin (MA) lalu menggabungkan keduanya untuk meramal besok.",
+          "penjelasan_awam": "**ARIMA (Auto-Regressive Integrated Moving Average)** adalah model statistik paling klasik untuk time series. ARIMA(p, d, q) memiliki 3 komponen: **AR** = hanya menggunakan $p$ nilai masa lalu, **I** = melakukan differencing $d$ kali untuk membuat series stasioner, **MA** = menggunakan $q$ error masa lalu. **SARIMA** menambahkan komponen musiman eksplisit untuk data seperti penjualan bulanan yang punya pola tahunan. Perlu dicatat: A/B testing apakah ARIMA atau LSTM lebih cocok untuk kasus spesifik Anda adalah praktik umum yang dianjurkan para praktisi forecasting di industri.",
+          "penjelasan_teknis": "Model ARIMA(p,d,q) dengan notasi backshift operator $B$: $$ \\phi(B)(1-B)^d Y_t = \\theta(B)\\varepsilon_t $$ di mana $\\phi(B) = 1 - \\phi_1 B - \\cdots - \\phi_p B^p$ = AR polynomial, $(1-B)^d$ = differencing $d$ kali, $\\theta(B) = 1 + \\theta_1 B + \\cdots + \\theta_q B^q$ = MA polynomial, $\\varepsilon_t \\sim \\mathcal{N}(0, \\sigma^2)$ = white noise. Pemilihan $p, q$ menggunakan plot **ACF** (Autocorrelation Function) dan **PACF** (Partial ACF). **SARIMA**(p,d,q)(P,D,Q)[m]: menambahkan komponen seasonal dengan periode $m$.",
+          "contoh_nyata": "Bank Indonesia menggunakan SARIMA dan variannya untuk meramalkan inflasi bulanan dan kebutuhan devisa valuta asing. Prophet (Facebook) yang populer pada dasarnya adalah model aditif serupa SARIMA yang dikemas lebih user-friendly."
+        },
+        {
+          "judul": "Deep Learning untuk Time Series: LSTM & TFT",
+          "analogi": "LSTM untuk time series ibarat seorang analis saham yang membaca ribuan grafik historis. Ia tidak menggunakan rumus tunggal — ia 'merasakan' pola dari pengalaman ribuan observasi sebelumnya.",
+          "penjelasan_awam": "Model deep learning (LSTM, GRU) mampu menangkap pola non-linear yang sangat kompleks yang tidak bisa dijangkau ARIMA. **Temporal Fusion Transformer (TFT)** — arsitektur terkini dari Google — menggabungkan attention mechanism ala Transformer dengan komponen interpretabilitas khusus time series, mampu menangani multiple series sekaligus (misal: 1000 produk berbeda).",
+          "penjelasan_teknis": "LSTM untuk forecasting univariate: input window $\\mathbf{X} = [x_{t-L}, \\ldots, x_{t-1}]$ (sliding window berukuran $L$), output $\\hat{x}_t$ atau multi-step horizon $[\\hat{x}_t, \\ldots, \\hat{x}_{t+H}]$. Loss: **RMSE** atau **MAPE**: $MAPE = \\frac{100\\%}{n}\\sum_{t=1}^{n}\\left|\\frac{y_t - \\hat{y}_t}{y_t}\\right|$. **Temporal Fusion Transformer (TFT)** (Lim et al., 2021) mengintegrasikan: (1) **Variable Selection Networks** untuk memilih fitur relevan, (2) **LSTM Encoder** untuk sequence modeling, (3) **Multi-head Attention** untuk menangkap dependensi jangka panjang, (4) **Quantile Loss** untuk menghasilkan prediksi probabilistik (estimasi interval, bukan hanya titik).",
+          "contoh_nyata": "Uber menggunakan deep learning untuk meramalkan permintaan ride-hailing per zona per jam — akurasi tinggi krusial untuk menjamin ketersediaan pengemudi. Alibaba menggunakan TFT untuk forecasting penjualan 500 juta produk saat Harbolnas 11.11."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Simulator Dekomposisi Time Series & Plot ARIMA.",
+      "references": [
+        {
+          "kode": "TS-01",
+          "sitasi": "Lim, B. et al. (2021). Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting. International Journal of Forecasting.",
+          "url": "",
+          "bab": "Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-24",
+      "rumpun_id": "R9",
+      "nomor": 24,
+      "judul": "Vision Transformer (ViT) & Advanced CV",
+      "objektif": "Memahami bagaimana arsitektur Transformer diadaptasikan untuk citra (ViT), lalu mengenal arsitektur Computer Vision lanjutan: Semantic Segmentation (U-Net), Object Tracking (SORT/DeepSORT), dan model fondasi visual (CLIP, SAM).",
+      "topik": [
+        "Patch Embedding: Gambar sebagai Urutan Token",
+        "Vision Transformer (ViT) vs CNN",
+        "Semantic Segmentation: U-Net & DeepLab",
+        "Model Fondasi Visual: CLIP & SAM (Segment Anything)",
+        "Object Tracking: SORT & DeepSORT"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Vision Transformer (ViT): Gambar Dibaca seperti Kalimat",
+          "analogi": "ViT memotong foto 256×256 menjadi 64 potongan kecil (patch) berukuran 16×16, lalu memperlakukan setiap patch seperti 'kata' dalam kalimat. Transformer kemudian memproses 64 'kata visual' ini sekaligus via self-attention.",
+          "penjelasan_awam": "**ViT (Vision Transformer)** (Dosovitskiy et al., 2021) bukan lagi menggunakan filter konvolusi. Sebaliknya, ia memotong gambar menjadi kotak-kotak kecil (patch), meratakan (flatten) setiap patch menjadi vektor, lalu melinierkan ke dimensi embedding — persis seperti token teks. Transformer Encoder memproses sekuens patch ini dengan self-attention. Keunggulan ViT: performa lebih baik saat pre-training pada dataset sangat besar (ImageNet-21k, JFT-300M).",
+          "penjelasan_teknis": "Prosedur ViT: Gambar $\\mathbf{x} \\in \\mathbb{R}^{H \\times W \\times C}$ dipotong menjadi $N = HW/P^2$ patch berukuran $P \\times P$. Setiap patch di-flatten: $\\mathbf{x}_p \\in \\mathbb{R}^{P^2 \\cdot C}$, lalu diproyeksikan ke embedding $\\mathbf{z}_0^i = \\mathbf{E}\\mathbf{x}_p^i + \\mathbf{e}_{pos}^i$. Ditambahkan class token $[CLS]$ di depan sekuens. Transformer Encoder memproses sekuens ini: $$ \\mathbf{z}_l = \\text{MSA}(\\text{LN}(\\mathbf{z}_{l-1})) + \\mathbf{z}_{l-1} $$ $$ \\mathbf{z}'_l = \\text{MLP}(\\text{LN}(\\mathbf{z}_l)) + \\mathbf{z}_l $$ Output $[CLS]$ token dipakai untuk klasifikasi. ViT membutuhkan data pre-training lebih besar dari CNN karena tidak punya **inductive bias spasial** bawaan (CNN). Solusi: **DeiT** menggunakan distillation dari CNN teacher.",
+          "contoh_nyata": "Google menggunakan ViT di core model pencarian gambar Google Lens. Meta menggunakan Masked Autoencoders (MAE, berbasis ViT) sebagai backbone model visi mereka."
+        },
+        {
+          "judul": "Semantic Segmentation: U-Net & DeepLab",
+          "analogi": "Object Detection = menggambar kotak di sekitar setiap objek. Semantic Segmentation = mewarnai setiap piksel dengan warna berbeda sesuai kategorinya — piksel jalan biru, piksel mobil merah, piksel pejalan kaki hijau.",
+          "penjelasan_awam": "Berbeda dari klasifikasi (satu label per gambar) dan deteksi (kotak per objek), **Semantic Segmentation** mengklasifikasikan SETIAP PIKSEL ke dalam kategori. Sangat penting untuk medis (segmentasi tumor), kendaraan otonom (memisahkan jalan-mobil-pejalan kaki), dan pertanian presisi (identifikasi area panen).",
+          "penjelasan_teknis": "**U-Net** (Ronneberger, 2015) memiliki arsitektur simetris Encoder-Decoder dengan **skip connections**: $$ \\hat{y} = \\text{Decoder}([\\text{Encoder}(x), x_{skip}]) $$ Encoder menangkap konteks (downsampling via MaxPool), Decoder merekonstruksi resolusi spasial (upsampling via transposed conv), skip connections menggabungkan fitur detail encoder dengan konteks decoder. **DeepLab** menggunakan **Atrous/Dilated Convolution** untuk memperluas receptive field tanpa mengurangi resolusi: kernel filter dengan lubang (dilation rate $r$) memungkinkan menangkap konteks lebih luas tanpa downsampling. **ASPP (Atrous Spatial Pyramid Pooling)** menangkap multi-scale context.",
+          "contoh_nyata": "U-Net digunakan oleh radiolog AI di rumah sakit untuk mensegmentasi tumor pada MRI otak. Tesla menggunakan DeepLab-like segmentation untuk memisahkan piksel 'jalan yang bisa dilalui' dari piksel 'trotoar' pada feed kamera 360°."
+        },
+        {
+          "judul": "CLIP, SAM & Model Fondasi Visual",
+          "analogi": "CLIP ibarat seseorang yang belajar secara bersamaan membaca gambar dan teks dari miliaran pasangan foto-caption di internet. Ia tahu bahwa foto anjing berlari berhubungan dengan caption 'anjing berlari' tanpa diajar eksplisit tiap kategori.",
+          "penjelasan_awam": "**CLIP (Contrastive Language-Image Pre-training)** oleh OpenAI belajar memasangkan gambar dengan deskripsi teksnya. Hasilnya: CLIP bisa melakukan **klasifikasi tanpa label** (zero-shot) — cukup tanyakan '_apakah gambar ini [kategori]?_' tanpa training data khusus. **SAM (Segment Anything Model)** oleh Meta mampu mensegmentasi objek APAPUN dalam gambar hanya dengan satu klik atau prompt teks, tanpa fine-tuning.",
+          "penjelasan_teknis": "**CLIP** meminimalkan **Contrastive Loss (InfoNCE)** pada batch $N$ pasangan gambar-teks: $$ L = -\\frac{1}{N}\\sum_{i=1}^{N} \\left[ \\log\\frac{\\exp(s_{ii}/\\tau)}{\\sum_j \\exp(s_{ij}/\\tau)} + \\log\\frac{\\exp(s_{ii}/\\tau)}{\\sum_j \\exp(s_{ji}/\\tau)} \\right] $$ di mana $s_{ij} = \\mathbf{v}_i \\cdot \\mathbf{t}_j$ (cosine similarity antara image embedding $\\mathbf{v}$ dan text embedding $\\mathbf{t}$), $\\tau$ = temperature. **Zero-shot inference**: embed setiap label kandidat sebagai teks 'a photo of a [class]', ambil label dengan similarity tertinggi terhadap image embedding. **SAM** menggunakan arsitektur Image Encoder (ViT-H) + Prompt Encoder + Mask Decoder yang dilatih pada dataset SA-1B: 1 miliar mask dari 11 juta gambar.",
+          "contoh_nyata": "CLIP menjadi backbone multimodal dari DALL-E dan Stable Diffusion — ia yang 'menerjemahkan' prompt teks ke ruang laten visual. SAM digunakan oleh peneliti biologi untuk mengotomatisasi anotasi sel darah merah di gambar mikroskop."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Konsep Visual: Demo CLIP Text-Image Similarity.",
+      "references": [
+        {
+          "kode": "CV-11",
+          "sitasi": "Dosovitskiy, A. et al. (2021). An image is worth 16x16 words: Transformers for image recognition at scale. ICLR.",
+          "url": "",
+          "bab": "Architecture"
         }
       ]
     }
