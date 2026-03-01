@@ -3,159 +3,47 @@
     {
       "id": "R1",
       "nama": "Fondasi AI & Machine Learning",
-      "deskripsi": "Mempelajari konsep dasar kecerdasan buatan dan bagaimana mesin belajar dari sekumpulan data.",
-      "analogi": "Seperti mengajari anak kecil mengenali anjing peliharaan.",
-      "prasyarat": [],
-      "estimasi_waktu": "4 Jam",
-      "referensi_utama": [
-        "ML-01",
-        "ML-02",
-        "ML-05"
-      ]
+      "deskripsi": "Mempelajari konsep dasar kecerdasan buatan dan bagaimana mesin belajar dari sekumpulan data."
     },
     {
       "id": "R2",
       "nama": "Machine Learning Klasik",
-      "deskripsi": "Menyelami teknik-teknik prediktif dan klasifikasi di mana komputer mencari pola dari historical data.",
-      "analogi": "Mirip dengan filter email spam.",
-      "prasyarat": [
-        "R1"
-      ],
-      "estimasi_waktu": "6 Jam",
-      "referensi_utama": [
-        "ML-03",
-        "ML-04",
-        "ML-06"
-      ]
+      "deskripsi": "Menyelami teknik-teknik prediktif dan klasifikasi di mana komputer mencari pola dari historical data."
     },
     {
       "id": "R3",
       "nama": "Deep Learning & Neural Networks",
-      "deskripsi": "Masuk ke dunia jaringan saraf tiruan berlapis berlapis (Deep Learning).",
-      "analogi": "Seperti pabrik inspeksi kualitas bertingkat.",
-      "prasyarat": [
-        "R1",
-        "R2"
-      ],
-      "estimasi_waktu": "8 Jam",
-      "referensi_utama": [
-        "DL-01",
-        "DL-02",
-        "DL-06"
-      ]
+      "deskripsi": "Masuk ke dunia jaringan saraf tiruan berlapis-lapis dan teknik Computer Vision."
     },
     {
       "id": "R4",
       "nama": "Natural Language Processing (NLP)",
-      "deskripsi": "Mempelajari teknik mengajarkan mesin memahami bahasa manusia.",
-      "analogi": "Seperti menggunakan kamus cerdas yang melihat konteks.",
-      "prasyarat": [
-        "R1",
-        "R2"
-      ],
-      "estimasi_waktu": "5 Jam",
-      "referensi_utama": [
-        "NLP-01",
-        "NLP-03",
-        "NLP-05"
-      ]
+      "deskripsi": "Mempelajari teknik mengajarkan mesin memahami bahasa manusia, dari RNN hingga Transformer."
     },
     {
       "id": "R5",
-      "nama": "Computer Vision",
-      "deskripsi": "Memberikan komputer penglihatan untuk menangkap pola dari foto.",
-      "analogi": "Sama dengan memecah lukisan besar menjadi piksel.",
-      "prasyarat": [
-        "R1",
-        "R2"
-      ],
-      "estimasi_waktu": "5 Jam",
-      "referensi_utama": [
-        "CV-01",
-        "CV-02",
-        "CV-05"
-      ]
+      "nama": "Computer Vision Lanjutan",
+      "deskripsi": "Mendalami arsitektur Vision Transformer dan teknik segmentasi gambar mutakhir."
     },
     {
       "id": "R6",
-      "nama": "Transformer Architecture",
-      "deskripsi": "Teknologi tercanggih berbasis Self-Attention.",
-      "analogi": "Bagaikan membaca buku dengan stabilo.",
-      "prasyarat": [
-        "R3",
-        "R4"
-      ],
-      "estimasi_waktu": "8 Jam",
-      "referensi_utama": [
-        "TF-01",
-        "TF-02",
-        "TF-04"
-      ]
+      "nama": "Generative AI & LLM",
+      "deskripsi": "Era kecerdasan buatan generatif: Diffusion, RAG, dan Fine-Tuning model bahasa besar."
     },
     {
       "id": "R7",
-      "nama": "Generative AI & LLM",
-      "deskripsi": "Era kecerdasan buatan generatif.",
-      "analogi": "Seniman master yang membaca miliaran buku.",
-      "prasyarat": [
-        "R6"
-      ],
-      "estimasi_waktu": "10 Jam",
-      "referensi_utama": [
-        "GA-01",
-        "GA-02",
-        "GA-07"
-      ]
+      "nama": "Reinforcement Learning",
+      "deskripsi": "Cara mesin belajar melalui percobaan dan penghargaan, seperti melatih agen game dari nol."
     },
     {
       "id": "R8",
-      "nama": "Reinforcement Learning",
-      "deskripsi": "Cara mesin belajar melalui percobaan dan penghargaan, seperti melatih agen game dari nol.",
-      "analogi": "Melatih anjing dengan reward biskuit setiap kali melakukan trik yang benar.",
-      "prasyarat": [
-        "R2",
-        "R3"
-      ],
-      "estimasi_waktu": "6 Jam",
-      "referensi_utama": [
-        "RL-01",
-        "RL-02",
-        "RL-03"
-      ]
+      "nama": "MLOps & Time Series",
+      "deskripsi": "Produksi model AI ke dunia nyata dan peramalan data deret waktu."
     },
     {
       "id": "R9",
-      "nama": "Time Series & Advanced CV",
-      "deskripsi": "Memprediksi masa depan dari masa lalu (Time Series) dan arsitektur Vision Transformer terkini.",
-      "analogi": "Seorang peramal cuaca yang menganalisis tren awan selama 30 hari untuk meramal besok.",
-      "prasyarat": [
-        "R3",
-        "R5"
-      ],
-      "estimasi_waktu": "6 Jam",
-      "referensi_utama": [
-        "TS-01",
-        "CV-10",
-        "CV-11"
-      ]
-    },
-    {
-      "id": "R10",
       "nama": "Frontier AI",
-      "deskripsi": "Topik-topik ujung tombak AI modern: Speech, Multimodal, Graph Neural Networks, dan AutoML.",
-      "analogi": "Laboratorium riset terdepan tempat ilmuwan AI mendefinisikan ulang batas-batas kemungkinan.",
-      "prasyarat": [
-        "R3",
-        "R4",
-        "R5"
-      ],
-      "estimasi_waktu": "8 Jam",
-      "referensi_utama": [
-        "FR-01",
-        "FR-02",
-        "FR-03",
-        "FR-04"
-      ]
+      "deskripsi": "Teknologi AI paling mutakhir: Audio, Multimodal, Graph Networks, dan AutoML."
     }
   ],
   "modul": [
@@ -522,7 +410,7 @@
     },
     {
       "id": "MOD-08",
-      "rumpun_id": "R4",
+      "rumpun_id": "R3",
       "nomor": 8,
       "judul": "Convolutional Neural Networks (CNN)",
       "objektif": "Memahami bagaimana AI 'melihat' dan membedah gambar layaknya mata biologis hewan.",
@@ -719,7 +607,7 @@
     },
     {
       "id": "MOD-13",
-      "rumpun_id": "R5",
+      "rumpun_id": "R6",
       "nomor": 13,
       "judul": "Generative AI & Model Disfusi (Diffusion)",
       "objektif": "Cara AI tak cuma pintar baca tapi bisa mahir menyulap gambar baru dari udara murni tak berwujud.",
@@ -752,7 +640,7 @@
     },
     {
       "id": "MOD-14",
-      "rumpun_id": "R5",
+      "rumpun_id": "R6",
       "nomor": 14,
       "judul": "LLM Murni, RAG, & Tuning",
       "objektif": "Cara merakit sendiri otak pintar sistem chat cerdas perusahaan korporasi khusus tanpa bocor halusinasi.",
@@ -795,7 +683,7 @@
     },
     {
       "id": "MOD-15",
-      "rumpun_id": "R6",
+      "rumpun_id": "R7",
       "nomor": 15,
       "judul": "Pengantar Reinforcement Learning (RL)",
       "objektif": "Cara melatih AI layaknya melatih anjing sirkus peliharaan dengan sistem mutlak *Reward* dan *Punishment*.",
@@ -834,7 +722,7 @@
     },
     {
       "id": "MOD-16",
-      "rumpun_id": "R6",
+      "rumpun_id": "R7",
       "nomor": 16,
       "judul": "Q-Learning",
       "objektif": "Bedah tuntas otak AI saat meracik tabel contekan nilai harta karun instan.",
@@ -873,7 +761,7 @@
     },
     {
       "id": "MOD-17",
-      "rumpun_id": "R6",
+      "rumpun_id": "R7",
       "nomor": 17,
       "judul": "DQN (Deep Q-Networks AI Cerdas)",
       "objektif": "Cara revolusioner menggabungkan Kaca Pembesar CNN dengan Otak Agen Q-Table menjadi kesatuan tempur mengerikan.",
@@ -952,7 +840,7 @@
     },
     {
       "id": "MOD-19",
-      "rumpun_id": "R7",
+      "rumpun_id": "R4",
       "nomor": 19,
       "judul": "Pemrosesan Natural Language (NLP) Modern",
       "objektif": "Membongkar trik sulap komputer yang bisa memahami konteks kiasan emosional sastra.",
@@ -994,7 +882,7 @@
     },
     {
       "id": "MOD-20",
-      "rumpun_id": "R7",
+      "rumpun_id": "R5",
       "nomor": 20,
       "judul": "Vision Transformer (ViT)",
       "objektif": "Mematahkan takhta turun-temurun CNN dan melihat bagaimana teks *Transformer* menjajah ranah deteksi gambar AI bumi.",
@@ -1072,7 +960,7 @@
     },
     {
       "id": "MOD-22",
-      "rumpun_id": "R6",
+      "rumpun_id": "R7",
       "nomor": 22,
       "judul": "Reinforcement Learning: Lanjutan & Simulasi",
       "objektif": "Memperdalam simulasi kelakuan agen AI di dalam *Environment* game matematika dunia nyata.",
@@ -1103,7 +991,7 @@
     },
     {
       "id": "MOD-23",
-      "rumpun_id": "R7",
+      "rumpun_id": "R8",
       "nomor": 23,
       "judul": "Time Series Forecasting",
       "objektif": "Cara AI menggantikan peramal bola kristal dan membaca laju gelombang tren grafik fluktuasi uang kripto & saham.",
@@ -1134,7 +1022,7 @@
     },
     {
       "id": "MOD-24",
-      "rumpun_id": "R7",
+      "rumpun_id": "R5",
       "nomor": 24,
       "judul": "Vision Transformer (ViT) & Advanced CV",
       "objektif": "Mendalami supremasi Transformer menjatuhkan singgasana lama arsitektur pengolahan gambar dan melahirkan Segmentasi Panoptik.",
@@ -1165,7 +1053,7 @@
     },
     {
       "id": "MOD-25",
-      "rumpun_id": "R8",
+      "rumpun_id": "R9",
       "nomor": 25,
       "judul": "Speech & Audio AI (Mendengar Suara)",
       "objektif": "Bedah tuntas mekanisme sakti kuping sang komputer mendengar curhatan nada getar bahasa bibir manusia.",
@@ -1196,7 +1084,7 @@
     },
     {
       "id": "MOD-26",
-      "rumpun_id": "R8",
+      "rumpun_id": "R9",
       "nomor": 26,
       "judul": "Multimodal AI",
       "objektif": "Penyatuan maha sakti indera manusia di kubu peradaban AI mesin generasi tahun keemasannya.",
@@ -1227,7 +1115,7 @@
     },
     {
       "id": "MOD-27",
-      "rumpun_id": "R8",
+      "rumpun_id": "R9",
       "nomor": 27,
       "judul": "Graph Neural Networks (GNN)",
       "objektif": "Cara AI mengurai misteri jaring laba-laba raksasa data jejaring sosial tak beraturan di alam bebas.",
@@ -1258,7 +1146,7 @@
     },
     {
       "id": "MOD-28",
-      "rumpun_id": "R8",
+      "rumpun_id": "R9",
       "nomor": 28,
       "judul": "AutoML & Neural Architecture Search",
       "objektif": "Saat AI bertindak sombong mendepak insinyur manusia merancang merakit sendiri ras super AI baru secara swadaya abadi mutlak.",
