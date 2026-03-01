@@ -214,7 +214,7 @@ export default function PathsPage() {
                                                             </div>
                                                             <div className="flex-grow">
                                                                 <h3 className="font-bold text-lg text-gray-200 group-hover:text-white mb-2 leading-snug">{modInfo.judul}</h3>
-                                                                <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">{modInfo.deskripsi || ""}</p>
+                                                                <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">{modInfo.objektif || ""}</p>
                                                             </div>
                                                             <div className="flex-shrink-0 flex items-center justify-between sm:flex-col sm:items-end sm:justify-center gap-2 mt-2 sm:mt-0">
                                                                 <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded w-fit ${modInfo.kesulitan === 'Mudah' ? 'bg-green-500/20 text-green-400' :
