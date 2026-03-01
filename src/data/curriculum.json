@@ -138,6 +138,24 @@
         "CV-10",
         "CV-11"
       ]
+    },
+    {
+      "id": "R10",
+      "nama": "Frontier AI",
+      "deskripsi": "Topik-topik ujung tombak AI modern: Speech, Multimodal, Graph Neural Networks, dan AutoML.",
+      "analogi": "Laboratorium riset terdepan tempat ilmuwan AI mendefinisikan ulang batas-batas kemungkinan.",
+      "prasyarat": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "estimasi_waktu": "8 Jam",
+      "referensi_utama": [
+        "FR-01",
+        "FR-02",
+        "FR-03",
+        "FR-04"
+      ]
     }
   ],
   "modul": [
@@ -1272,6 +1290,194 @@
           "sitasi": "Dosovitskiy, A. et al. (2021). An image is worth 16x16 words: Transformers for image recognition at scale. ICLR.",
           "url": "",
           "bab": "Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-25",
+      "rumpun_id": "R10",
+      "nomor": 25,
+      "judul": "Speech & Audio AI",
+      "objektif": "Memahami bagaimana mesin memproses sinyal suara manusia — dari gelombang mentah menjadi teks (ASR), dari teks menjadi ucapan (TTS), serta arsitektur Whisper dan VALL-E yang mendefinisikan ulang standar industri suara.",
+      "topik": [
+        "Sinyal Audio: Waveform, Frekuensi & Spektrogram",
+        "Mel-Filterbank & MFCC: Representasi Fitur Audio",
+        "Automatic Speech Recognition (ASR): CTC & Whisper",
+        "Text-to-Speech (TTS): Tacotron2, WaveNet & VALL-E",
+        "Speaker Diarization & Voice Activity Detection"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Representasi Sinyal Audio: Dari Gelombang ke Spektrogram",
+          "analogi": "Suara manusia ibarat air laut bergelombang. Waveform adalah tampak samping ombak (amplitudo vs waktu). Spektrogram adalah foto ombak dari atas yang sekaligus memperlihatkan tinggi (amplitudo) dan frekuensi (warna) setiap ombak dari waktu ke waktu.",
+          "penjelasan_awam": "Komputer tidak mendengar suara seperti manusia. Ia menerima file audio sebagai barisan angka yang merepresentasikan getaran udara per detik (**sampel**). Sampel mentah ini terlalu kasar untuk model ML — perlu diubah menjadi **Spektrogram Mel**, semacam 'foto visual' dari suara yang memperlihatkan pola frekuensi sepanjang waktu, mirip notasi musik.",
+          "penjelasan_teknis": "Sinyal audio digital: serangkaian sampel amplitudo $x[n]$ dengan sample rate $f_s$ (Hz). **Short-Time Fourier Transform (STFT)** mengubah waveform ke domain frekuensi per frame:\n$$X(m, k) = \\sum_{n=0}^{N-1} x[n+mH] \\cdot w[n] \\cdot e^{-j2\\pi kn/N}$$\n**Keterangan:**\n- $m$ = indeks frame waktu\n- $k$ = indeks frekuensi bin\n- $H$ = hop length (jarak antar frame)\n- $w[n]$ = window function (Hann window)\n\n**Mel-Filterbank** mengompres skala frekuensi linear ke skala persepsi manusia: $m = 2595 \\log_{10}(1 + f/700)$. **MFCC** adalah koefisien DCT dari log Mel energi — fitur standar ASR klasik (13–40 koefisien).",
+          "contoh_nyata": "Shazam menggunakan STFT + fingerprinting akustik untuk mencocokkan 10 detik lagu dengan miliaran sampel dalam database hanya dalam 1–2 detik. WhatsApp menggunakan Mel Spektrogram untuk kompresi pesan suara."
+        },
+        {
+          "judul": "Automatic Speech Recognition (ASR): CTC & Whisper",
+          "analogi": "AI pendengar suara ibarat juru ketik kilat: ia mendengarkan rekaman audio dan secara real-time mengetikkan transkripnya. Tantangannya: orang bicara berbeda kecepatan, dengan aksen berbeda, dan sering tumpang-tindih.",
+          "penjelasan_awam": "**ASR (Automatic Speech Recognition)** mengubah audio menjadi teks. Arsitektur modern menggunakan Transformer yang dilatih pada miliaran jam audio. **Whisper** (OpenAI, 2022) adalah model ASR terbaik yang tersedia publik — mampu transkripsi 99 bahasa termasuk Bahasa Indonesia dengan akurasi sangat tinggi, bahkan pada audio berisik.",
+          "penjelasan_teknis": "**CTC (Connectionist Temporal Classification)** menyelesaikan masalah alignment: output teks lebih pendek dari input audio frame. CTC mendefinisikan distribusi atas semua kemungkinan alignment:\n$$P(y|x) = \\sum_{\\pi \\in \\mathcal{B}^{-1}(y)} \\prod_{t=1}^{T} p(\\pi_t | x)$$\n**Keterangan:**\n- $y$ = label teks target\n- $\\pi$ = path alignment (termasuk blank token $\\emptyset$)\n- $\\mathcal{B}$ = fungsi kolaps (hapus blank & duplikat)\n- $T$ = total frame audio\n\n**Whisper** menggunakan arsitektur Encoder-Decoder Transformer: Encoder memproses log Mel Spektrogram 80-channel, Decoder menghasilkan token BPE secara autoregresif. Dilatih pada 680.000 jam audio multilingual dengan weak supervision dari subtitle internet.",
+          "contoh_nyata": "Google Meet menggunakan ASR untuk fitur live caption. Kemenkes RI menggunakan Whisper untuk transkripsi otomatis rekaman konsultasi dokter di Puskesmas terpencil yang minim tenaga administrasi."
+        },
+        {
+          "judul": "Text-to-Speech (TTS) Modern: Tacotron2, WaveNet & VALL-E",
+          "analogi": "TTS klasik seperti GPS lama: terdengar robotik dan kaku. TTS modern seperti aktor sulih suara profesional: intonasi, jeda, dan emosi terdengar sangat alami. VALL-E bahkan bisa meniru suara spesifik seseorang dari hanya 3 detik rekaman sampel.",
+          "penjelasan_awam": "**Tacotron2** (Google, 2018) adalah arsitektur dua tahap: (1) teks → Mel Spektrogram via seq2seq attention, (2) Mel Spektrogram → waveform via **WaveNet** (CNN autoregresif). **VALL-E** (Microsoft, 2023) menggunakan pendekatan revolusioner: memperlakukan audio sebagai token diskrit (via EnCodec) seperti LLM memperlakukan teks, memungkinkan kloning suara zero-shot hanya dari 3 detik audio.",
+          "penjelasan_teknis": "**WaveNet** menggunakan Dilated Causal Convolution untuk menangkap dependensi jangka panjang di waveform:\n$$p(x) = \\prod_{t=1}^{T} p(x_t | x_1, \\ldots, x_{t-1})$$\n**Keterangan:**\n- $x_t$ = sampel audio pada waktu $t$\n- $p(x_t | x_{1..t-1})$ = probabilitas sampel berikutnya dikondisikan pada semua sampel sebelumnya\n- Dilation $2^l$ per layer memungkinkan receptive field eksponensial\n\n**VALL-E** menggunakan neural audio codec (EnCodec) yang mengkuantisasi waveform menjadi 8 level codebook diskrit, lalu melatih Transformer bahasa untuk meng-generate kode akustik dikondisikan pada teks + audio prompt.",
+          "contoh_nyata": "ElevenLabs menggunakan teknologi serupa VALL-E untuk platform voice cloning komersial yang dipakai 1 juta kreator konten. Duolingo menggunakan TTS alami untuk pengucapan kata dalam pelajaran bahasa."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Visualizer Spektrogram Audio Interaktif.",
+      "references": [
+        {
+          "kode": "FR-01",
+          "sitasi": "Radford, A. et al. (2023). Robust Speech Recognition via Large-Scale Weak Supervision. ICML.",
+          "url": "",
+          "bab": "Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-26",
+      "rumpun_id": "R10",
+      "nomor": 26,
+      "judul": "Multimodal AI",
+      "objektif": "Memahami bagaimana model AI modern menyatukan modalitas berbeda (teks, gambar, audio, video) dalam satu representasi terpadu, mulai dari CLIP, LLaVA, hingga Gemini dan GPT-4V yang menjadi fondasi AI generatif masa kini.",
+      "topik": [
+        "Apa itu Multimodal? Late vs Early Fusion",
+        "CLIP: Contrastive Language-Image Pre-training",
+        "Multimodal LLM: LLaVA, GPT-4V & Gemini",
+        "Image Captioning & Visual Question Answering (VQA)",
+        "Video Understanding & Audio-Visual Alignment"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Fondasi Multimodal: Menyatukan Bahasa dan Penglihatan",
+          "analogi": "Manusia memahami dunia lewat 5 indera sekaligus. Saat melihat foto pizza, otak Anda secara bersamaan memproses visual (bentuk, warna), memori semantik ('pizza'), dan bahkan perkiraan sensasi rasa/bau. Multimodal AI meniru kemampuan ini: memahami teks DAN gambar (dan audio) dalam satu model terpadu.",
+          "penjelasan_awam": "**Uni-modal AI** hanya memproses satu jenis data: model bahasa hanya paham teks, CNN hanya paham gambar. **Multimodal AI** menggabungkan keduanya dalam satu arsitektur. Ada dua pendekatan: **Early Fusion** (gabungkan data mentah sebelum proses) dan **Late Fusion** (proses terpisah dulu, gabungkan representasinya belakangan). **CLIP** adalah pionir late fusion yang paling berpengaruh.",
+          "penjelasan_teknis": "**CLIP (Contrastive Language-Image Pre-training)** (Radford, 2021) melatih dua encoder terpisah (image encoder ViT + text encoder Transformer) dengan **InfoNCE Contrastive Loss**:\n$$\\mathcal{L}_{CLIP} = -\\frac{1}{N}\\sum_{i=1}^{N}\\left[\\log\\frac{e^{s_{ii}/\\tau}}{\\sum_j e^{s_{ij}/\\tau}} + \\log\\frac{e^{s_{ii}/\\tau}}{\\sum_j e^{s_{ji}/\\tau}}\\right]$$\n**Keterangan:**\n- $s_{ij} = \\mathbf{v}_i^\\top \\mathbf{t}_j$ = cosine similarity antara image embedding $i$ dan text embedding $j$\n- $\\tau$ = learnable temperature parameter\n- $N$ = ukuran batch (positif pairs di diagonal)\n- Loss mendorong pasangan $(i,i)$ untuk memiliki similarity tinggi, pasangan $(i,j\\neq i)$ untuk similarity rendah",
+          "contoh_nyata": "Google Lens — Anda bisa foto menu restoran berbahasa Jepang, AI secara bersamaan memahami gambar dan mentranslasi teks dalam foto. Pinterest menggunakan CLIP untuk mesin pencari visual: cari dengan gambar, bukan kata."
+        },
+        {
+          "judul": "Multimodal LLM: LLaVA, GPT-4V & Gemini",
+          "analogi": "Multimodal LLM seperti asisten jenius buta huruf yang kemudian diberi kemampuan melihat: LLM yang sudah mahir berbahasa kini diajari 'melihat' gambar sebagai tambahan input. Ia tidak belajar dari nol — hanya belajar menghubungkan dunia visual ke bahasa yang sudah dikuasainya.",
+          "penjelasan_awam": "**LLaVA (Large Language and Vision Assistant)** (Liu et al., 2023) adalah arsitektur open-source yang menghubungkan CLIP visual encoder ke LLM (LLaMA) via projection layer sederhana — dan hasilnya mengejutkan: hanya butuh 150K data instruksi untuk melatih model yang bisa menjawab pertanyaan tentang gambar. **GPT-4V** dan **Gemini** menggunakan arsitektur lebih canggih dengan native multimodal training.",
+          "penjelasan_teknis": "Arsitektur **LLaVA**: input gambar $I$ diproses CLIP encoder menghasilkan visual tokens $\\mathbf{Z}_v = f_{CLIP}(I) \\in \\mathbb{R}^{N_v \\times D_v}$. Projection layer $\\mathbf{W}$ mengubah dimensi visual ke dimensi LLM: $\\mathbf{H}_v = \\mathbf{Z}_v \\mathbf{W} \\in \\mathbb{R}^{N_v \\times D_{LLM}}$. Instruksi teks dikodekan menjadi text tokens $\\mathbf{H}_q$. LLM menerima konkatenasi $[\\mathbf{H}_v; \\mathbf{H}_q]$ sebagai konteks dan menghasilkan respons autoregressif:\n$$p(\\mathbf{X}_a | \\mathbf{H}_v, \\mathbf{H}_q) = \\prod_{i=1}^{L} p(x_i | \\mathbf{H}_v, \\mathbf{H}_q, \\mathbf{X}_{a,<i})$$\n**Keterangan:**\n- $\\mathbf{X}_a$ = sekuens token jawaban LLM\n- $L$ = panjang jawaban yang digenerate\n- $\\mathbf{X}_{a,<i}$ = token jawaban sebelum posisi $i$\n- Proyeksi linear $\\mathbf{W}$ adalah satu-satunya parameter baru yang dilatih",
+          "contoh_nyata": "Dokter bedah menggunakan GPT-4V untuk menganalisis foto luka pasca operasi dan mendapatkan saran awal tatalaksana. Gemini digunakan di Google Search untuk menjawab pertanyaan '**Tanaman apa ini?**' langsung dari foto yang diunggah."
+        },
+        {
+          "judul": "Visual Question Answering (VQA) & Video Understanding",
+          "analogi": "VQA ibarat ujian gambar: Anda diberi foto dan pertanyaan '**Ada berapa orang di gambar ini?**' atau '**Apa warna baju perempuan di sebelah kiri?**' — model harus memahami gambar DAN pertanyaan secara bersamaan untuk menjawab.",
+          "penjelasan_awam": "**VQA (Visual Question Answering)** adalah benchmark utama multimodal: diberikan gambar + pertanyaan teks, model harus menghasilkan jawaban yang tepat. Lebih sulit dari image captioning karena pertanyaan sangat bervariasi. **Video Understanding** naik level lagi: model harus memahami urutan frame (temporal), bukan hanya gambar statis.",
+          "penjelasan_teknis": "**Score VQA** dihitung sebagai konsensus annotator manusia: $\\text{Acc}(a) = \\min(\\frac{\\text{# annotators yang menjawab } a}{3}, 1)$. Video diperlakukan sebagai sekuens frame + audio per segmen. **Video-LLaMA** dan **VideoChat** menggunakan Q-Former (Querying Transformer) untuk mengekstrak representasi kompak dari ratusan frame video:\n$$\\mathbf{Z}_{video} = \\text{Q-Former}(\\mathbf{Q}_{learnable}, \\mathbf{F}_{frames})$$\n**Keterangan:**\n- $\\mathbf{Q}_{learnable}$ = query tokens yang dapat dilatih (32 token) berfungsi sebagai bottleneck\n- $\\mathbf{F}_{frames}$ = fitur visual dari semua frame video\n- Q-Former melakukan cross-attention: query ke seluruh frame, menghasilkan representasi fixed-size\n- Efisien: dari ribuan visual tokens menjadi hanya 32 token per video",
+          "contoh_nyata": "TikTok menggunakan video understanding untuk memastikan caption iklan sesuai dengan visual konten. NPE (Netflix Production Engineering) menggunakan VQA untuk memeriksa kualitas subtitle otomatis — apakah dialog yang tertulis sesuai dengan yang terucap dan tervisual di layar."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Demo CLIP: Cosine Similarity Teks-Gambar Interaktif.",
+      "references": [
+        {
+          "kode": "FR-02",
+          "sitasi": "Liu, H. et al. (2023). Visual Instruction Tuning (LLaVA). NeurIPS.",
+          "url": "",
+          "bab": "Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-27",
+      "rumpun_id": "R10",
+      "nomor": 27,
+      "judul": "Graph Neural Networks (GNN)",
+      "objektif": "Memahami kenapa data berbentuk graf (jaringan sosial, molekul, peta) membutuhkan arsitektur GNN khusus yang berbeda dari CNN/RNN, dan memahami mekanisme Message Passing yang menjadi jantung arsitektur GCN, GAT, hingga GraphSAGE.",
+      "topik": [
+        "Representasi Graf: Node, Edge & Adjacency Matrix",
+        "Message Passing Neural Network (MPNN)",
+        "Graph Convolutional Network (GCN)",
+        "Graph Attention Network (GAT)",
+        "Aplikasi GNN: Molekul, Sosial & Rekomendasi"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Kenapa Graf Butuh Arsitektur Khusus?",
+          "analogi": "Data tabular seperti spreadsheet: tiap baris independen. Data gambar seperti kisi-kisi batu bata: hubungan tetangga terstruktur. Data graf seperti peta kota: setiap simpang jalan (node) terhubung ke simpang lain via jalan (edge), dengan jumlah koneksi yang tidak beraturan. CNN/RNN tidak bisa menangani ketidakaturan struktur ini.",
+          "penjelasan_awam": "**Graf** adalah struktur data yang merepresentasikan entitas (node) dan relasi antar entitas (edge). Contoh: jaringan pertemanan Facebook (user = node, pertemanan = edge), struktur molekul obat (atom = node, ikatan kimia = edge). Model konvensional seperti CNN mengasumsikan grid reguler — tidak bisa langsung diterapkan pada graf yang setiap node-nya bisa punya jumlah tetangga berbeda.",
+          "penjelasan_teknis": "Graf $G = (V, E)$ dengan $|V| = N$ node dan $|E|$ edge. **Adjacency Matrix** $\\mathbf{A} \\in \\{0,1\\}^{N \\times N}$: elemen $A_{ij} = 1$ jika terdapat edge $(i,j)$. **Degree Matrix** $\\mathbf{D}$: diagonal matrix dengan $D_{ii} = \\sum_j A_{ij}$. **Node Feature Matrix** $\\mathbf{X} \\in \\mathbb{R}^{N \\times F}$: setiap node $i$ memiliki fitur vektor $\\mathbf{x}_i \\in \\mathbb{R}^F$.\n\n**Tantangan GNN:**\n- Tidak ada urutan/grid reguler (permutation invariance)\n- Jumlah tetangga tiap node bervariasi\n- Graf bisa sangat besar (miliaran node di jaringan sosial)",
+          "contoh_nyata": "LinkedIn merepresentasikan seluruh jaringan profesionalnya sebagai graf raksasa untuk merekomendasikan koneksi dan pekerjaan. AlphaFold 2 menggunakan representasi graf molekul protein untuk memprediksi struktur 3D protein."
+        },
+        {
+          "judul": "Graph Convolutional Network (GCN) & Message Passing",
+          "analogi": "Update fitur setiap node GCN ibarat prosedur gosip desa: tiap warga (node) mengumpulkan informasi dari semua tetangganya, merata-ratanya, dan memperbarui pengetahuannya. Setelah beberapa ronde gosip (layer), tiap warga mengenal konteks lingkungan yang lebih luas.",
+          "penjelasan_awam": "**GCN (Graph Convolutional Network)** (Kipf & Welling, 2017) memperbarui representasi setiap node dengan **mengagregasi fitur tetangganya**. Proses ini disebut **Message Passing**: setiap node 'mengirim pesan' ke tetangganya, lalu mengagregasi pesan yang diterima. Setelah $L$ layer, tiap node memiliki representasi yang mencerminkan lingkungan $L$-hop sekitarnya.",
+          "penjelasan_teknis": "**GCN Layer** (propagation rule):\n$$\\mathbf{H}^{(l+1)} = \\sigma\\left(\\tilde{\\mathbf{D}}^{-1/2}\\tilde{\\mathbf{A}}\\tilde{\\mathbf{D}}^{-1/2}\\mathbf{H}^{(l)}\\mathbf{W}^{(l)}\\right)$$\n**Keterangan:**\n- $\\tilde{\\mathbf{A}} = \\mathbf{A} + \\mathbf{I}_N$ = adjacency matrix dengan self-loop\n- $\\tilde{\\mathbf{D}}$ = degree matrix dari $\\tilde{\\mathbf{A}}$\n- $\\tilde{\\mathbf{D}}^{-1/2}\\tilde{\\mathbf{A}}\\tilde{\\mathbf{D}}^{-1/2}$ = normalisasi simetris mencegah exploding/vanishing gradients\n- $\\mathbf{H}^{(l)}$ = node feature matrix di layer $l$; $\\mathbf{H}^{(0)} = \\mathbf{X}$\n- $\\mathbf{W}^{(l)}$ = learnable weight matrix\n- $\\sigma$ = fungsi aktivasi (ReLU)\n\n**Graph Attention Network (GAT)** menggantikan aggregasi rata-rata dengan **attention-weighted aggregation**: $\\mathbf{h}_i' = \\sigma\\left(\\sum_{j \\in \\mathcal{N}(i)} \\alpha_{ij} \\mathbf{W} \\mathbf{h}_j\\right)$, di mana $\\alpha_{ij}$ = attention weight antara node $i$ dan $j$.",
+          "contoh_nyata": "Google Maps menggunakan GNN pada graf jaringan jalan untuk memprediksi ETA (Estimated Time of Arrival) dengan mempertimbangkan kondisi lalu lintas di seluruh rute sekitar, bukan hanya rute langsung."
+        },
+        {
+          "judul": "Aplikasi GNN: Drug Discovery, Fraud Detection & Rekomendasi",
+          "analogi": "GNN melihat molekul obat seperti LEGO: setiap atom adalah balok (node fitur: nomor atom, muatan), setiap ikatan kimia adalah koneksi (edge). GNN mempelajari properti molekul (toksisitas, kelarutan) dari struktur LEGO-nya — jauh lebih kuat dari deskriptor kimia manual.",
+          "penjelasan_awam": "GNN kini mendominasi tiga domain industri utama: **(1) Drug Discovery** — GNN memprediksi aktivitas biologis molekul obat kandidat; **(2) Fraud Detection** — mendeteksi jaringan penipuan terorganisir (node: akun, edge: transaksi); **(3) Sistem Rekomendasi** — Pinterest PinSage, Alibaba Graph4Rec menggunakan GNN pada graf user-item untuk rekomendasi yang jauh lebih akurat dari collaborative filtering klasik.",
+          "penjelasan_teknis": "**Graph-level prediction** menggunakan **readout function** (graph pooling):\n$$\\mathbf{h}_G = \\text{READOUT}(\\{\\mathbf{h}_v^{(L)} | v \\in V\\})$$\n**Keterangan:**\n- $\\mathbf{h}_v^{(L)}$ = representasi node $v$ setelah $L$ layer GNN\n- READOUT bisa berupa: sum, mean, max pooling, atau hierarkhis (DiffPool)\n- Menghasilkan representasi level-graf $\\mathbf{h}_G$ untuk klasifikasi/regresi molekul\n\n**GraphSAGE** (Hamilton, 2017) menggunakan sampling tetangga terbatas untuk skalabilitas pada graf raksasa (miliaran node): tiap iterasi hanya mengambil $k$ tetangga acak untuk agregasi, bukan semua tetangga.",
+          "contoh_nyata": "Pfizer dan Insilico Medicine menggunakan GNN untuk mempercepat fase penemuan obat dari rata-rata 4–5 tahun menjadi hitungan bulan. Grab menggunakan GNN fraud detection untuk mengidentifikasi jaringan penipu pengemudi palsu."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Visualizer Graf Interaktif: Message Passing Simulation.",
+      "references": [
+        {
+          "kode": "FR-03",
+          "sitasi": "Kipf, T. N. & Welling, M. (2017). Semi-Supervised Classification with Graph Convolutional Networks. ICLR.",
+          "url": "",
+          "bab": "Model"
+        }
+      ]
+    },
+    {
+      "id": "MOD-28",
+      "rumpun_id": "R10",
+      "nomor": 28,
+      "judul": "AutoML & Neural Architecture Search",
+      "objektif": "Memahami bagaimana proses desain model ML dapat diotomatisasi — dari pemilihan algoritma dan hyperparameter (AutoML) hingga desain arsitektur neural network secara otomatis (NAS) — untuk mendemokratisasi AI bagi praktisi non-ahli.",
+      "topik": [
+        "Apa itu AutoML? Pipeline Otomasi End-to-End",
+        "Hyperparameter Optimization (HPO): Grid, Random, Bayesian",
+        "Neural Architecture Search (NAS): Metode & Taksonomi",
+        "Platform AutoML: Google Vertex AI, H2O, Auto-sklearn",
+        "Meta-Learning: Learning to Learn"
+      ],
+      "materi_detail": [
+        {
+          "judul": "AutoML: Mendemokratisasi Machine Learning",
+          "analogi": "AutoML ibarat kompiler otomatis untuk programmer: dulu programmer harus menulis kode mesin secara manual. Kini cukup tulis Python, compiler yang mengoptimasi. AutoML: dulu data scientist harus memilih algoritma, tuning manual. Kini cukup beri data, AutoML yang mencari pipeline terbaik.",
+          "penjelasan_awam": "**AutoML (Automated Machine Learning)** mengotomasi seluruh pipeline ML: pemilihan fitur, pemilihan algoritma, tuning hyperparameter, hingga ensembling. Tujuannya adalah demokratisasi — memungkinkan dokter, hukum, bisnis membuat model ML berkualitas tinggi tanpa keahlian mendalam di data science. Platform seperti **Google Vertex AI AutoML**, **H2O AutoML**, dan **Auto-sklearn** bisa menghasilkan model kompetitif dalam hitungan jam.",
+          "penjelasan_teknis": "Pipeline AutoML dapat dirumuskan sebagai masalah **Combined Algorithm Selection and Hyperparameter Optimization (CASH)**:\n$$\\lambda^* = \\arg\\max_{\\mathcal{A}^{(j)} \\in \\mathcal{A}, \\lambda \\in \\Lambda^{(j)}} \\mathbb{E}_{(x,y)\\sim P_{train}}\\left[\\mathcal{M}(\\mathcal{A}^{(j)}_\\lambda, x, y)\\right]$$\n**Keterangan:**\n- $\\mathcal{A}$ = ruang semua algoritma ML yang tersedia\n- $\\mathcal{A}^{(j)}$ = algoritma ke-$j$ (misal: Random Forest, XGBoost, SVM)\n- $\\Lambda^{(j)}$ = ruang hyperparameter untuk algoritma $j$\n- $\\lambda$ = konfigurasi hyperparameter spesifik\n- $\\mathcal{M}$ = metrik evaluasi (misal: accuracy, AUC-ROC)",
+          "contoh_nyata": "Gojek menggunakan Vertex AI AutoML untuk membangun model prediksi permintaan tanpa harus mempekerjakan ML Engineer khusus di setiap tim produk. NASA JPL menggunakan AutoML untuk mengklasifikasi citra satelit dalam memantau perubahan iklim."
+        },
+        {
+          "judul": "Hyperparameter Optimization: Grid, Random & Bayesian",
+          "analogi": "Grid Search ibarat mencicipi semua kombinasi menu di restoran 100 item — sangat lengkap tapi sangat membuang waktu. Random Search ibarat mencicipi secara acak — lebih cepat, sering sama efektifnya. Bayesian Optimization ibarat chef berpengalaman yang menebak kombinasi mana yang enak berdasarkan cicipan sebelumnya, dan memilih kombinasi selanjutnya dengan cerdas.",
+          "penjelasan_awam": "**Hyperparameter** adalah parameter yang tidak dipelajari dari data (misal: learning rate, jumlah layer, ukuran batch). Mengoptimasi ini secara manual sangat membosankan. **Grid Search** mencoba semua kombinasi. **Random Search** terbukti lebih efisien. **Bayesian Optimization** menggunakan model surrogate (Gaussian Process) untuk memprediksi mana kombinasi hyperparameter yang paling menjanjikan sebelum benar-benar mencobanya.",
+          "penjelasan_teknis": "**Bayesian Optimization** menggunakan **Gaussian Process** sebagai surrogate model untuk mengestimasi $f(\\lambda)$ (performa model pada hyperparameter $\\lambda$):\n$$f(\\lambda) \\sim \\mathcal{GP}(\\mu(\\lambda), k(\\lambda, \\lambda'))$$\n**Keterangan:**\n- $\\mu(\\lambda)$ = rata-rata prediksi GP di titik $\\lambda$\n- $k(\\lambda, \\lambda')$ = kernel function (mengukur kemiripan antara $\\lambda$ dan $\\lambda'$)\n- GP memberikan distribusi posterior atas fungsi $f$ berdasarkan observasi sebelumnya\n\n**Acquisition Function** menentukan $\\lambda$ berikutnya yang akan dievaluasi. **Expected Improvement (EI)** adalah pilihan umum:\n$$EI(\\lambda) = \\mathbb{E}[\\max(f(\\lambda) - f^+, 0)]$$\n**Keterangan:**\n- $f^+$ = performa terbaik yang sudah diamati\n- EI memaksimalkan harapan peningkatan di atas nilai terbaik saat ini\n- Menyeimbangkan exploitation (cari di sekitar area terbaik) dan exploration (coba area baru)",
+          "contoh_nyata": "Optuna (Preferred Networks, Jepang) adalah library HPO open-source yang digunakan oleh Mercari untuk tuning model rekomendasi mereka. Ray Tune (dipakai Shopee) menggunakan Bayesian Optimization untuk menemukan konfigurasi model ranking produk terbaik."
+        },
+        {
+          "judul": "Neural Architecture Search (NAS) & Meta-Learning",
+          "analogi": "NAS ibarat mesin yang merancang mesin lain. Arsitektur EfficientNet (Google, 2019) ditemukan oleh algoritma NAS, bukan manusia — dan ia mengalahkan ResNet yang dirancang manusia dengan 8x lebih sedikit parameter.",
+          "penjelasan_awam": "**NAS (Neural Architecture Search)** mengotomasi desain arsitektur neural network — memilih jumlah layer, jenis operasi (konvolusi, pooling, skip connection), dan hubungan antar layer. **Meta-Learning** ('Learning to Learn') lebih ambisius: melatih model yang bisa beradaptasi ke task baru dengan data yang sangat sedikit (few-shot learning), seperti dokter yang cepat beradaptasi ke penyakit baru berdasarkan pengalaman sebelumnya.",
+          "penjelasan_teknis": "**DARTS (Differentiable Architecture Search)** (Liu, 2019) membuat NAS differentiable dengan merelaksasi pilihan arsitektur diskrit menjadi kontinu via softmax:\n$$\\bar{o}^{(i,j)}(x) = \\sum_{o \\in \\mathcal{O}} \\frac{e^{\\alpha_o^{(i,j)}}}{\\sum_{o'} e^{\\alpha_{o'}^{(i,j)}}} \\cdot o(x)$$\n**Keterangan:**\n- $\\mathcal{O}$ = ruang operasi kandidat (konvolusi 3×3, 5×5, skip, zero)\n- $\\alpha_o^{(i,j)}$ = architecture weight untuk operasi $o$ pada edge $(i,j)$\n- Mixed operation $\\bar{o}$ adalah kombinasi semua operasi berbobot softmax\n- Setelah training, ambil $\\arg\\max_o$ untuk tiap edge sebagai arsitektur final\n\n**MAML (Model-Agnostic Meta-Learning)**: cari inisialisasi parameter $\\theta$ yang bisa di-finetune ke task baru hanya dengan $K$ gradient steps:\n$$\\min_\\theta \\sum_{\\mathcal{T}_i \\sim p(\\mathcal{T})} \\mathcal{L}_{\\mathcal{T}_i}(\\theta - \\alpha \\nabla_\\theta \\mathcal{L}_{\\mathcal{T}_i}(\\theta))$$\n**Keterangan:**\n- $\\mathcal{T}_i$ = task ke-$i$ yang di-sample dari distribusi task $p(\\mathcal{T})$\n- Inner loop: update $\\theta$ dengan $\\alpha$ (task-specific LR) hanya pada $K$ support samples\n- Outer loop: optimalkan performa setelah inner loop di query set\n- Tujuan: $\\theta$ yang mudah beradaptasi ke task baru",
+          "contoh_nyata": "EfficientNet yang ditemukan NAS menjadi backbone standar di industri vision (dipakai Google Photos, Apple Face ID). Apple menggunakan NAS untuk mendesain chip Neural Engine di iPhone yang efisien daya."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Simulator Bayesian Optimization: Visualizer Acquisition Function.",
+      "references": [
+        {
+          "kode": "FR-04",
+          "sitasi": "Elsken, T. et al. (2019). Neural Architecture Search: A Survey. JMLR.",
+          "url": "",
+          "bab": "Survey"
         }
       ]
     }
