@@ -1332,9 +1332,19 @@ function ChatbotVisualizer({ description }: { description: string }) {
             let botType = "bot";
             if (mode === "rule") {
                 const lp = input.toLowerCase();
-                if (lp.includes("halo") || lp.includes("hai")) botReply = "Halo! Silahkan gunakan keyword 'Bantuan' atau 'Kontak'.";
-                else if (lp.includes("bantuan")) botReply = "Ini menu bantuan: 1. Ganti Password 2. Lupa Pin.";
-                else botReply = "Maaf, format Keyword salah. Harap ketik ulang dengan kalimat baku sesuai panduan. Error: INTENT_NOT_RECOGNIZED.";
+                if (lp === "halo" || lp === "hai") {
+                    botReply = "Halo! Silahkan gunakan keyword 'Bantuan' atau 'Kontak'.";
+                } else if (lp === "bantuan") {
+                    botReply = "Ini menu bantuan:\n1. Ganti Password\n2. Lupa Pin\nKetik angka pilihan Anda.";
+                } else if (lp === "1" || lp.includes("ganti password")) {
+                    botReply = "Silahkan kunjungi link berikut untuk mengganti password: https://company.com/reset. Jika link tidak bisa diklik, error: UNKNOWN_ACTION.";
+                } else if (lp === "2" || lp.includes("lupa pin")) {
+                    botReply = "Mohon datang ke kantor cabang terdekat dengan membawa KTP dan Buku Tabungan. Kami tidak bisa memproses lupa PIN secara online.";
+                } else if (lp === "kontak") {
+                    botReply = "Silahkan hubungi 1-500-123 pada jam kerja (08:00 - 15:00 WIB).";
+                } else {
+                    botReply = "Maaf, format Keyword salah. Harap ketik ulang dengan kalimat baku sesuai panduan. Error: INTENT_NOT_RECOGNIZED.";
+                }
                 botType = "bot-rule";
             } else {
                 botReply = "Wah, aku ngerti maksud kamu! Kalau kamu butuh bantuan soal " + (input.split(" ")[0] || "itu") + ", aku bisa carikan solusinya dengan cepat. Santai aja ya bahasanya 😉";
@@ -1384,7 +1394,7 @@ function ChatbotVisualizer({ description }: { description: string }) {
                     <div className="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col">
                         {messages.map((m, i) => (
                             <div key={i} className={`flex ${m.sender === 'User' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
-                                <div className={`max-w-[80%] p-3 rounded-xl text-sm ${m.type === 'info' ? 'bg-blue-900/40 text-blue-200 border border-blue-500/30 w-full text-center' :
+                                <div className={`max-w-[80%] p-3 rounded-xl text-sm whitespace-pre-wrap ${m.type === 'info' ? 'bg-blue-900/40 text-blue-200 border border-blue-500/30 w-full text-center' :
                                     m.type === 'user' ? 'bg-emerald-600 text-white rounded-br-none' :
                                         m.type === 'bot-rule' ? 'bg-cyan-900/50 text-cyan-50 border border-cyan-500/30 rounded-bl-none font-mono' :
                                             'bg-purple-900/50 text-purple-50 border border-purple-500/30 rounded-bl-none'
@@ -1439,8 +1449,8 @@ function RNNMemoryVisualizer({ description }: { description: string }) {
             <div className="flex flex-wrap gap-2 mb-6">
                 {words.map((w, i) => (
                     <div key={i} className={`px-3 py-2 rounded-lg text-sm font-mono transition-all duration-300 ${i <= step
-                            ? `border ${i === step ? 'bg-cyan-500 text-white border-cyan-400 scale-110' : `bg-white/5 border-white/10`}`
-                            : 'bg-black/20 border border-white/5 text-gray-600'
+                        ? `border ${i === step ? 'bg-cyan-500 text-white border-cyan-400 scale-110' : `bg-white/5 border-white/10`}`
+                        : 'bg-black/20 border border-white/5 text-gray-600'
                         }`} style={i < step ? { opacity: getMemory(step - i) / 100 } : {}}>
                         {w}
                     </div>
@@ -1490,10 +1500,10 @@ function BERTMaskVisualizer({ description }: { description: string }) {
             <div className="flex flex-wrap gap-2 mb-6">
                 {sent.text.map((w, i) => (
                     <span key={i} className={`px-4 py-2 rounded-lg text-lg font-mono transition-all ${w === '[MASK]'
-                            ? selected
-                                ? selected === sent.answer ? 'bg-green-500/30 border border-green-500 text-green-300' : 'bg-red-500/30 border border-red-500 text-red-300'
-                                : 'bg-orange-500/30 border border-orange-500/50 text-orange-300 animate-pulse'
-                            : 'bg-white/10 border border-white/10 text-white'
+                        ? selected
+                            ? selected === sent.answer ? 'bg-green-500/30 border border-green-500 text-green-300' : 'bg-red-500/30 border border-red-500 text-red-300'
+                            : 'bg-orange-500/30 border border-orange-500/50 text-orange-300 animate-pulse'
+                        : 'bg-white/10 border border-white/10 text-white'
                         }`}>
                         {w === '[MASK]' && selected ? selected : w}
                     </span>
@@ -1595,8 +1605,8 @@ function MLOpsVisualizer({ description }: { description: string }) {
                 {stages.map((s, i) => (
                     <div key={i} className="flex items-center">
                         <div className={`px-3 py-2 rounded-lg text-sm font-mono flex items-center gap-2 transition-all ${s.status === 'alert' ? 'bg-red-500/20 border border-red-500 text-red-300 animate-pulse' :
-                                s.status === 'warning' ? 'bg-yellow-500/20 border border-yellow-500 text-yellow-300' :
-                                    'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
+                            s.status === 'warning' ? 'bg-yellow-500/20 border border-yellow-500 text-yellow-300' :
+                                'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
                             }`}>
                             <span>{s.icon}</span> {s.name}
                         </div>
