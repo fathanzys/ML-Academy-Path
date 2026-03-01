@@ -1508,32 +1508,37 @@ function VectorVisualizer({ description }: { description: string }) {
                         </marker>
                     </defs>
 
-                    {/* Gender Vectors (Shifted left to ensure they stay on the left half) */}
-                    <line x1="33%" y1="50%" x2="12%" y2="75%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
-                    <line x1="33%" y1="50%" x2="12%" y2="25%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
+                    {/* Royalty Vectors (Horizontal) */}
+                    <line x1="15%" y1="75%" x2="43%" y2="75%" stroke="#6366f1" strokeWidth="2" strokeDasharray="4" markerEnd="url(#arrowhead-blue)" />
+                    <line x1="15%" y1="35%" x2="43%" y2="35%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
 
-                    {/* Role Vectors (Shifted to end around 45%) */}
-                    <line x1="33%" y1="50%" x2="45%" y2="75%" stroke="#6366f1" strokeWidth="2" markerEnd="url(#arrowhead-blue)" />
-                    <line x1="33%" y1="50%" x2="45%" y2="25%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
+                    {/* Gender Vectors (Vertical) */}
+                    <line x1="15%" y1="75%" x2="15%" y2="37%" stroke="#ec4899" strokeWidth="2" strokeDasharray="4" markerEnd="url(#arrowhead-pink)" />
+                    <line x1="45%" y1="75%" x2="45%" y2="37%" stroke="#ec4899" strokeWidth="2" markerEnd="url(#arrowhead-pink)" />
 
-                    {/* The Transformation Equation connection */}
-                    <line x1="12%" y1="75%" x2="12%" y2="25%" stroke="#a855f7" strokeWidth="2" strokeDasharray="5" markerEnd="url(#arrowhead-purple)" />
-                    <line x1="45%" y1="75%" x2="45%" y2="25%" stroke="#a855f7" strokeWidth="2" strokeDasharray="5" markerEnd="url(#arrowhead-purple)" />
+                    {/* The Transformation Equation connection (Diagonal Raja-Pria+Wanita = Ratu) */}
+                    <line x1="15%" y1="75%" x2="44%" y2="36%" stroke="#a855f7" strokeWidth="2" strokeDasharray="2" markerEnd="url(#arrowhead-purple)" />
                 </svg>
 
                 {/* Labels */}
-                <div className="absolute z-20 font-bold px-2 py-1 bg-blue-900/80 rounded border border-blue-500/50 text-blue-200" style={{ left: '12%', top: '75%', transform: 'translate(-50%, -50%)' }}>Pria</div>
-                <div className="absolute z-20 font-bold px-2 py-1 bg-pink-900/80 rounded border border-pink-500/50 text-pink-200" style={{ left: '12%', top: '25%', transform: 'translate(-50%, -50%)' }}>Wanita</div>
+                <div className="absolute z-20 font-bold px-3 py-1.5 bg-slate-900/90 border border-slate-500/50 text-white rounded shadow-lg" style={{ left: '15%', top: '75%', transform: 'translate(-50%, -50%)' }}>Pria</div>
+                <div className="absolute z-20 font-bold px-3 py-1.5 bg-pink-900/90 border border-pink-500/50 text-pink-100 rounded shadow-lg" style={{ left: '15%', top: '35%', transform: 'translate(-50%, -50%)' }}>Wanita</div>
 
-                <div className="absolute z-20 font-bold px-2 py-1 bg-blue-900/80 rounded border border-blue-500/50 text-blue-200" style={{ left: '46%', top: '75%', transform: 'translate(-50%, -50%)' }}>Raja</div>
-                <div className="absolute z-20 font-bold px-2 py-1 bg-pink-900/80 rounded border border-pink-500/50 text-pink-200" style={{ left: '46%', top: '25%', transform: 'translate(-50%, -50%)' }}>Ratu</div>
+                <div className="absolute z-20 font-bold px-3 py-1.5 bg-blue-900/90 border border-blue-500/50 text-blue-100 rounded shadow-lg" style={{ left: '45%', top: '75%', transform: 'translate(-50%, -50%)' }}>Raja</div>
+                <div className="absolute z-20 font-bold px-3 py-1.5 bg-fuchsia-900/90 border border-fuchsia-500/50 text-fuchsia-100 rounded shadow-lg ring-2 ring-fuchsia-500 ring-offset-2 ring-offset-black" style={{ left: '45%', top: '35%', transform: 'translate(-50%, -50%)' }}>Ratu</div>
 
                 {/* Info block pushed to bottom right */}
                 <div className="absolute bottom-4 right-4 bg-black/90 border border-indigo-500/50 p-5 rounded-xl shadow-2xl backdrop-blur-md z-30 w-full sm:w-auto sm:max-w-xs">
                     <div className="text-sm text-indigo-300 font-mono mb-3 uppercase tracking-wider">Vektor Transformasi</div>
-                    <div className="font-mono text-base font-bold tracking-tight text-white mb-2"><span className="text-blue-400">Raja</span> - <span className="text-blue-400">Pria</span> + <span className="text-pink-400">Wanita</span></div>
-                    <div className="font-mono text-base font-bold tracking-tight text-white mb-3">= <span className="text-pink-400">Ratu</span></div>
-                    <p className="text-xs text-gray-400 leading-relaxed border-t border-white/10 pt-3">Mesin mengetahui <strong>Ratu</strong> karena mendeteksi geometri kata di internet yang paralel dan ekuivalen.</p>
+                    <div className="font-mono text-sm leading-relaxed font-bold tracking-tight text-white mb-2">
+                        <span className="text-blue-400 border-b border-blue-400/30 pb-0.5">Vektor(Raja)</span> <br />
+                        <span className="text-slate-400">- Vektor(Pria)</span> <br />
+                        <span className="text-pink-400">+ Vektor(Wanita)</span>
+                    </div>
+                    <div className="font-mono text-lg font-bold tracking-tight text-white mt-3 border-t border-white/10 pt-2">
+                        = <span className="text-fuchsia-400">Vektor(Ratu)</span>
+                    </div>
+                    <p className="text-xs text-gray-400 leading-relaxed mt-3">Mesin memahami bahwa jarak orientasi makna dari Pria ke Wanita, sejajar paralel secara utuh dengan jarak dari Raja ke Ratu.</p>
                 </div>
             </div>
         </div>

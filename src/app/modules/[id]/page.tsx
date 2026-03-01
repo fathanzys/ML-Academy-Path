@@ -52,7 +52,7 @@ function FormattedText({ text, variant = 'default' }: { text: string; variant?: 
                                     </span>
                                 );
                             }
-                            // Quick bold parsing for markdown **text**
+                            // Quick bold parsing for markdown **text** and *text*
                             const boldParts = inlinePart.split(/(\*\*[\s\S]*?\*\*)/g);
                             return (
                                 <span key={j}>
@@ -60,7 +60,18 @@ function FormattedText({ text, variant = 'default' }: { text: string; variant?: 
                                         if (bPart.startsWith('**') && bPart.endsWith('**')) {
                                             return <strong key={k} className="text-white font-semibold">{bPart.slice(2, -2)}</strong>;
                                         }
-                                        return <span key={k}>{bPart}</span>;
+                                        // Process single asterisks (*text*) also as bold, per user request
+                                        const singleStarParts = bPart.split(/(\*[\s\S]*?\*)/g);
+                                        return (
+                                            <span key={k}>
+                                                {singleStarParts.map((sPart, l) => {
+                                                    if (sPart.startsWith('*') && sPart.endsWith('*') && sPart.length > 2) {
+                                                        return <strong key={l} className="text-white font-semibold">{sPart.slice(1, -1)}</strong>;
+                                                    }
+                                                    return <span key={l}>{sPart}</span>;
+                                                })}
+                                            </span>
+                                        );
                                     })}
                                 </span>
                             );

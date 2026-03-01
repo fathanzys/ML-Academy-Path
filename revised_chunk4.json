@@ -1,0 +1,211 @@
+[
+    {
+        "id": "MOD-22",
+        "rumpun_id": "R6",
+        "nomor": 22,
+        "judul": "Reinforcement Learning: Lanjutan & Simulasi",
+        "objektif": "Memperdalam simulasi kelakuan agen AI di dalam *Environment* game matematika dunia nyata.",
+        "topik": [
+            "Perdebatan Model-Free vs Model-Based",
+            "Actor-Critic Architecture",
+            "Kemenangan Tragis AlphaZero"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Aktor Sang Pekerja & Kritikus Sang Penilai (Actor-Critic)",
+                "analogi": "Bayangkan sepasang suami istri main game tebak kata. Suaminya bertindak sebagai 'Aktor' yang asal nebak menyebut kata-kata (Action), dan istrinya bertindak sebagai juri 'Kritikus' yang nyeletuk 'Itu tebakan bodoh!' atau 'Tebakan yang bagus sayang!' (Value Output). Makin lama mereka kerja sama, insting si Aktor makin klop karena bimbingan nilai si Istri.",
+                "penjelasan_awam": "Model Deep RL mutakhir tidak sekedar memakai 1 jaringan otak. Mereka memakai arsitektur ganda membelah fungsi, dipanggil **Actor-Critic**. Satu jaring sel otak murni memfokuskan karirnya hanya untuk mengeksekusi meraba tebakan opsi tindakan terbaik, sedangkan selaput otak satunya sekadar menjustifikasi memberi skor rapor terhadap efektivitas tindakan tersebut untuk bekal masa depan.",
+                "penjelasan_teknis": "Secara topologi *Algoritma Actor-Critic* memisahkan estimasi Policy $\\pi_\\theta(a|s)$ sebagai *Actor* dan peramalan Value Function $V_w(s)$ atau $Q_w(s,a)$ sebagai *Critic* evaluator. Saat Aktor mengeksekusi parameter, ia disusui revisi gradien oleh the Advantage Function $A(s,a) = Q(s,a) - V(s)$. Semakin positif nilai $A$, semakin kuat tendensi sang **Aktor** disuntik revisi untuk kelak mengulangi aksi itu di *State* serupa di ronde berikutnya. Algoritma raksasa RL zaman ini seperti PPO dan A3C 100% berlandaskan tulang punggung asimetris ini.",
+                "contoh_nyata": "Robot raksasa buatan Boston Dynamics yang jago loncat salto belakang dari boks kayu, dilatih dalam simulator komputer maya memakai arsitektur asimetris Actor-Critic ratusan juta kali sebelum otaknya dipindahkan memori transfer ke tubuh besi nyatanya."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Tak ada Visualizer Khusus.",
+        "references": [
+            {
+                "kode": "RL-02",
+                "sitasi": "Sutton, R. S., & Barto, A. G. (2018). Reinforcement Learning: An Introduction.",
+                "url": "",
+                "bab": "Konsep Model-Based dan Actor-Critic"
+            }
+        ]
+    },
+    {
+        "id": "MOD-23",
+        "rumpun_id": "R7",
+        "nomor": 23,
+        "judul": "Time Series Forecasting (Meramal Masa Depan)",
+        "objektif": "Cara AI menggantikan peramal bola kristal dan membaca laju gelombang tren grafik fluktuasi uang kripto & saham.",
+        "topik": [
+            "Dekonstruksi Musiman & Tren Waktu",
+            "ARIMA vs LSTM vs Prophet",
+            "Mengapa Saham Sulit Ditebak AI?"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Membaca Sandi Tren Data Berurutan Waktu",
+                "analogi": "Jika ingin memprediksi betapa ramai kedai Es Cendol bulan depan, kamu tak bisa memakai cuaca semata. Kamu harus membedah urutan waktu masa lakunya: Oh, kemarau penjualan naik (Tren), oh setiap jam 12 siang selalu ramai (Pola Siklus Harian Musiman).",
+                "penjelasan_awam": "Berbeda mutlak dari klasifikasi gambar Kucing/Anjing yang sifat pikselnya mandiri, data **Deret Waktu (Time Series)** seperti nilai saham, suhu cuaca, atau data detak jantung EKG itu wajib diurutkan berdasarkan detik, jam, hari murni. Membolak-balik urutan datanya berarti menghancurkan seluruh maknanya seketika. AI membantai tugas ini dengan meramal tren murni dari garis pola histori *Seasonality*.",
+                "penjelasan_teknis": "Metode purba statistik klasik seperti *ARIMA (AutoRegressive Integrated Moving Average)* cuma meregresikan deret nilai observasi masa lalu linear murni: $Y_t = c + \\phi_1 Y_{t-1} + \\dots + \\phi_p Y_{t-p} + \\epsilon_t$. Tapi model AI raksasa *Transformer Time-Series* modern macam *Informer* atau mesin Facebook *Prophet* mendekonstruksi data runtut $y(t)$ ke dalam elemen murni: Tren struktural asimtotik $g(t)$, fluktuasi musiman perulangan sinus/kosinus periodik $s(t)$, libur kalender khusus mendadak $h(t)$, ditambah residu anomali $\\epsilon_t$.",
+                "contoh_nyata": "Grab & Gojek meraba deteksi sebaran order ojol fiktif dan lonjakan tarif hujan drastis *(Surge Pricing)* murni per milisekon mengandalkan AI model peramal *Deep Time Series*."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Grafik saham fluktuatif (Bisa di klik Prediksi Bulan Depan dari AI time-series regresor).",
+        "references": [
+            {
+                "kode": "TS-01",
+                "sitasi": "Hyndman, R.J., & Athanasopoulos, G. (2018). Forecasting: principles and practice.",
+                "url": "",
+                "bab": "Decomposition Model Otexts"
+            }
+        ]
+    },
+    {
+        "id": "MOD-24",
+        "rumpun_id": "R7",
+        "nomor": 24,
+        "judul": "Vision Transformer (ViT) & Advanced CV",
+        "objektif": "Mendalami supremasi Transformer menjatuhkan singgasana lama arsitektur pengolahan gambar dan melahirkan Segmentasi Panoptik.",
+        "topik": [
+            "Image Segmentation (Mask R-CNN)",
+            "Attention Mask di Visi Global",
+            "Perang Efisiensi Melawan ConvNet"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Membelah Objek Tingkat Piksel (Segmentasi)",
+                "analogi": "Detecting bounding Box YOLO layaknya memfoto rumah dan menggambar satu kotak bujur sangkar merah jelek dari atap ke fondasi. Segmentasi jauh lebih gila beresolusi super rapi: AI mengambil cat kuas dan mewarnai persis menyusuri pinggiran lengkung jendela, gagang pintu, siluet cerobong asap seteliti tukang cat arsitek maestro pixel demi pixel.",
+                "penjelasan_awam": "Ilmu kasta tertinggi *Computer Vision* bukan lagi soal ganti-gantian menembak kotak asal, tapi *Image Segmentation* yaitu memisahkan gambar persis mutlak di tingkatan 1 pikel demi 1 piksel tanpa melenceng sedetik pun membedakan area mana baju mana kulit latar belakang rumput.",
+                "penjelasan_teknis": "Ada 3 dewa strata klasifikasi gambar: (1) Bounding Box YOLO (Lokasi kasaran); (2) *Semantic Segmentation* model purba U-Net (Klasifikasi kelas piksel buta); dan takhta tertinggi (3) **Panoptic Segmentation** (Sistem bedah pakar Mask R-CNN atau arsitektur modern *Segment Anything Model (SAM)* dari Meta). Mesin mengkombinasikan jaring FPN (Feature Pyramid Network) mutlak dan *Region-of-Interest Align* untuk mengekstrak vektor semantik $m_i$ yang mencerabut kelas bentuk dan menembakkan formula pemotret *mask* probabilitas biner persis lekuk objek di gambar.",
+                "contoh_nyata": "Kamera Medis canggih robot dokter otomatis meronsen X-Ray mendeteksi tepian sel kanker Paru hingga porsi nol-koma-milimeter menabrak sel sehat demi menghindari terpotongnya daging murni tak bersalah akibat kelalaian piksel."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Kanvas visual memisahkan Objek anjing vs kucing vs rumput belakang layar.",
+        "references": [
+            {
+                "kode": "CV-02",
+                "sitasi": "He, K., Gkioxari, G., Dollár, P., & Girshick, R. (2017). Mask R-CNN. ICCV.",
+                "url": "",
+                "bab": "Algoritma Pemotong Gambar"
+            }
+        ]
+    },
+    {
+        "id": "MOD-25",
+        "rumpun_id": "R8",
+        "nomor": 25,
+        "judul": "Speech & Audio AI (Mendengar Suara)",
+        "objektif": "Bedah tuntas mekanisme sakti kuping sang komputer mendengar curhatan nada getar bahasa bibir manusia.",
+        "topik": [
+            "Waveforms ke Spectrogram",
+            "Text-to-Speech (Sintesis Tiruan Diktator)",
+            "Automatic Speech Recognition (ASR)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Membongkar Gelombang Frekuensi Dinding Suara",
+                "analogi": "Suara manusia seperti smoothie jus alpukat campur nanas pisang tebal berisik di dalam blender. Kamu tak bisa menebak campuran jus saat ia sedang mutar baling-baling kencang. Mesin *Fourier Transform* ibarat corong sihir ajaib yang memaksa memecah ulang segelas jus halus itu berpisah kembali ke tumpukan wujud fisik kasar murni alpukat, nanas, dan air gulanya di meja piring saji.",
+                "penjelasan_awam": "Untuk mengajarkan AI mendengar, kita tidak bisa menyerahkan lagu rekaman mp3 murni karena itu hanya grafik ombak garis coret ruwet (*Audio Waveform*). AI pertama kali meminta suaranya diremuk dan ditarik menjadi gambar **Spektrogram 2 Dimensi**. Ini gambar grafik visual yang mewakili energi merah terang bass dan biru redup melengking treble setiap detiknya. Melalui lukisan suara itulah AI tiba-tiba bisa 'mendengar' pakai 'baca mata telinganya'.",
+                "penjelasan_teknis": "Inti pengubahan kompresi frekuensi dibongkar radikal pakai rumus agung **Fast Fourier Transform (FFT)**: Mengurai getaran superposisi acak harian $x(t)$ jadi lajur harmonik berjejer rapi kumpulan gelombang murni Sinusoid $X(f) = \\int_{-\\infty}^{\\infty} x(t) e^{-i 2\\pi f t} dt$. Hasilnya disederhanakan murni menjadi diagram peta heatmap spektrogram Mel-Scale (Mel-Frequency Cepstral Coefficients - MFCC) berjejeran rentang logaritmik frekuensi yang 100% didesain pakem mirip respon biologis murni basiler gendang koklea telinga manusia, lantas barulah ia disuapkan secara paksa sebagai matriks gambar biasa ke dalam mulut rakus arsitektur CNN/Transformer ASR.",
+                "contoh_nyata": "Jaringan Whisper buatan OpenAI atau Alexa yang bisa menguraikan diktean suara medok nyanyi ngawur balita meracau jadi ejaan lirik subtitle huruf latin murni detik itu juga."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Kanvas Visual Spektrogram warna api merambat panas-dingin jika kamu bersuara teriak di mikrofon layarmu!",
+        "references": [
+            {
+                "kode": "AUD-01",
+                "sitasi": "O'Shaughnessy, D. (1987). Speech communication: human and machine.",
+                "url": "",
+                "bab": "Fast Fourier Transform & MFCC"
+            }
+        ]
+    },
+    {
+        "id": "MOD-26",
+        "rumpun_id": "R8",
+        "nomor": 26,
+        "judul": "Multimodal AI (Melihat, Mendengar, Berucap Bersama)",
+        "objektif": "Penyatuan maha sakti indera manusia di kubu peradaban AI mesin generasi tahun keemasannya.",
+        "topik": [
+            "CLIP (Contrastive Language-Image Pre-training)",
+            "Aligment Geometri Lintas Dimensi Mata Telinga",
+            "Kelahiran Era Gemini, GPT-4o"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Menyejajarkan Kordinat Gambar ke Koordinat Teks (CLIP)",
+                "analogi": "Ini seperti biro jodoh buta ajaib ruang interogasi. Di ruang kiri berdiri seribu Foto lukisan. Di ruang seberangnya ada seribu Kertas Judul tulisan. AI Multimodal CLIP bertugas mengulur tarikan jembatan tambang mengikat secara sejajar mana kertas 'Anjing di sofa' supaya pas magnetnya merapat mepet membentur persis koordinat foto lukisan sang anjing di sofa di kegelapan ruang.",
+                "penjelasan_awam": "Dulu, AI otak jenius penulis teks (LLM) itu buta, dan AI pendeteksi penglihatan gambar (CNN) itu bisu gagu. Algoritma modern raksasa bernama **Multimodal CLIP** memaksa menjodohkan dua dimensi yang tak pernah bertemu ini. Singkatnya AI dipaksa belajar 'menyamakan bahasa' antara arti ketikan kalimat dengan makna warna piksel lukisan jadi satu alam roh serentak di satu tubuh raksasa pencari makna sejati (Gemini).",
+                "penjelasan_teknis": "Dalam model Contrastive beringas ini, $\\text{Encoder}_I$ meremas memeras gambar absolut menjadi dimensi ruang vektor $v_i \\in \\mathbb{R}^d$, berdampingan dengan $\\text{Encoder}_T$ yang mengunyah membongkar teks keterangan (caption) menjadi $u_j \\in \\mathbb{R}^d$. Kedua encoder ini dihajar latihan loss simetri dot similarity gila-gilaan berkecepatan dewa agar diagonal vektor aslinya ($i=j$) dimaksimalisasi skor kemiripan $\\cos(v_i, u_i) \\to 1$, sementara diseret murni menjauhi semua pasangan silang nyasar salah lainnya. Begitu *Alignment* keselarasan dimensi tercapai murni... LLM bahasa manapun otomatis sakti diberi mata menatap langsung ke relung file gambar JPEG murni dan tahu apa maksud fotonya.",
+                "contoh_nyata": "Google Lens sakti atau ChatGPT yang bisa kau suruh \"Tolong tatap lirik lembaran tulisan resep kumel jelek ini dari fotomu, paham kan tulisannya? Nah ini bikinkan aku daftar ceklis transkripsi huruf latin ke memo gawai HP ku!\""
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Demo mini penyamaan CLIP 2 matriks. Menautkan Foto vs Baris Teks yang menjodoh merapat di ruang embedding relasional."
+    },
+    {
+        "id": "MOD-27",
+        "rumpun_id": "R8",
+        "nomor": 27,
+        "judul": "Graph Neural Networks (GNN)",
+        "objektif": "Cara AI mengurai misteri jaring laba-laba raksasa data jejaring sosial tak beraturan di alam bebas.",
+        "topik": [
+            "Mengapa Tabel Gagal di Dunia Bebas?",
+            "Arsitektur Jaring Node (Graph)",
+            "Mekanika Message Passing GNN"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Terkunci dalam Jaring Laba-Laba Relasi Data (GNN)",
+                "analogi": "Bayangkan AI menebak apakah kamu penjahat uang atau bukan. AI biasa cuma baca struk ATM dan profil wajahmu (Data Tabel kaku statis). Pihak GNN lebih gila licik laksana detektif FBI: Dia menggambar di papan putih murni menelusuri rentetan *Siapa sahabat WhatsApp mu? Siapa teman teman dari mantan bos rekanmu yang pernah kamu transfer uangnya seminggu lalu?* Jaring koneksi siluman rumit itulah yang jadi senjatanya menebak motif aslimu.",
+                "penjelasan_awam": "Data dunia beradab bumi jarang tersaji rapi simetris format excel kotak. Jejaring pertemanan TikTok, struktur bengkok molekul obat biologi, rute kemacetan peta Map Jakarta, semuanya melengkung saling terkait asimetris. Model arsitektur mutakhir **Graph Neural Networks (GNN)** diciptakan terlahir spesifik guna menerjemahkan keruwetan relasi interaksi jejaring silang tersebut di kepala mesin cerdas.",
+                "penjelasan_teknis": "Jantung arsitekturnya berdenyut kencang melalui mekanisme komputasional radikal desentralisasi bernama *Message Passing*. Masing masing simpul Node vertex $v$ secara kroyokan menukarkan agregasi gosip *Hidden Feature* $\\mathbf{h}_v$ tetangganya di lapisan dimensi iterasi ke-$l$: $$ \\mathbf{h}_v^{(l)} = \\sigma\\Big( \\mathbf{W}_1^{(l)} \\cdot \\mathbf{h}_v^{(l-1)} \\; + \\; \\mathbf{W}_2^{(l)} \\cdot \\sum_{u \\in \\mathcal{N}(v)} \\mathbf{h}_u^{(l-1)} \\Big) $$ Ini laksana pertemanan tetangga sirkular: Kamu $v$ mencerna sifat dasar gen asli dirimu sendiri $\\mathbf{h}_v$, ditambah bauran sifat gabungan kelakuan $\\sum_{u \\in \\mathcal{N}(v)} \\mathbf{h}_u$ seluruh deret baris kolega sirkel gaul akrab seputaran RT mutlak tetanggamu di alam graf relasional.",
+                "contoh_nyata": "Algoritma mesin Google Maps menebak ETA macet estimasi waktu perjalanan murni seratus persen memakai Graph Network graf jalan tol, serta sistem rekayasa pencarian obat kimia protein lipat lab *DeepMind AlphaFold*."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Visual jaring Graph node melengkung, bisa dipencau node pertemanan di Facebook Network buatan untuk menyebar infeksi warna node lainnya secara sentral!",
+        "references": [
+            {
+                "kode": "GNN-01",
+                "sitasi": "Kipf, T. N., & Welling, M. (2016). Semi-supervised classification with graph convolutional networks. ICLR.",
+                "url": "",
+                "bab": "Konsep Message Passing Node GCN"
+            }
+        ]
+    },
+    {
+        "id": "MOD-28",
+        "rumpun_id": "R8",
+        "nomor": 28,
+        "judul": "AutoML & Neural Architecture Search",
+        "objektif": "Saat AI bertindak sombong mendepak insinyur manusia merancang merakit sendiri ras super AI baru secara swadaya abadi mutlak.",
+        "topik": [
+            "Menggeser Manusia dari Arsitek Neural",
+            "Neural Architecture Search (NAS)",
+            "Meta-Learning (Learning to Learn)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "AI yang Merekrut & Merakit Dirinya Sendiri (NAS)",
+                "analogi": "AutoML itu mesin pencipta robot mekanik. Dulu perakit mobil insinyur Henry Ford memikirkan mur sekrup satu persatu. Sekarang kita buang Fordnya! Kita suruh mesin AI mandor berfikir untuk mencipta mesin baru yang 10x lebih mematikan rakitannya dibanding akal insinyur manusia fana paling pintar sekalipun.",
+                "penjelasan_awam": "Puncak gila dekade modern ini: Manusia sudah sangat kehabisan otak nyali buat mencoba mencari ratusan triliun kemungkinan sambungan model jaringan otak sirkuit baru *Deep Learning* layar bertumpuk. Gantinya, mereka melatih sistem AI master perancang **AutoML dan NAS (Neural Architecture Search)** untuk menyeleksi desain secara buta brutal dan merangkai mutasi otak spesimen sistem AI penerus selanjutnya yang jauh lebih kejam akurat ringan memorinya.",
+                "penjelasan_teknis": "Implementasi paling elegan modern adalah aliran arsitektur diferensial berkesinambungan **DARTS (Differentiable Architecture Search)**. Ini melonggarkan ruang pencarian model diskrit tajam nan putus-putus acaks lewat penyusupan racikan aktivasi relaksasi *softmax* super mulus berlanjut: $$ \\bar{o}^{(i,j)}(x) = \\sum_{o \\in \\mathcal{O}} \\frac{e^{\\alpha_o^{(i,j)}}}{\\sum_{o'} e^{\\alpha_{o'}^{(i,j)}}} \\cdot o(x) $$ Mesin raksasa Google kini bisa langsung menghitung turunan derivatif bobot arsitektur absolut ini menggunakan komputasi gradien gradient descent matematis telanjang murni dari belakang secara sadis, me-lakukan tuning ribuan koneksi tanpa meraba konyol secara tebak-tebakan naif dari awal.",
+                "contoh_nyata": "Jaringan mesin Google EfficientNet yang seketika merebut mendepak mahkota takhta arsitect CNN manusia (ResNet dkk) pada hari rilisnya. Didesain dicipta utuh murni 100% oleh rahim sistem algoritma pencarian evolusi bot NAS Google AutoML mandiri."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Tak ada Visualizer Khusus. Akhir dari Pembelajaran Ensiklopedia Modul 28.",
+        "references": [
+            {
+                "kode": "AML-01",
+                "sitasi": "Elsken, T. et al. (2019). Neural Architecture Search: A Survey. JMLR.",
+                "url": "",
+                "bab": "Konsep Dasar NAS DARTS"
+            }
+        ]
+    }
+]

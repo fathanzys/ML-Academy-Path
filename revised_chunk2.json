@@ -1,0 +1,249 @@
+[
+    {
+        "id": "MOD-08",
+        "rumpun_id": "R4",
+        "nomor": 8,
+        "judul": "Convolutional Neural Networks (CNN)",
+        "objektif": "Memahami bagaimana AI 'melihat' dan membedah gambar layaknya mata biologis hewan.",
+        "topik": [
+            "Mengapa Gambar Sulit Dipahami Komputer?",
+            "Operasi Konvolusi: Kaca Pembesar AI",
+            "Pooling Layers: Menghemat Ruang Otak",
+            "Evolusi: Dari LeNet ke ResNet",
+            "Object Detection (YOLO)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Konvolusi: Cara Mata AI Bekerja",
+                "analogi": "Bayangkan detektif yang menelusuri lukisan raksasa menggunakan kaca pembesar kecil berukuran 3x3 cm. Dia tidak melihat gambar utuh sekaligus, melainkan menggesernya sedikit demi sedikit mencari pola dasar: garis lurus, sudut runcing, atau corak belang.",
+                "penjelasan_awam": "Dulu komputer kebingungan membedakan anjing dan kucing karena gambar hanyalah lautan angka piksel warna. **CNN** memecahkan masalah ini dengan mendesain sel otak yang bertindak sebagai 'filter mata'. Dari layar pertama yang sekadar mendeteksi 'garis', hingga layar terakhir yang pandai menyatukannya menjadi bentuk hidung bulat atau telinga kucing.",
+                "penjelasan_teknis": "Proses esensial ini disebut Operasi Konvolusi. Sebuah matriks Filter $\\mathbf{K}$ digeser perlahan (*sliding window*) melintasi seluruh kanvas gambar masukan $\\mathbf{I}$: $$ (\\mathbf{I} * \\mathbf{K})[i, j] = \\sum_{m} \\sum_{n} \\mathbf{I}[i+m, j+n] \\mathbf{K}[m, n] $$ Rahasia luar biasanya adalah *Parameter Sharing*: Alih-alih melatih jutaan sel saraf baru untuk menyisir pojok kiri dan pojok kanan gambar sediri-sendiri, CNN menggunakan filter detektor yang sama untuk menyapu *seluruh* area gambar. Ini menghemat bobot komputasi hingga ribuan kali lipat.",
+                "contoh_nyata": "Filter lucu di Instagram/TikTok yang menempel presisi di wajahmu, atau sistem kamera mobil otonom Tesla yang membedakan lampu merah, mobil depan, dan penyebrang jalan seketika.",
+                "image": "/images/cnn_vision_concept.png"
+            },
+            {
+                "judul": "Pooling Layer & Arsitektur Legendaris",
+                "analogi": "Seperti melihat papan reklame raksasa di jalan tol: kamu tak butuh detail resolusi 4K untuk tahu itu iklan burger. Kamu memicingkan mata (mengecilkan resolusi) untuk menangkap inti informasinya.",
+                "penjelasan_awam": "Setelah AI menemukan fitur penting di suatu area, ia tak butuh lagi ukuran sisa gambar resolusi tingginya. Layar arsitektur CNN disisipi **Pooling Layer** yang bertugas 'menciutkan' ukuran gambar berulang kali. Ini menekan ukuran file agar tak membuat memori komputer komputer jebol meledak.",
+                "penjelasan_teknis": "Implementasi terpopuler adalah **Max Pooling**: menyeleksi angka intensitas sinyal paling terang (paling tinggi) dari petak bujursangkar $2 \\times 2$ pixel dan membuang 3 sisa angka resolusi di bawahnya. Secara historis, evolusi CNN dari LeNet (mengenali angka pos zip 1998) hingga *ResNet* (Microsoft 2015). Di era modern algoritma revolusioner bernama **YOLO** *(You Only Look Once)* menyapu jagat industri karena kemampuannya meletakkan ratusan kotak penanda (*Bounding Box*) pada berbagai objek sekaligus hanya dalam sekali memindai frame.",
+                "contoh_nyata": "Polantas menggunakan algoritma YOLO di kamera jalan tol untuk menghitung jumlah jenis mobil hibrida vs truk secara live 60 fps tanpa delay macet komputasi."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Kaca pembesar interaktif yang menggeser filter CNN (Konvolusi buatan 3x3) di atas gambar monokrom, menampakkan angka intensitas pixel aslinya.",
+        "references": [
+            {
+                "kode": "CV-01",
+                "sitasi": "LeCun et al. (1998). Gradient-based learning applied to document recognition. Proc. IEEE.",
+                "url": "",
+                "bab": "Konsep LeNet-5 Convolution"
+            }
+        ]
+    },
+    {
+        "id": "MOD-09",
+        "rumpun_id": "R4",
+        "nomor": 9,
+        "judul": "Recurrent Neural Networks (RNN) & LSTM",
+        "objektif": "Memahami bagaimana AI memperoleh 'Ingatan Jangka Pendek' untuk memproses data rentetan urutan, seperti teks bahasa manusia dan gelombang suara.",
+        "topik": [
+            "Mengatasi Waktu: Urutan Itu Penting",
+            "Arsitektur Loop Putar RNN",
+            "Masalah Ingatan Pendek (Vanishing Gradient)",
+            "LSTM: Sel AI dengan Katup Memori"
+        ],
+        "materi_detail": [
+            {
+                "judul": "RNN: AI Pertama yang Punya Ingatan Konteks",
+                "analogi": "Jika membaca buku novel dari tengah, kamu pasti bingung. Kamu harus membaca dari halaman pertama dan mempertahankan cerita masa lalu di kepalamu. Begitu pula AI bahasa.",
+                "penjelasan_awam": "Model Feed-Forward AI standar sangat pelupa; setiap kali melihat kata baru, ia lupa kata sebelumnya. **RNN** adalah desain terobosan yang memutar masuk kembali (me-*looping*) hasil tebakan sebelumnya ke dalam piringan telan input yang sekarang.",
+                "penjelasan_teknis": "State ingatan tersembunyi (Hidden State) $h_{t}$ dihitung berdasarkan input saklar pintu $x_t$ saat ini DAN state waktu sebelumnya $h_{t-1}$: $$ h_t = \\tanh(\\mathbf{W}_{hh} h_{t-1} + \\mathbf{W}_{xh} x_t + b) $$ Oleh karena itu, kata sandang 'Budi' di kalimat paling sakral di halaman pertama masih akan tersimpan jejak voltase gaungnya ketika membaca predikat 'pergi' sepuluh kata kemudian di penghujung paragraf.",
+                "contoh_nyata": "Keyboard Autocomplete di HP Android masa lampaimu menggunakan model dasar RNN untuk menebak kata lanjutannya secara probabilistik murni."
+            },
+            {
+                "judul": "LSTM: Saklar Lupaan yang Jenius",
+                "analogi": "RNN murni seperti kakek pikun yang mencoba mengingat daftar belanjaan 100 barang. Dia cuma hafal 3 barang terakhir dan melupakan semuanya di awal. LSTM memecahkannya dengan membawa catatan memo bersakelar: ia sadar memilih 'mencoret barang basi' dan mencatat prioritas penting jangka panjang.",
+                "penjelasan_awam": "Saat teksnya menjadi terlalu panjang (satu bab buku), sinyal ingatan RNN lama kelamaan melemah dan raib tak berbekas. Ilmuwan menghadirkan **LSTM (Long Short-Term Memory)** yang melengkapi sel otaknya dengan tiga gerbang rahasia: Gerbang Lupa, Gerbang Input, dan Gerbang Output.",
+                "penjelasan_teknis": "Melalui tiga gerbang Sigmoid $\\sigma$ rahasianya, LSTM secara eksak mengatur arus listrik *Cell State* rel utama komputernya. Gerbang saklar lupa $\\mathbf{f}_t$ sanggup mematikan ingatan tak berguna: $$ \\mathbf{f}_t = \\sigma(\\mathbf{W}_f \\cdot [h_{t-1}, x_t] + b_f) $$ Ketika komputasi kalkulus mengusut balik kesalahan sepanjang paragraf ratusan kata melintasi waktu (*Backpropagation Through Time / BPTT*), katup penahan ini menjamin aliran gardu turunan gradien tetap kokoh mengalir mundur dan mencegah hancurnya gradien menghilang jadi nol (*Vanishing Gradient Problem*).",
+                "contoh_nyata": "Google Translate versi 2016-2018 (sebelum era Transformer) seluruhnya ditenagai pasukan raksasa model LSTM bahasa untuk menerjemahkan paragraf artikel panjang dan rumit."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Alur jejak Hidden State (Memori) kalimat, di mana kita bisa merangkai kata demi kata untuk melihat sisa bayang ingatan dari kata awal.",
+        "references": [
+            {
+                "kode": "NLP-01",
+                "sitasi": "Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. Neural computation.",
+                "url": "",
+                "bab": "Solusi BPTT dengan LSTM"
+            }
+        ]
+    },
+    {
+        "id": "MOD-10",
+        "rumpun_id": "R4",
+        "nomor": 10,
+        "judul": "Attention Mechanism & Sekilas Transformer",
+        "objektif": "Belajar fondasi maha penting yang mentransformasi dunia AI hari ini: Bagaimana mesin belajar menaruh 'Fokus' dan Perhatian prioritas membaca secara bebas.",
+        "topik": [
+            "Mengapa LSTM Belum Cukup Bebas?",
+            "Konsep Self-Attention",
+            "Perhitungan Query, Key, Value (QKV)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Konsep Mencari Perhatian (Self-Attention)",
+                "analogi": "Ketika ada kalimat rumit 'Apel jatuh menabrak kaca karena ia matang', apakah 'ia' itu kaca atau apel? Bukannya membaca urut satu-satu bak robot kaku, manusia langsung melompat insting mengkoneksikan 'ia' dengan ciri 'matang' milik buah Apel. Itulah cara ajaib *Attention*.",
+                "penjelasan_awam": "Kelemahan patal RNN dan LSTM adalah mereka harus membaca sekuens teks lamban secara kaku dari awal sampai akhir seperti antrian loket. **Self-Attention** merevolusi tata cara ini: Memungkinkan AI menoleh meloncat dan membenturkan antar-kata secara bebas serentak dalam satu kalima sembari memilah mana kata yang butuh porsi prioritas lebih 'berbobot' untuk didengarkan.",
+                "penjelasan_teknis": "Algoritma menghitung skor perkawinan antara kata memakai 3 vektor turunan gaib tak berwujud: **Query (Q)** (Sifat apa yang sedang kubutuhkan?), **Key (K)** (Identitas asliku apa?), dan **Value (V)** (Mana isi sari murni makna diriku). Semua kata mengirim sinyalnya dan ditimbang oleh formulasi brilian Scaled Dot-Product: $$ \\text{Attention}(\\mathbf{Q}, \\mathbf{K}, \\mathbf{V}) = \\text{softmax}\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V} $$ Makin kuat perkalian persimpangan Key gembok dan Query kunci, makin dominan kata V tersebut diserat perhatiannya.",
+                "contoh_nyata": "Fitur deteksi konteks canggih di mesin pencarian web Google Search memahami sinonim maksud pengguna tanpa perlu harus ada kata absolut pelengkap tepat persis sama persis.",
+                "image": "/images/transformer_attention_concept.png"
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Kanvas Heatmap Interaktif yang mendenyutkan warna dominan mana kata yang menoleh ke fokus kata tetangga mana saat frasa dimasukkan.",
+        "references": [
+            {
+                "kode": "TR-01",
+                "sitasi": "Vaswani et al. (2017). Attention is All You Need. NIPS.",
+                "url": "",
+                "bab": "Formulasi Skala QKV"
+            }
+        ]
+    },
+    {
+        "id": "MOD-11",
+        "rumpun_id": "R4",
+        "nomor": 11,
+        "judul": "Arsitektur Transformer Modern",
+        "objektif": "Menyelami mesin ajaib yang merupakan dewa di balik tabir semua Super model mutakhir abad ini (GPT, BERT, Llama, Gemini).",
+        "topik": [
+            "Block Model Penuh Transformer",
+            "Multi-Head Attention",
+            "Positional Encoding",
+            "Feed Forward & Layer Normalization"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Multi-Head Attention & Posisi Kata",
+                "analogi": "Multi-Head Attention ibarat menyuruh 8 kritikus sastra membaca 1 puisi yang sama secara paralel bersamaan. Ada anggota panitia yang fokus menganalisa rima bunyi rimanya, ada juri lain yang mendedah murni muatan intrik politiknya.",
+                "penjelasan_awam": "Model yang berarsitektur Transformer sanggup membaca ratusan halaman dokumen sekaligus dari awal ke akhir dalam sekedipan detik (karena tidak mengantri urutan serial layaknya RNN). Agar tulisan acak paralel itu tetap paham siapa mendahului siapa, Transformer melabeli tempelan angka *Barcode Identitas Posisi* (Positional Encoding) pada tiap dahi kata secara berurutan.",
+                "penjelasan_teknis": "Dengan melipatgandakan hitungan proyektor ($h$ head) sekaligus di **Multi-Head Attention**, arsitektur ajaib ini melebarkan keragaman representasi. Dan untuk menjaga angka voltase listrik agar tak meluncur acak tumpang tindih selama ditumpuk di ratusan kubus raksasa *Deep Layer Building*, ditambahkanlah penstabil sakti mandraguna pengikat voltase listrik **Layer Normalization** di selingan tiap sela blok panggung asih tersebut dan jaringan otak padat linear (Feed Forward Network).",
+                "contoh_nyata": "Jagat Semesta ChatGPT dan Gemini 100% bergantung utuh bulat pada paten sistem perakitan arsitektur ini. Transformer sangat efisien di GPU paralel sampai dapat dilatih massal oleh megaskala cluster Google berkapasitas daya jutaan watt listrik gigahertz."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Alur urutan Encoder-Decoder Arsitektur yang ditelusuri per jalur aliran pipa anak panah sinyal voltasenya.",
+        "references": [
+            {
+                "kode": "TR-01",
+                "sitasi": "Vaswani et al. (2017). Attention is All You Need. NIPS.",
+                "url": "",
+                "bab": "Architecture Block Diagram"
+            }
+        ]
+    },
+    {
+        "id": "MOD-12",
+        "rumpun_id": "R4",
+        "nomor": 12,
+        "judul": "Encoder vs Decoder (BERT vs GPT)",
+        "objektif": "Mengupas tuntas pertarungan 2 sekte besar mutasi arsitektur raksasa di keluarga ras dewa AI.",
+        "topik": [
+            "Bidirectional vs Unidirectional",
+            "BERT: Sang Pemaham Isi Lengan Terbuka (Encoder)",
+            "GPT: Sang Pabrik Penghasil Kalimat (Decoder)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "BERT (Sekte Pembaca Kiri Kanan)",
+                "analogi": "BERT bagaikan editor novelis jenius. Ia membaca semua lembar cetakan draf tulisan depan-belakang, menutup satu kata kosong secara iseng di tangat kata tengah kalimat, lalu ia diuji untuk menebak menambal isi frasa itu persis sempurna berkat melihat sisa teks yang ada sebelum & sesudahnya secara absolut.",
+                "penjelasan_awam": "**BERT** (buatan Google) menggunakan porsi blok depan Transformer (Encoder). Jaringan otaknya dibiag bebas memandang bocoran kata dari depan dan belakang kalimat secara ugal-ugalan penuh arah (Bidirectional). Dia sangat digdaya untuk mengklasifikasi sentimen emosi review dan membedah gramatikal analisis bahasa tertulis mendalam absolut.",
+                "penjelasan_teknis": "Pre-trainingnya sangat khas memakai rahasia dewa **Masked Language Modeling (MLM)**: Sekitar 15% dari kalimat masukan wikipedia disengaja diblur oleh label `[MASK]`. BERT dipaksa mengolah loss loss loss fungsi konfidensi softmax dari silangan seluruh matriks Vektor Kiri Kanan demi menduga probabiliras *cross entropy* token tersebut yang sebenarnya sembunyi.",
+                "contoh_nyata": "Google Search Mesin Pencarian merajai singgasana dengan menggunakan algoritma internal ini semenjak tahun 2019 dalam rangka merevolusi radikal cara mereka secara persis mendeteksi pencarian sinonim niat manusia via ketikan browser naif."
+            },
+            {
+                "judul": "GPT (Sekte Penembak Sinyal Searah)",
+                "analogi": "GPT seperti kamu main tebak sambungan lagu pop dangdut yang familiar. Kamu menyanyi dari kata awal bait lirik satu persatu ke kata depannya buta total dari belakangnya tak bisa mengintip dan hanya dikunci maju 1 arah serial linear absolut menyusun rima frasa seiringan bergulirnya irama lagu.",
+                "penjelasan_awam": "**GPT (Generative Pre-trained Transformer)** (buatan OpenAI) adalah raja pabrik kreatif halusinasi mesin saat ini. Dia dilatih dengan paksaan kejam tak wajar secara membuta matanya sepihak (Causal Attention Masking) untuk meretas prediksi seribu kalimat fiksional baru secara konstan dari angin kehampaan murni.",
+                "penjelasan_teknis": "Murni memanjat tangga probabilitas rantai autoregresi berbayang: $P(w_t | w_1, \\dots, w_{t-1})$. Di ranah mesin *Decoder-Only*, kotak gelap Causal Mask melarang mesin melihat siluman masa depan di depannya (Kata ke-N tak diizinkan sama sekali melakukan proses curi dengar cross-attention meraba nilai Key & Value token Kata ke-N+1).",
+                "contoh_nyata": "Si legenda hidup abadi pencicip tahta milyar dollar: ChatGPT OpenAI, xAI Grok Elon musk, Meta Llama. Semuanya murni berbasis dekoder mutasi sekte generatif searah tanpa sela."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Demo mini tebakan Kata rumpang ala arsitektur Masked [MASK] BERT vs tebakan maju Autocomplete ala Autoregressive GPT.",
+        "references": [
+            {
+                "kode": "NLP-03",
+                "sitasi": "Devlin, J., et al. (2018). BERT: Pre-training of Deep Bidirectional Transformers.",
+                "url": "",
+                "bab": "Konsep MLM Objective"
+            }
+        ]
+    },
+    {
+        "id": "MOD-13",
+        "rumpun_id": "R5",
+        "nomor": 13,
+        "judul": "Generative AI & Model Disfusi (Diffusion)",
+        "objektif": "Cara AI tak cuma pintar baca tapi bisa mahir menyulap gambar baru dari udara murni tak berwujud.",
+        "topik": [
+            "Latent Space & Generative World",
+            "Model Difusi (Midjourney/Stable Diffusion)",
+            "Forward Diffusio (Manambah Debu Noise)",
+            "Reverse Denoising Process (Seni Patung Murni)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Menjadikan Debu Menjadi Mutiara (Denoising Diffusion)",
+                "analogi": "Difusi itu ilmu kebalikan perusak gambar. Kita sodorkan di awal sebuah lukisan foto cantik anjing corgi, trus AI iseng menghancurkan lukisan tsb sedikit demi sedikit setiap detik disebar debu cat putih (Noise) hingga seutuhnya jadi TV rusak. Nah, pas AI disuruh tes melukis wujudkan mahakaryanya sendiri... Dia dilatih keras buat mengingat MUNDUR mengais debu rusak kembali dibersihkan pelan-pelan murni meraba ingatan butanya sampai tercipta figur corginya kembali dari rona kerusakan debu tadi!",
+                "penjelasan_awam": "Model raksasa pencipta gambar ajaib terkini Midjourney & Dall-E tak merapal sulap, ia sekadar melatih seribu serdadu otaknya jadi pakar pembersih kotoran debu (Denoise). Dari kanvas TV kresek murni tak beraturan (Gaussian Noise), mesin telaten mengamplas bercak-bercak cacat sesuai petunjuk mantra kalimat ketikkan promt bahasamu hingga bayangan tajam kuda berhelm terbang itu secara ilusi optis tiba-tiba mewujud.",
+                "penjelasan_teknis": "Landasan inti proses Markov Chain. *Forward Process* rahasia menambah porsi bauran sebaran noise $\\epsilon$ perlahan menghancurkan foto secara gradual konstan $x_0 \\to x_T$. Model Neural Network *U-Net* di bawah jembatan lantas dilatih ketat melulu pada misi tunggalnya memprediksi balik jumlah dosis noise beracun di titik $\\epsilon_\\theta(x_t, t)$ tsb, sebelum di-*Reverse* pelan mundur terestorasi sempurna menggapai resolusi nyata kembali. Kondisi panah teks yang merangsek membimbing arah formasi restorasi difusi gambar ini dinamakan *Classifier-Free Guidance*.",
+                "contoh_nyata": "Desainer interior memakai model StableDiffusion *ControlNet* untuk mengepakkan sketsa garis corat-coret pinsil arsitek tangan jelek draf menjadi wujud renderan ruangan hotel 3D photorealistic paripurna megah senilai sewa triliun rupiah.",
+                "image": "/images/media__1772346157221.png"
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Tak ada Visualizer Khusus.",
+        "references": [
+            {
+                "kode": "GEN-01",
+                "sitasi": "Rombach, R. et al. (2022). High-Resolution Image Synthesis with Latent Diffusion Models. CVPR.",
+                "url": "",
+                "bab": "Konsep Latent Spaces"
+            }
+        ]
+    },
+    {
+        "id": "MOD-14",
+        "rumpun_id": "R5",
+        "nomor": 14,
+        "judul": "LLM Murni, Rag, & Tuning",
+        "objektif": "Cara merakit sendiri otak pintar sistem chat cerdas perusahaan korporasi khusus tanpa bocor halusinasi.",
+        "topik": [
+            "Tokenisasi & Perbendaharaan Kosa Kata",
+            "Scaling Law Besar-besaran Teks",
+            "PEFT & LoRA (Modif Otak Minimalis)",
+            "RAG (Ingatan Eksternal Anti-Halusinasi)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "RAG (Retrieval-Augmented Generation)",
+                "analogi": "Menanya ujian biologi super susah ke Llama/ChatGPT sama seperti meminta resep masak dokter bedah, ia bakal ngarang gila-gilaan berhalusinasi ria asal bunyi mirip pakar (Halusinasi). RAG (Retrieval) ini seperti menyogokkan dulu kertas contekan ensiklopedi Wikipedia *secara sembunyi-sembunyi dan otomatis* ke pangkuan si mesin Detik sebelum ia tergesa menembak ketikan baris teks kalimat ke layarmu murni menjawabnya.",
+                "penjelasan_awam": "Sistem **RAG** mengintegralkan paksa otak model pencari (*Search Engine Vector Database*) berdampingan mulus dengan kepiawaian menyusun kalimat sang LLM. Kalau kita di kantoran bertanya \"Berapa bonus divisi marketing C?\", mesin wajib otomatis lompat terbang membuka brankas file PDF internal SDM perusahaan dahulu, membaca angka nominal data gajinya mutlak, baru ia disuapkan secara khusus ke prompt Chat AI untuk menjawab bahasamu.",
+                "penjelasan_teknis": "Lini eksekusi arsitekturnya pecah mutlak terbagi 2 pilar dewa: (1) Mesin *Retriever* memecah arsip triliunan bit teks dokumen PDF jadi jejak koordinat titik spasial *Vector Embeddings* di dalam ruang gema geometri milisekon. Ketika user mengetik prompt pertanyaan bimbang nan rancu $Q$, perhitungan sudut derajat kemiringan garis Cosine Similarity $\\approx \\cos(\\theta)$ diseret merampok teks terdekat. (2) Hasil tangkapan berkarung kutipan data tersebut baru dipatenkan (*Augmented*) membalut kuku melingkari Prompt panjang input sebelum diledakkan dieksekusi memuntahkan deret token jawaban absolut sang *Generator LLM*.",
+                "contoh_nyata": "Bank megabesar internasional JPMorgan memfasilitasi 200 ribu karyawan internnya sistem Chatbot AI pengakses miliaran panduan SOP reguler super rahasia berdinding benteng komputasi RAG memutus bahaya kebocoran internet."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Sistem injeksi dokumen RAG ke dalam tab prompt sebelum disubmit model untuk mencegah bias mesin!",
+        "references": [
+            {
+                "kode": "LLM-01",
+                "sitasi": "Lewis, P., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS.",
+                "url": "",
+                "bab": "Konsep Utama RAG Formulasi"
+            }
+        ]
+    }
+]

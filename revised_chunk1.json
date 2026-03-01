@@ -1,0 +1,310 @@
+[
+    {
+        "id": "MOD-01",
+        "rumpun_id": "R1",
+        "nomor": 1,
+        "judul": "Apa itu AI? (Sejarah & Konsep Dasar)",
+        "objektif": "Memahami pondasi utama AI dan bedanya dengan program komputer biasa yang kaku.",
+        "topik": [
+            "Definisi AI: Kecerdasan Mesin",
+            "Kecerdasan Buatan Klasik (Search Algorithms)",
+            "Pemrograman Aturan Baku Vs ML",
+            "Taksonomi AI: Narrow AI vs AGI vs Superintelligence"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Classical AI & Mesin Inferensi",
+                "analogi": "Bayangkan AI Klasik seperti robot yang menyusuri labirin dengan mencoba setiap lorong satu per satu sampai ketemu jalan keluar. Sedangkan Machine Learning seperti burung yang melihat labirin dari atas dan langsung tahu jalurnya karena sudah sering melihat labirin serupa.",
+                "penjelasan_awam": "Dulu sebelum ada Machine Learning, AI diciptakan dengan mengetikkan ribuan aturan *IF-THEN* (JIKA-MAKA) secara manual. Pendekatan ini disebut AI Klasik. Alih-alih belajar, AI ini hanya bekerja keras menelusuri semua kemungkinan secara buta.",
+                "penjelasan_teknis": "Dalam AI Klasik, kita menggunakan algoritma pencarian teliti seperti *Breadth-First Search (BFS)* atau heuristik *A-Star (A*)*. Inti kerjanya adalah mencari rute terpendek dengan fungsi $f(n) = g(n) + h(n)$, di mana $g(n)$ adalah jarak yang sudah ditempuh dan $h(n)$ adalah tebakan sisa jarak ke tujuan. Kelemahannya? Sangat kaku. Komputer catur lawas seperti Deep Blue mengalahkan juara dunia Kasparov bukan karena komputer itu *paham* catur, melainkan karena ia menghitung jutaan langkah ke depan menggunakan algoritma *Minimax* murni.",
+                "contoh_nyata": "NPC musuh di game jadul yang gerakannya selalu sama, atau aplikasi GPS awal yang murni menghitung jarak antar titik tanpa memperhitungkan kemacetan realtime.",
+                "image": "/images/ai_timeline.png"
+            },
+            {
+                "judul": "Definisi Machine Learning Modern",
+                "analogi": "Mengajarkan Machine Learning itu persis seperti melatih anak kecil mengenali kucing. Kamu tidak memberinya buku manual biologi tentang kucing, kamu cukup menunjukkan 100 foto hewan dan berkata, *Ini kucing, ini bukan*. Nantinya, otaknya akan otomatis paham polanya.",
+                "penjelasan_awam": "Hari ini, AI yang sedang tren semuanya berbasis *Machine Learning (ML)*. Bedanya apa? ML tidak diprogram dengan instruksi manual. Kita cukup menyuapkan *contoh data* yang sangat banyak, dan membiarkan mesin itu sendiri yang mencari polanya.",
+                "penjelasan_teknis": "Secara matematis, Machine Learning adalah seni mencari tebakan fungsi persamaan matematika yang paling cocok dengan data sejarah. Diberikan ribuan data, tujuan akhirnya adalah meramu bobot $h$ yang memiliki angka kesahalan terendah (Empirical Risk): $$ \\hat{h} = \\arg\\min_{h \\in \\mathcal{H}} \\frac{1}{n}\\sum_{i=1}^n L(h(x_i), y_i) $$ Keterangan:\n- $L$ adalah rumus *Loss Function*, yaitu cara AI menghitung seberapa jauh tebakannya meleset dari jawaban asli yang disyaratkan.",
+                "contoh_nyata": "Google Translate modern yang belajar menebak terjemahan bahasa berdasarkan jutaan artikel dwi-bahasa di internet, atau sistem YouTube yang tahu video apa yang bikin kamu betah berjam-jam."
+            },
+            {
+                "judul": "Taksonomi AI: Narrow AI vs AGI",
+                "analogi": "Narrow AI itu seperti atlit olimpiade lari jarak pendek, dia sangat jenius berlari tapi tidak bisa berenang. Sedangkan AGI adalah manusia super yang jago lari, berenang, melukis, sekaligus memasak masakan padang.",
+                "penjelasan_awam": "Perlu diingat: Semua AI secanggih ChatGPT hari ini masih berada di level *Narrow AI* (AI Sempit/Spesialis). Mereka hanya ahli di satu bidang spesifik. Kita belum mencapai *AGI (Artificial General Intelligence)* — mesin dewa yang bisa menalar, berpikir abstrak, dan mengerjakan apa pun senatural manusia.",
+                "penjelasan_teknis": "Level kecerdasan AI terbagi 3:\n- **ANI (Narrow Intelligence)**: Task-spesifik. Model dilatih pada distribusi data yang sempit (contoh: LLM hanya memprediksi token bahasa).\n- **AGI (General Intelligence)**: Hipotesis model yang memiliki fleksibilitas kognitif lintas-domain, setara kecerdasan manusia seutuhnya.\n- **ASI (Superintelligence)**: Level saat *General Intelligence* berkembang mengalahkan akal manusia terbaik di setiap bidang yang ada. Ini adalah fokus ketakutan utama para pakar AI safety.",
+                "contoh_nyata": "Siri di HP kita adalah *Narrow AI*. Dulu di era 80an, ada sistem pakar bernama MYCIN untuk mendiagnosis penyakit darah. Dia lebih hebat dari dokter, tapi karena dia hanyalah sistem rule-based, kalau ditanya resep kue bolu dia akan error."
+            }
+        ],
+        "kesulitan": "🟢 Mudah",
+        "visualisasi_interaktif": "Garis waktu (Timeline) Sejarah AI dengan checkpoint interaktif tahunan dari era Expert Systems hingga Deep Learning.",
+        "references": [
+            {
+                "kode": "ML-02",
+                "sitasi": "Russell & Norvig (2020). Artificial Intelligence: A Modern Approach.",
+                "url": "",
+                "bab": "Bab 1: Sejarah & Konsep Kesadaran AI"
+            }
+        ]
+    },
+    {
+        "id": "MOD-02",
+        "rumpun_id": "R1",
+        "nomor": 2,
+        "judul": "Cara Komputer Belajar (Tahapan ML)",
+        "objektif": "Melihat dapur belakang bagaimana setumpuk data mentah disulap menjadi model pintar yang bisa memprediksi.",
+        "topik": [
+            "Pembersihan Data (Data Preprocessing)",
+            "Tiga Alur Utama: Input -> Train -> Predict",
+            "Algoritma Gradient Descent",
+            "Learning Rate Scheduling",
+            "Batch vs Mini-Batch GD"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Data Preprocessing: Mencuci Bahan Baku",
+                "analogi": "Kamu tak bisa memasukkan ayam berbulu berlumpur langsung ke mesin penggiling sosis. Ayamnya wajib dicuci bersih, dicabut bulunya, dan dipotong kecil-kecil sesuai wadahnya. Begitu pula dengan data.",
+                "penjelasan_awam": "Tugas paling menyita waktu dari seorang *Data Scientist* bukanlah membuat rumus AI, melainkan membersihkan data yang kotor (Data Preprocessing). Mesin AI hanya mengerti angka pasti, jadi semua teks, warna, atau lokasi wajib diubah jadi deretan angka. Data bolong (hilang) harus diisi atau dibuang.",
+                "penjelasan_teknis": "Dalam industri, data akan kita pecah menjadi 3 partisi mutlak: *Train, Validation, dan Test Set* untuk memastikan model tidak menghafal jawaban (*Data Leakage*).\n- Data teks/kategori akan dirombak menjadi kode biner (*One-Hot Encoding*).\n- Angka ekstrem (misal gaji vs umur) diseragamkan timbangannya memakai rumus *Standard Scaler (Z-score)*: $$ x_{scaled} = \\frac{x - \\mu}{\\sigma} $$ Dengan begini, AI tidak akan menganggap 'gaji 5 juta' lebih penting dari 'umur 25' hanya karena nominal angkanya lebih besar.",
+                "contoh_nyata": "Sistem persetujuan kartu kredit bank mengubah kolom 'Jenis Kelamin' menjadi format deret angka seperti `[1,0]` sebelum disuapkan ke algoritma pelacak pola."
+            },
+            {
+                "judul": "Mendaki Turun Gunung: Gradient Descent",
+                "analogi": "Bayangkan orang buta yang diturunkan di puncak gunung. Untuk turun, ia memakai tongkat dan kakinya meraba tanah. Ia melangkah perlahan ke arah mana pun yang dirasa paling curam menurun.",
+                "penjelasan_awam": "Inti dari proses belajar AI adalah mencari titik di mana nilai kesalahan (error)-nya paling rendah atau nol. AI melakukan ini sambil 'meraba-raba' grafik error menggunakan taktik canggih bernama *Gradient Descent*.",
+                "penjelasan_teknis": "Setiap putaran belajar, komputer akan merevisi tebakannya (memperbarui bobot parameter $\\theta$) ke arah yang berlawanan dengan kemiringan kurva error $J(\\theta)$: $$ \\theta := \\theta - \\alpha \\nabla_{\\theta} J(\\theta) $$ Keterangan:\n- $:= $ artinya 'mengganti nilai yang lama menjadi yang baru'\n- $\\alpha$ (alpha) adalah *Learning Rate* (Seberapa lebar langkah si orang buta).\n- $\\nabla_{\\theta} J(\\theta)$ adalah arah kemiringan paling curam ke lembah error.",
+                "contoh_nyata": "Saat Netflix berlatih menebak genre film favoritmu, setiap kali tebakannya salah, Gradient Descent akan sedikit memutar 'keran' bobotnya sampai rekomendasinya makin lama makin akurat.",
+                "image": "/images/ml_pipeline.png"
+            },
+            {
+                "judul": "Seni Mengatur Langkah: Learning Rate & Batch",
+                "analogi": "Batch GD: Membaca SELURUH halaman buku 1000 halaman, baru mencatat ringkasan. Stochastic GD: Baca 1 baris, catat, baca lagi. Mini-Batch: Baca per BAB saja, lebih pas dan cepat.",
+                "penjelasan_awam": "Seberapa lebar langkah dari puncak gunung tadi? Jika langkahnya kejauhan, AI akan melompati titik terendah. Jika kekecilan, sampainya bertahun-tahun. Menyetel hal ini (*Hyperparameter Tuning*) adalah seni meracik resep AI.",
+                "penjelasan_teknis": "Untuk menghemat waktu komputasi, industri menggunakan *Mini-Batch Gradient Descent*. Alih-alih menghitung *error* dari sejutaa data sekaligus, mesin akan memasukkannya sedikit demi sedikit (misal paket 64 data). Kemudian, kita atur jadwal kecepatan langkahnya (*Cosine Annealing*) agar di awal AI melangkah cepat, tapi saat hampir sampai dasar lembah, langkahnya direm melambat secara kosinus agar mulus mendarat di titik kerugian minimal.",
+                "contoh_nyata": "Google melatih model bahasanya dengan strategi *Linear Warm-up*, di mana kecepatan belajarnya (Learning Rate) pelan di awal mesin menyala, sangat agresif di pertengahan, dan super hati-hati di akhir."
+            }
+        ],
+        "kesulitan": "🟢 Mudah",
+        "visualisasi_interaktif": "Pipeline visual di mana kamu bisa mencoba menambah/mengurangi learning rate untuk menggerakkan bola menuruni lembah fungsi.",
+        "references": [
+            {
+                "kode": "ML-01",
+                "sitasi": "Goodfellow et al. (2016). Deep Learning. MIT Press.",
+                "url": "https://www.deeplearningbook.org/",
+                "bab": "Optimization for Training"
+            }
+        ]
+    },
+    {
+        "id": "MOD-03",
+        "rumpun_id": "R2",
+        "nomor": 3,
+        "judul": "Bias, Variance & Under/Overfitting",
+        "objektif": "Memahami kutukan utama pelatih AI: Model yang terlalu malas melawan model yang sekadar menghafal mati.",
+        "topik": [
+            "Overfitting: Menghafal tanpa Memahami",
+            "Underfitting: Model yang Kelewat Malas",
+            "Trade-off Bias dan Variance",
+            "Solusi Praktis: Regularisasi & SMOTE"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Penyakit Overfitting (Hafal Mati)",
+                "analogi": "Ini seperti murid yang menghafal mati seluruh buku paket Matematika. Di ujian try-out (di rumah) nilainya 100, tapi saat ujian nasional sungguhan dengan angka soal yang diubah sedikit, jawabannya hancur berantakan.",
+                "penjelasan_awam": "**Overfitting** terjadi saat mesin AI terlalu perfeksionis membaca data latihannya. Saking getolnya, AI ini sampai ikut-ikutan mempelajari *noise* atau sampah acak yang seharusnya diabaikan. Akibatnya, AI gagal memprediksi data dunia nyata yang belum pernah ia lihat.",
+                "penjelasan_teknis": "Overfitting memanifestasikan dirinya sebagai grafik error: *Training Error* mendekati angka nol mutlak, sedangkan *Validation Error* tiba-tiba meroket tajam tinggi. Ini menunjukkan *Model Complexity* sudah melanggar ambang batas ideal kapasitas memori jaringan, sehingga pola yang direkam kehilangan kemampuan interpolasi general (High Variance).",
+                "contoh_nyata": "CCTV pengenal wajah kriminal yang akurasinya 99% di pabrik pembuatnya, tapi langsung gagal total kebingungan mengenali orang begitu dipasang di jalanan yang minim cahaya (dunia nyata)."
+            },
+            {
+                "judul": "Underfitting (Terlalu Sederhana & Malas)",
+                "analogi": "Ibarat memaksakan seragam renang anak SD untuk dipakai atlet sumo besar. Ukurannya terlalu sempit untuk menangkap keseluruhan bentuk asli badan sang sumo.",
+                "penjelasan_awam": "**Underfitting** adalah kebalikannya: Model AI terlalu bodoh dan tebakannya terlampau lurus. AI tidak berhasil menangkap pola rumit apapun dari data karena 'kapasitas otaknya' terlalu kecil atau durasi belajarnya terlalu sebentar.",
+                "penjelasan_teknis": "Terjadi ketika model diasumsikan kelewat kaku (*High Bias*). Misalnya memaksakan algoritma tarikan garis lurus konvensional (*Linear Regression*) untuk memecahkan fluktuasi data penjualan kripto yang super bergelombang non-linear. Secara kuantitatif: *Training Error* dan *Validation Error* sama-sama tertahan stagnan di angka sangat tinggi.",
+                "contoh_nyata": "Aplikasi ramalan cuaca bodong yang tebakannya *selalu* 'Cerah' setiap musim karena mesin algoritmanya cuma mendeteksi matahari secara naif tanpa baca kelembaban awan."
+            },
+            {
+                "judul": "Keseimbangan Kosmik: Bias-Variance Tradeoff",
+                "analogi": "Bayangkan memanah 10 anak panah. High Bias: Semua panah numpuk meleset di pojok kiri atas (Konsisten Salah). High Variance: Panah terpencar acak ke segala arah tapi rata-ratanya kena tengah (Pusing, Tidak Stabil). Kita ingin panah itu numpuk berkumpul di tengah!",
+                "penjelasan_awam": "Rahasia master AI adalah seni menyeimbangkan antara model yang terlalu kaku (*Bias*) dan model yang terlalu lembek/gampang bergetar (*Variance*). Jika kita turunkan satu, yang lainnya biasanya naik. Kuncinya adalah mencari *Sweet Spot* di tengah.",
+                "penjelasan_teknis": "Persamaan dekomposisi Error Generalisasi: $$ Error = Bias^2 + Variance + Irreducible \\_ Noise $$\\nSolusi standar untuk meredam Variance (menghindari hafalan) adalah dengan **L1/L2 Regularization** yang memberikan penalti pajak supaya AI tak membuat bobot parameter yang meledak liar. Jika datanya jomplang parah secara jumlah kelas, kita bisa melakukan interpolasi data palsu menggunakan algoritma sintetik modern bernama **SMOTE**.",
+                "contoh_nyata": "Trik mengajari mobil *self-driving* Tesla. Jika mesinnya dibiarkan terlalu liar menghafal trotoar tes, ia akan gampang tabrakan di kota baru. Teknisi Tesla menyetrum modelnya agar lebih disiplin dengan Regularisasi Dropout.",
+                "image": "/images/supervised_vs_unsupervised_concept.png"
+            }
+        ],
+        "kesulitan": "🟢 Mudah",
+        "visualisasi_interaktif": "Slider interaktif di mana kamu bisa menggeser sumbu kompleksitas regresi garis terhadap data dari keras kaku (Underfit) hingga meliuk-liuk ekstrem (Overfit).",
+        "references": [
+            {
+                "kode": "ML-03",
+                "sitasi": "Domingos, P. (2012). A few useful things to know about machine learning. Communications of the ACM.",
+                "url": "",
+                "bab": "Konsep Keseimbangan Prediksi"
+            }
+        ]
+    },
+    {
+        "id": "MOD-04",
+        "rumpun_id": "R2",
+        "nomor": 4,
+        "judul": "Supervised Learning (Klasifikasi & Regresi)",
+        "objektif": "Menguasai algoritma andalan ketika kita memiliki data lengkap yang sudah memiliki kunci jawaban.",
+        "topik": [
+            "Perbedaan Klasifikasi vs Regresi",
+            "Decision Trees & Random Forest",
+            "Support Vector Machine (SVM)",
+            "K-Nearest Neighbors (KNN)",
+            "Cara Baca Confusion Matrix"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Regresi vs Klasifikasi",
+                "analogi": "Regresi itu menjawab pertanyaan *Berapa harganya?* (Angka bebas tanpa batas). Sedangkan Klasifikasi menjawab pertanyaan *Kategori yang mana? Anjing, Kucing, atau Tikus?* (Pilihan ganda mutlak).",
+                "penjelasan_awam": "Ketika data latihan kita punya 'kunci jawaban' (*labeled data*), kita pakai Supervised Learning. Terbagi jadi dua jalur: **Regresi** untuk menebak angka spesifik (misal: menebak harga rumah), dan **Klasifikasi** untuk mengotakkan benda ke keranjang-keranjang tertentu (misal: menebak email ini spam atau bukan).",
+                "penjelasan_teknis": "Regresi Linear akan mencoba menarik garis lurus terdekat $y = mx + c$ ke semua titik data yang tersebar. Sementara Klasifikasi, seperti *Logistic Regression*, akan menekan tebakan angka ke rentang persen persentase probabilitas absolut mulai dari $0$ hingga $1$ menggunakan fungsi meliuk Sigmoid: $$ \\sigma(x) = \\frac{1}{1 + e^{-x}} $$",
+                "contoh_nyata": "Sistem Zillow menebak estimasi nominal harga jual rumah (Regresi). Sistem Spam Gmail menebak apakah email penipu atau aman (Klasifikasi biner)."
+            },
+            {
+                "judul": "Algoritma Andalan: Decision Tree & SVM",
+                "analogi": "Decision Tree seperti kamu main tebak tokoh, bertanya: 'Apakah laki-laki?' jika iya 'Apakah artis?', membelah asumsi sampai mengerucut ke 1 orang. Sedangkan SVM seperti menarik tali pagar beton pembatas tanah selebar-lebarnya untuk membedakan dua geng yang sedang tawuran.",
+                "penjelasan_awam": "Dilihat dari cara 'berpikirnya':\n- **Decision Tree**: Memecah tebakan jadi bercabang-cabang sesuai aturan IF-THEN alami seperti diagram air terjun.\n- **K-Nearest Neighbor (KNN)**: Mesin AI 'ikut-ikutan' suara mayoritas dari 5 tetangga terdekat di sampingnya.\n- **Support Vector Machine (SVM)**: Menarik parit tebal pembatas murni yang menjaga jarak sejauh-jauhnya antar dua kubu musuh.",
+                "penjelasan_teknis": "**SVM** mencari garis lurus (hyperplane) dengan porsi margin maksimum $\\frac{2}{||w||}$. Luar biasanya, jika datanya saling kusut acak bagai donat tercampur dan tidak bisa digaris pakai penggaris, SVM pakai *Kernel Trick* ajaib (mengangkat donatnya ke alam 3 dimensi) sehingga bisa ditebas membelah donat dari atas secara sempurna. Untuk **Decision Tree**, cara ia mencari titik belah cabang didasarkan pada perhitungan skor kekacauan matematika (Gini Impurity atau Entropi).",
+                "contoh_nyata": "Teknologi medis lama memprediksi risiko penyakit jantung pasien menggunakan sekumpulan cabang if-else Decision Tree karena hasil tebakannya sangat mudah dibaca/diaudit oleh dokter manusia."
+            },
+            {
+                "judul": "Menilai Kelulusan AI: Confusion Matrix",
+                "analogi": "Bayangkan AI sebagai detektor logam gawang bandara. Mesin berbunyi nyaring padahal kamu cuma bawa kunci motor (False Positive / Alarm Palsu). Atau skenario terburuk: Kamu bawa pedang mematikan tapi mesin diam saja dan meloloskan (False Negative / Kecerobohan Fatal).",
+                "penjelasan_awam": "Akurasi persenan saja sering menipu! Apalagi jika di rumah sakit mayoritas pasien itu sehat. Alat detektor penyakit tidak boleh kelolosan pasien menular (*False Negative*). Tabel skor rapor AI yang mendetail membedah 4 kemungkinan benar/salah ini bernama **Confusion Matrix**.",
+                "penjelasan_teknis": "Dari kuadran ini, lahir tiga metrik maha-penting:\n- **Precision** $= \\frac{TP}{TP + FP}$ : Dari semua bunyi alarm bahaya mesin, berapa persen kejadian bahaya fiktif di dunia nyata?\n- **Recall** $= \\frac{TP}{TP + FN}$ : Dari *semua* orang yang aslinya terinfeksi, berapa banyak malapetaka yang sukses disaring tangkap detektor?\\n- **F1 Score** : Jalan tengah rerata harmonik mutlak antara metrik penganut madzhab kesempurnaan (Precision) dengan penganut razia besar-besaran (Recall) $$ F_1 = 2 \\times \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}} $$",
+                "contoh_nyata": "Aplikasi diagnosa sel kanker mutlak memprioritaskan skor **Recall**. Jauh lebih baik dokter kaget dan periksa ulang 100 orang sehat (alarm palsu), ketimbang secara tragis meloloskan 1 pesakitan tanpa sengaja yang berujung kematian."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Kotak pasir (Playground) simulasi tarikan batas regresi klasifikasi SVM & Decision Tree secara real-time.",
+        "references": [
+            {
+                "kode": "ML-04",
+                "sitasi": "Bishop, C. M. (2006). Pattern Recognition and Machine Learning.",
+                "url": "",
+                "bab": "Metrik Evaluasi Pola AI"
+            }
+        ]
+    },
+    {
+        "id": "MOD-05",
+        "rumpun_id": "R2",
+        "nomor": 5,
+        "judul": "Unsupervised Learning (Mencari Pola Tersembunyi)",
+        "objektif": "Cara kerja AI saat dilepas membaca jutaan data tanpa diberi embel-embel 'kunci jawaban' label apapun oleh manusia.",
+        "topik": [
+            "Bagaimana Mesin Memetakan Kesamaan",
+            "K-Means Clustering",
+            "Silhoutte Score & Hierarchical Clustering",
+            "Deteksi Anomali Jaringan"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Clustering: Taktik Menjajah Pasar Murni Mengelompokkan Kesamaan",
+                "analogi": "Bayangkan masuk ruangan dengan 1000 mainan LEGO berserakan tak berlabel. Tanpa baca kotak aslinya, kamu refleks langsung menceraikan tumpukan ke tumpukan blok balok merah ke pojok merah, balok biru di pojok biru.",
+                "penjelasan_awam": "Berbeda drastis dengan Supervised Learning, di ajaran **Unsupervised Learning** manusia sama sekali lepas tangan; TIDAK ada label, TIDAK ada kunci jawaban. AI dibiarkan telanjang memandangi data penjualan perusahaan selama setahun untuk mencari sendiri grup pelanggan mana yang berkelakuan mirip.",
+                "penjelasan_teknis": "Algoritma terpopuler abad ini adalah metrik *K-Means* iteratif. Kita minta AI menebak sejumlah $K$\n\n1. AI secara ngawur menjatuhkan bibit $K$ pin sentroid ke tengah peta lokasi data.\n2. Tiap titik pelanggan dipersatukan dengan pin terdekat (berbasis perhitungan jarak mistar Pythagoras *Euclidean distance*).\n3. Titik sentroid kemudian bermigrasi lamban berjalan menyesuaikan diri nangkring persis di pusat gravitasi gerombolnya.\n4. Roda diputar berulang-ulang sampai sentroid terkunci abadi tak sudi bergerak lagi.",
+                "contoh_nyata": "Mesin rekomendasi artikel Spotify/TikTok secara naif menebar pendengarnya berdasarkan selera 'terdekat', lalu mengirimkan musik dangdut bagi gerombolan yang terdeteksi suka dangdut."
+            },
+            {
+                "judul": "Cara Cerdas Menentukan Kelompok Valid? (Silhouette)",
+                "analogi": "Ini seperti memastikan geng anak sekolah. Geng dikatakan solid ideal jika orang-orangnya super akrab saling lengket dengan sesama geng mereka (kohesi padat), DAN secara terang-terangan jaga jarak menghindar bergaul dengan gerombolan luar geng lain (Separasi ekstrim).",
+                "penjelasan_awam": "Kalau AI main asak tebak mengelompokkan pengunjung web jadi 5 kelompok, bagaimana kita bisa menilai bahwa '5 kelompok' ini adalah keputusan cerdas dan berdasar? Jawabannya dengan mengukur metrik kedekatan.",
+                "penjelasan_teknis": "Data scientist akan menghitung **Silhouette Score** murni analitis (bergerak dari rentang ganjil -1 jelek sampai mulus sempurna +1). Metrik menghitung harmoni $a$ (jarak mesra ke teman setim) minus $b$ (jarak alienasi bermusuhan ke kluster geng tetangga): $$ S = \\frac{b - a}{\\max(a, b)} $$ Jika mau model yang mampu mendeteksi gugusan ruwet berliku mirip gurita yang tak bundar membulat normal, peneliti bisa memakai algoritma kerapatan bernama *DBSCAN* (Density-Based).",
+                "contoh_nyata": "Deteksi gerombolan bintang galaksi astronomi, dan klasifikasi otomatis jenis sel biologis hasil scan patologi penganugerahan medis yang berkelompok di cawan petri transparan."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Kanvas visual K-Means Scatter Plot interaktif untuk menemukan iterasi pembelahan kluster.",
+        "references": [
+            {
+                "kode": "ML-06",
+                "sitasi": "Hastie, Tibshirani, Friedman (2009). The Elements of Statistical Learning.",
+                "url": "",
+                "bab": "Unsupervised & Manifold Discovery"
+            }
+        ]
+    },
+    {
+        "id": "MOD-06",
+        "rumpun_id": "R3",
+        "nomor": 6,
+        "judul": "Fondasi Matematika Deep Learning",
+        "objektif": "Mendistilasi ilmu kalkulus murni, probabilitas, dan operasi vektor matriks berat menjadi resep sederhana pembangun inti AI.",
+        "topik": [
+            "Aljabar Linear (Vektor, Matriks, Tensor)",
+            "Transformasi Operasi Dimensi Ruang Dasar",
+            "Kalkulus Modern & Rantai Derivatif (Chain Rule)",
+            "Vektor Softmax Probabilitas"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Tensor: Bahasa Dewa bagi Komputer",
+                "analogi": "Angka tunggal '5' itu adalah titik tunggal debu (*Scalar*). Deretan daftar balanja '[Apel, Jeruk]' adalah pita rol kasir (*Vector* 1D). Tabel nilai excel baris-kolom adalah *Matrix* (2D). Nah, kubus rubik blok data 3D atau bahkan 12 Dimensi membingungkan secara sekaligus? Itulah yang disebut *Tensor*.",
+                "penjelasan_awam": "Otak AI (Neural Network) tidak menghitung data dengan cara manual tradisional memecahkan 1+1, melainkan dengan memborbardir perhitungan matematika ribuan kolom bersilangan secara sekaligus serentak di kartu grafis layar komputermu (GPU). Seluruh mesin hitung ini memakai bata dasar arsitektur dimensi jamak yang kita namakan TENSOR.",
+                "penjelasan_teknis": "Dalam arsitektur *Deep Learning*, manipulasi tensor difasilitasi penuh melalui operasi dot product aljabar linear: $$\\mathbf{C} = \\mathbf{A} \\cdot \\mathbf{B}$$ Hal yang terpenting untuk dimengerti adalah dimensi matriksnya: Jika perkalian matriks $\\mathbf{A}_{(m \\times n)}$ dipaksa bertabrakan dengan bobot linear neuron $\\mathbf{B}_{(n \\times p)}$, maka ia ajaibnya akan menelurkan transformasi matriks proyeksional hasil $\\mathbf{C} \\in \\mathbb{R}^{m \\times p}$. Konsep reduksi pilar absolut ini digunakan konstan untuk meloncat antar Layer neuron raksasa dari sekian ribu lapis parameter hingga mengerucut jadi satu kesimpulan.",
+                "contoh_nyata": "Kenapa NVIDIA harganya ribuan dolar meroket dan cuan pesat jadi raja chip dunia? Jawabnnya karena kartu VGA mutakhir buatan asalnya didesain optimal untuk meloloskan rumus kalkulus raksasa 'Matrix Multiplication' di dalam game, yang ternyata sama mutlak bergunanya untuk melatih AI raksasa ChatGPT.",
+                "image": "/images/mod06_math_details.png"
+            },
+            {
+                "judul": "Kalkulus & Turunan Gradien (Chain Rule)",
+                "analogi": "Jika sebuah kecelakaan rem blong karambol melibatkan sepeda, taksi, dan tronton terjadi di tol. Algoritma Kalkulus Chain Rule menelusuri rentetan tabrakan dari belakang melacak ke depan (reverse): 'Berapa persen impak taksi karena guncangan tronton? Dan berapa persen efeknya pada sepeda depan?' demi menemukan sumber kesalahan asli mutlak dari pabrikan taksi.",
+                "penjelasan_awam": "Untuk merombisi jaringan otak neural yang berlapis layaknya kue lapis tebal memusingkan, mesin harus mencari Trik Matematika kalkulus *Chain Rule* berlapis di belakang panggung. Ia menelusuri seberapa bedebar 'kesalahan salah lirik si biduan ke-5 memengaruhi musisi biola di orkestra barisan ke-1'.",
+                "penjelasan_teknis": "Kunci mahkota seluruh kejayaan revolusi Deep Learning dekade terbaru ini adalah *Calculus Derivative Chain Rule* yang menjadi fondasi pilar sakti algoritma agung *Backpropagation*: $$ \\frac{\\partial L}{\\partial w_1} = \\frac{\\partial L}{\\partial y} \\cdot \\frac{\\partial y}{\\partial h} \\cdot \\frac{\\partial h}{\\partial w_1} $$ Dengan kata sederhana: Gradien murni atas komponen terdalam dapat terus-menerus dikalkulasi komputasinya dengan sekadar mengalikan mundur gerbang turunan murni (kalkulus parsial turunan Jacobian) setiap unit komponen intermediet yang ia hinggapi alirannya di depan.",
+                "contoh_nyata": "Saat TensorFlow, Keras, atau PyTorch menginisasi proses ajaib yang bernama mode `.backward()`. Secara tersembunyi memori komputermu sedang bekerja lembur keras melakukan deretan operasi berantai Chain rule matriks matematika di atas puluhan kali per milidetik."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Tak ada Visualizer Khusus, tetapi fondasinya diaplikasikan kuat menopang pada Simulator Arsitektur jaringan Neural Visual di Modul 07 esok.",
+        "references": [
+            {
+                "kode": "DL-01",
+                "sitasi": "Strang, G. (2016). Introduction to Linear Algebra.",
+                "url": "",
+                "bab": "Derivatif Fungsi Matrix Tensor"
+            }
+        ]
+    },
+    {
+        "id": "MOD-07",
+        "rumpun_id": "R3",
+        "nomor": 7,
+        "judul": "Deep Neural Networks (Belajar layaknya Sel Otak)",
+        "objektif": "Membedah arsitektur paling legendaris yang memicu kebangkitan kembali era 'Deep Learning' ke seluruh ras pelopor manusia bumi.",
+        "topik": [
+            "Arsitektur Neuron Tunggal: Perceptron Modern",
+            "Hidden Layers: Otak Pemikir Lapis Ekstra",
+            "Backpropagation Berantai",
+            "Fungsi Non-Linearitas Aktivasi Mutlak (ReLU vs Sigmoid)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Arsitektur Lapis demi Lapis",
+                "analogi": "Anggaplah sel otak Neural Network ibarat panitia saringan kompetisi pencarian bakat berlapis panjang berurutan. Panitia seleksi lapis gerbang depan hanya menyaring syarat apakah pelamar bisa tepuk tangan berirama ringan (garis). Apabila lolos disetor ke panitia juri lapis kedua membedah khusus tarikan lengkingan tinggi di pita suara pelamar. Dan panggung akhir direktur besar yang menjustifikasi fnal meramu nilai perpaduan hasil juri semua bawahannya dalam memvonis layak diorbitkan.",
+                "penjelasan_awam": "**Neural Network (Jaringan Saraf Buatan)** pada dasarnya merupakan salinan kerangka sangat primitif atas sistem struktur kerangka bilik sel neuron sel neuron yang meledak berkelindan di ruang raksasa otak biologis manusia nyata. Barisan depan penerima rangsang data disebut Input Layer (Mata penglihat). Bagian sel otak hitam tengah pembeda corak disebut kumpulan sarang lebah rumit *Hidden Layers*. Dan final corong penendang probabilitas hasil kesimpulan di ujung moncong tembakan disebut *Output Layer*.",
+                "penjelasan_teknis": "Arsitektur Perceptron Multi-lapis berproses lewat komputasi linear maju eksak dan kokoh per lapis tumpukan (Forward Pass Transform): $$ z^{(l)} = \\mathbf{W}^{(l)} \\mathbf{a}^{(l-1)} + \\mathbf{b}^{(l)} $$ Keterangan matriks formal:\n- $\\mathbf{W}^{(l)}$ tumpukan memori sinapsis Weight Matrix kokoh untuk layar lapis $l$\n- $\\mathbf{a}^{(l-1)}$ nilai aktivasi sinyal tembakan voltase arus pijar sel neuron layer penyuntik dari sel terdekat di bawah $l$\n- $\\mathbf{b}$ Bias biner angka kecenderungan tambahan ambang pelatuk pemicu lepasnya peluru signal.",
+                "contoh_nyata": "Kamera CCTV Apple di ponsel iPhone model ID Face untuk mendeteksi kontur tebal wajah pengguna di ruang gulita total mengoperasikan komputasi arsitektur Hidden Layers secara membisu agar presisi total."
+            },
+            {
+                "judul": "Bumbu Rahasia: Fungsi Aktivasi Pelatuk Sinyal Tembakan (ReLU)",
+                "analogi": "Bila kamu memiliki perusahaan arsitek desain tata kota nan elit dengan komite seribu kurator jenius sedunia... Tapi direktur asisten sekretariat yang menerima laporannya di ujung jembatan hanya dibiarkan bisa mengiyakan dengan anggukan lurus tegak, maka bangunan megahmu akan selalu terlihat kotak lurus konvensional polos membosankan seolah kardus. Kamu wajib memiliki fungsi bengkok (seni kreasi lekukan non-linear melenggok) pengubah selera monoton.",
+                "penjelasan_awam": "Jika kita hanya terus memperbanyak perkalian layer angka mentah dari depan ke layer seribu dengan linear penggaris lurus tiada hambatan... Maka sistem 'raksasa memukau' puluhan mesin pintar tersebut sejatinya ujungnya hanyalah berfungsi laksana sekedar sebiji sel bodoh yang panjang. Agar saraf mesin mampu menyimpulkan rute keputusan cerdas zig-zag, spiral, bermanuver acak mengarungi batas ruwet dan tak lurus mulus menelikung... Jawabannya diarsiteki dengan injeksi racun lentur sakti berupa saklar non-linear bernama **Fungsi Aktivasi**.",
+                "penjelasan_teknis": "Racikan resep keajaiban fungsi mematahkan tren stagnasi di sel AI ini dirajai kuat oleh primadona baru: **ReLU (Rectified Linear Unit)**, persamaan matematik irisan tersimpel memilah dunia: $$ f(x) = \\max(0, x) $$ Artinya ringkasnya: Apabila signal hasil perkalian memunculkan angka setipis debu di bawah nol (minus), sel saraf itu dibunuh dimatikan disetrum paksa ke angka Nol absolut mati tak berguna. Apabila plus (+), silakan dilos bablas meroket berapapun ke surga depan. Ajaibnya, saklar tebang pilih irit daya nan ringkas cepat gila ini menghancurkan mitos kesaktian absolut dari rumus kalkulus usang *Sigmoid/Tanh* (yang memicu epidemi pelambatan sinyal mati mendadak alias the infamous seram *Vanishing Gradient Problem*) saat diterapkan pada raksasa jurang terdalam arsitektur model layer yang bisa menembus ratusan lapisan tebal.",
+                "contoh_nyata": "Jutaan implementasi revolusioner revolusi pendeteksi kanker otak mutakhir pada ronsen foto mesin MRI di RS pusat gila menginvestasikan penuh pada kerangka saklar ReLU ketimbang Sigmoid purba untuk mengejar kecepatan proses komputasi paralel layar sentuh seketika saat jarum dipijak operator!",
+                "image": "/images/neural_network_nodes.png"
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Simulator Jaringan Node Saraf (Playground TensorFlow-lite): Saksikan nyala lampu pijar kilatan voltase api pergerakan maju layer neuron ketika meraba pergerakan membeda rute klasifikasi data kluster memutar di dalam layar!",
+        "references": [
+            {
+                "kode": "DL-02",
+                "sitasi": "LeCun, Bengio, Hinton. (2015). Deep learning. Nature Insight Review.",
+                "url": "",
+                "bab": "The Backprop Renaissance Era"
+            }
+        ]
+    }
+]

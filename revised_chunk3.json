@@ -1,0 +1,193 @@
+[
+    {
+        "id": "MOD-15",
+        "rumpun_id": "R6",
+        "nomor": 15,
+        "judul": "Pengantar Reinforcement Learning (RL)",
+        "objektif": "Cara melatih AI layaknya melatih anjing sirkus peliharaan dengan sistem mutlak *Reward* dan *Punishment*.",
+        "topik": [
+            "Apa itu Agen & Lingkungan?",
+            "Sinyal Hadiah (Reward Signal)",
+            "Eksplorasi vs Eksploitasi",
+            "Markov Decision Process (MDP)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Melatih Mesin layaknya Hewan Cerdas",
+                "analogi": "Bayangkan anjing robot peliharaanmu. Kalau dia berhasil melompat melewati ring api, kamu melempar sosis daging yang lezat (Reward +10). Kalau dia malah membuang kotoran sembarangan di karpet tamu, kamu memukul kentongan (Penalty -5). Lama-lama, otaknya mengerti strategi hidup apa yang paling disuka majikan.",
+                "penjelasan_awam": "Berbeda mutlak dari AI penghafal gambar yang disuapi jutaan kunci jawaban (Supervised), **Reinforcement Learning (RL)** melepas AI (disebut *Agent*) ke dalam simulasi dunia kosong tak beraturan (*Environment*). Sang agen dipaksa bereksperimen trial-and-error sendiri. Misinya cuma satu: Mengumpulkan skor koin tertinggi sebelum nyawanya mati (Game Over).",
+                "penjelasan_teknis": "Fondasi teori RL didasarkan pada **Markov Decision Process (MDP)**. Keseluruhan proses adalah percakapan matematis murni antara dua entitas: Agen pada waktu $t$ mengamati State kondisi lingungan $S_t$, lalu mengambil keputusan Action Aksi $A_t$. Dunia lantas membalas merespons mentransisikan kondisi terdepan $S_{t+1}$ sekaligus melempar selembar sinyal Skor $R_{t+1}$. Sang Agen AI selamanya ditargetkan menyusun *Policy* probabilitas taktik $\\pi(a|s)$ untuk menyedot kumulatif imbalan skor total diskon jangka panjang: $$ G_t = \\sum_{k=0}^{\\infty} \\gamma^k R_{t+k+1} $$",
+                "contoh_nyata": "Algoritma dewa AlphaGo dari DeepMind yang menumbangkan juara maestro Go dunia berkat melatih RL dirinya sendiri menantang dirinya bermain jutaan ronde tanpa ada master manusia yang campur tangan."
+            },
+            {
+                "judul": "Dilema Kehidupan: Explore vs Exploit",
+                "analogi": "Kamu lapar dan berada di luar negeri. Apakah kamu akan pergi ke warung mie langganan seminggu ini yang *pasti enak dan murah* (Eksploitasi), ATAU kamu *nekat* masuk ke gang kumuh nyobain makan di restoran India baru yang misterius, yang mungkin beracun atau *mungkin saja* jauh lebih enak dari restoran awalmu (Eksplorasi)?",
+                "penjelasan_awam": "Agen AI sering terjebak dalam dilema ini (*Exploration-Exploitation Dilemma*). Kadang ia harus mengambil keputusan nekat gila untuk merambah jalur yang sama sekali belum pernah diinjak (Eksplorasi). Tanpa ini, AI bakal selamanya stuck terjebak main taktik penakut receh (*Local Optima*).",
+                "penjelasan_teknis": "Implementasi paling klasik populer untuk mengakali dilema algoritma penakut ini adalah mekanisme radikal **$\\\\epsilon$-greedy**: Setiap kali melangkah, agen melempar koin dadu imajiner $\\epsilon$. Jika beruntung keluar $\\epsilon$ kecil $10\\%$, ia akan membabi buta menutup mata bertindak gila-gilaan acak *Explore*. Jika $90\\%$ keluar sisanya, ia akan menuruti sifat dasar maruk pengecut mencomot aksi paling untung *Exploit*. Seiring usia AI yang tambah matang, nilai probabilitas kenekatan $\\epsilon$ tersebut dijadwalkan menurun melesu (Decay) menuju batas O mutlak.",
+                "contoh_nyata": "Robot penjelajah penambang laut terumbu karang otonom merutekan jalurnya antara memastikan terus menghisap logam mulia di wilayah galian terbukti aslinya (Exploit) vs mengambil tes bor tanah di kilometer antah berantah laut hitam pesisir (Explore)."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Simulasi tikus menyusuri lorong mencari rute keju tercepat sembari lari menghindari kejutan jebakan bom setrum interaktif."
+    },
+    {
+        "id": "MOD-16",
+        "rumpun_id": "R6",
+        "nomor": 16,
+        "judul": "Q-Learning & Formula Dewa Bellman",
+        "objektif": "Bedah tuntas otak AI saat meracik tabel contekan nilai harta karun instan.",
+        "topik": [
+            "Q-Table: Papan Contekan Ajaib",
+            "Persamaan Sakti Bellman",
+            "Discount Factor (Pentingnya Masa Depan)",
+            "Keterbatasan Q-Table Catur"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Menulis Buku Harian Q-Table",
+                "analogi": "Membaca Peta Q-Table seperti nyontek rambu labirin: Dari Kotak 5 (State), kalau belok KANAN (Action) di ujungnya ada harta senilai 100 koin mas (Nilai Q).",
+                "penjelasan_awam": "Agar si agen AI tidak tersesat atau buta sama sekali di lingkungan labirin kecil yang berbatas, ia membawa buku saku rahasia di pinggangnya bernama **Q-Table**. Buku ini berisi coret-coretan angka prediksi potensi cuan setiap kali ia mempertimbangkan belok ke kiri atau ke kanan.",
+                "penjelasan_teknis": "Dalam rumus suci RL, elemen Nilai evaluasi **Q-Value** $Q(s,a)$ bermakna ramalan ekspektasi hadiah kelimpahan total jika eksekusi aksi $a$ diamini di atas state pijakan bumi $s$. Semesta hitungannya selalu diupdate berlandaskan mantra suci dewa **Bellman Equation**: $$ Q^{new}(s,a) \\leftarrow Q(s,a) + \\alpha \\left[ R + \\gamma \\max_{a'} Q(s',a') - Q(s,a) \\right] $$ Bagian terdalam dalam kurung siku diibaratkan *Perbedaan Pembelajaran Temporal (TD Error)*: Yaitu selisih syok antara angka keuntungan asli mutlak realitas di depan Hidung dengan prediksi lamunan lamanya. Semakin besar The Error, kian banyak kompensasi sang AI merevisi buku Q-Table tebalnya.",
+                "contoh_nyata": "Agen labirin sederhana atau permainan Tic-Tac-Toe murni (Board grid 3x3) gampang dihafalkan komplit mutlak 100% menggunakan arsitektur tabel excel sederhana nan konvensional ini sebelum kehabisan kertas RAM.",
+                "image": "/images/mod06_math_details.png"
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Peta visual Q-Table (Papan kotak-kotak Grid warna-warni) yang nilainya terang-berdenyut-denyut merambat naik setiap AI berhasil menyuap nilai goal di simulator game."
+    },
+    {
+        "id": "MOD-17",
+        "rumpun_id": "R6",
+        "nomor": 17,
+        "judul": "DQN (Deep Q-Networks AI Cerdas)",
+        "objektif": "Cara revolusioner menggabungkan Kaca Pembesar CNN dengan Otak Agen Q-Table menjadi kesatuan tempur mengerikan.",
+        "topik": [
+            "Kelemahan Ruang State Tanpa Batas",
+            "DQN: Revolusi DeepMind Atari",
+            "Experience Replay",
+            "Target Network Stabilizer"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Otak AI Pembantai Game Retro (DQN)",
+                "analogi": "Buku saku Q-Table tradisional bakal seukuran perpustakaan kota kalau harus disuruh mencatat *seluruh* kemungkinan gerak pixel di game Mario Bros tiap millimeternya. Alhasil, AI mengganti 'buku kertas' tersebut dengan satu profesor super jenius (Deep Neural Network) yang bisa *memprediksi* tanpa harus menghafal.",
+                "penjelasan_awam": "Q-Learning murni itu payah jika dunianya terlalu luas. Maka tahun 2013 lalu muncul perusahaan startup DeepMind melahirkan **Deep Q-Network (DQN)**. Mereka mencabut buku memori Q-Table dan mencangkokkan murni Neural Network ke otaknya. AI secara harfiah dipaksa menatap layar kedip game Super Mario mentah-mentah dari susunan angka piksel (melalui mata CNN) dan memuntahkan instruksi langsung dari otaknya untuk mencet tombol Joystick melompat!",
+                "penjelasan_teknis": "Otak Neural pendamba skor **DQN** mengorkestrasikan jaringan memprediksi himpunan porsi semua skor potensial aksi Q sekaligus murni dalam satu kali pass: $\\mathbf{NN}(s) \\approx \\mathbf{Q}(s, \\cdot)$. Namun karena graf evaluasinya terlalu bising menukik tajam (Instabilitas Katastropik), DQN ditopang dua penemuan revolusioner pilar mekanika rahasia. **Pertama, Experience Replay Buffer**: AI mengoleksi masa lalu tragis ribuan kegagalannya nge-game dalam memori gudang $D$, kemudian mencomot sampel mini-batch receh secara gila acak saat mode pelatihan (belajar mandiri memutus autokorelasi berurut yang mematikan).",
+                "contoh_nyata": "Semua rekor fenomenal bersejarah mesin pembantai Atari 2600 Breakout tahun 2015 yang memecahkan rekor blok tersembunyi terowongan mutlak, dan pencapaian dewa superhuman robot AI lain yang melibas jagoan catur profesional sedunia diciptakan utuh 100% oleh racikan bumbu rahasia RL keluarga sistem ini."
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Tak Ada Visualizer Khusus."
+    },
+    {
+        "id": "MOD-18",
+        "rumpun_id": "R6",
+        "nomor": 18,
+        "judul": "Evaluasi & Deployment Model Teks (PPO)",
+        "objektif": "Membedah cara sistem mutakhir AI yang berwujud LLM raksasa ditertibkan sopan santun moralnya.",
+        "topik": [
+            "Tugas Akhir AI Modern (RLHF)",
+            "Kenapa Generatif Butuh Rewarding",
+            "Proximal Policy Optimization (PPO)",
+            "Keamanan Mesin AI Skala Global"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Menyetrum Robot agar Sopan: RLHF & PPO",
+                "analogi": "Sebuah AI penulis cerita super jago awalnya bagai remaja urakan. Kalau ditanya cara merampok bank, dia akan menjelaskan dengan senang hati (Kecerdasan murni dari model dasar). RLHF adalah guru galak yang menyetrum si remaja tiap kali dia melanggar etika pantangan, hingga si mesin tumbuh tak cuma sepintar Einstein, melainkan sesantun seorang Biksu suci.",
+                "penjelasan_awam": "Model Chatbot canggih macam LLMs pada awalnya belajar menyedot berjuta gigabyte artikel kotor rasis berbahaya dunia internet utuh apa adanya *(Base Model)*. Supaya robotnya patuh aman tak beracun, industri mengenakan rantai sabuk pengaman revolusioner yang dinamakan **RLHF (Reinforcement Learning from Human Feedback)**.",
+                "penjelasan_teknis": "RLHF menyulap teks peluru Generator menjadi sasaran murni arena Reinforcement. Tahap pertamanya: ribuan evaluator karyawan relawan manusia membikin dataset peringkatan manual (*Ranked Prompts*) untuk melatih sebiji model mesin penilai eksternal sadis (*Reward Model*). Nah, model otak bahasa Generator utama lantas diadu di ring tinju PPO **(Proximal Policy Optimization)** untuk memaksimalkan kepuasan rating si model Hakim tadi, namun *dicekik paksa ikatannya dengan rumus KL Divergence* supaya kelakuan linguistik bahasanya tidak membelot meroket terlalu melenceng absurd menjauhi naluri dasar bahasa manusia aslinya.",
+                "contoh_nyata": "Setiap keajaiban ChatGPT yang bisa secara halus lincah menolak permintaan jahat hacker meretas bom, tapi malah menasehati etika moral... Adalah keabadian algoritma PPO RLHF murni yang mengukir sirkuit urat bahasanya dari balita."
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Sistem Slider Rating Jempol Interaktif untuk melihat perubahan kata prioritas probabilitas Softmax tebakan kalimat dari mulut LLM."
+    },
+    {
+        "id": "MOD-19",
+        "rumpun_id": "R7",
+        "nomor": 19,
+        "judul": "Pemrosesan Natural Language (NLP) Modern",
+        "objektif": "Membongkar trik sulap komputer yang bisa memahami konteks kiasan emosional sastra.",
+        "topik": [
+            "Pre-processing Teks (Tokenization)",
+            "Tantangan Membaca Emosi Sentimen",
+            "Subword Tokenizer Mutakhir (BPE)",
+            "Tata Ruang Dimensi Makna (Word Embeddings)"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Word Embeddings: Ruang Tata Surya Makna Kata",
+                "analogi": "Bayangkan tata surya kata 3 Dimensi. Titik orbit planet 'Raja' bersandingan nempel dekat 'Pangeran'. Jauh di seberangnya ada orbit planet 'Ratu'. Jauh dari tata surya manusia, ada galaksi sayuran tempat 'Bayam' dan 'Sawi' bermukim. Semakin mirip maknanya, semakin mepet orbit planetnya saling bertabrakan!",
+                "penjelasan_awam": "AI tak paham ejaan bahasa. Maka para jenius ilmuwan mendesain GPS konversi kata menjadi kode sumbu triliunan titik koordinat *(Word Embeddings/Vectors)*. Hebatnya koordinat ini bukan sekadar nomor antrian! Makna dan konteks logisnya tersimpan kokoh bersanding relasional laksana titik kordinat peta sungguhan.",
+                "penjelasan_teknis": "Dalam ruang hiper-dimesional $\\mathbb{R}^d$ ($d \\approx 300$ dimensi di ranah arsitektur legendaris *Word2Vec* atau *GloVe*), jarak kemiripan orientasi antar-kata tidak sekedar dihitung jarak Euclidnya namun mutlak diukuri oleh kemiringan relasional **Cosine Similarity**: $$ \\text{sim}(\\mathbf{u}, \\mathbf{v}) = \\frac{\\mathbf{u} \\cdot \\mathbf{v}}{\\|\\mathbf{u}\\| \\|\\mathbf{v}\\|} $$ Hal gaib bin rasional inilah yang mengakibatkan ekuivalensi matriks aritmatika leksikal yang bikin peradaban komputasi sedunia geger pertama kali dekade lalu: $$ \\mathbf{vec}(\\text{\"Raja\"}) - \\mathbf{vec}(\\text{\"Pria\"}) + \\mathbf{vec}(\\text{\"Wanita\"}) \\approx \\mathbf{vec}(\\text{\"Ratu\"}) $$.",
+                "contoh_nyata": "Bagaimana YouTube mencarikan sinopsis judul video bahasa Sunda meskipun kamu mencarinya menggunakan murni frasa gaul bahasa Indonesia di kotak pencariannya? Mereka punya sistem penerjemah murni berbasis koordinat Embeddings tanpa kamus KBBI."
+            }
+        ],
+        "kesulitan": "🟢 Mudah",
+        "visualisasi_interaktif": "Simulasi Tata Surya Kanvas Geometri Makna yang memproyeksikan persamaan ajaib Raja + Wanita - Pria = Ratu dalam tarikan garis sumbu kosinus.",
+        "references": [
+            {
+                "kode": "NLP-02",
+                "sitasi": "Mikolov, T., et al. (2013). Distributed Representations of Words and Phrases. NeurIPS.",
+                "url": "",
+                "bab": "Konsep Analogical Reasoning GloVe"
+            }
+        ]
+    },
+    {
+        "id": "MOD-20",
+        "rumpun_id": "R7",
+        "nomor": 20,
+        "judul": "Vision Transformer (ViT)",
+        "objektif": "Mematahkan takhta turun-temurun CNN dan melihat bagaimana teks *Transformer* menjajah ranah deteksi gambar AI bumi.",
+        "topik": [
+            "Mengapa ViT Menghancurkan Arsitektur Kuno CNN?",
+            "Patching Kanvas Gambar Kotak-kotak (16x16)",
+            "Global Receptive Field vs Local Conv"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Patching Gambar bak Lembaran Frasa Kata (ViT)",
+                "analogi": "Alih-alih menyapu pelan pake pinset kaca pembesar mili per mili (CNN), ViT menghancurkan foto utuh menjadi cacahan puzzle 16 kotak besar. Lalu menyuapkannya secara rakus serentak ke perut raksasa AI bahasa seolah-olah bongkahan gambar itu adalah rentetan barisan kalimat lirik lagu saja.",
+                "penjelasan_awam": "Bertahun-tahun **CNN** adalah raja sakti pembedah visual, sampai Google punya ide gila: Bagaimana kalau arsitektur *Transformer* yang sejatinya ahli tata bahasa, dipaksa menelan gambar? Alhasil jadilah **Vision Transformer (ViT)**. Tanpa arsitek saringan spesifik mata biologis lurus, performanya tetap tembus langit mengalahkan sang CNN di ranah pendeteksian dunia.",
+                "penjelasan_teknis": "Cara kerja peretasannya: Gambar 2D kanvas $\\mathbf{x} \\in \\mathbb{R}^{H \\times W \\times C}$ ditebas menjadi irisan baris $N$ sekuens *patch pipih non-overlap* $\\mathbf{x}_p \\in \\mathbb{R}^{N \\times (P^2 \\cdot C)}$. Patch kotak demi kotak disetrum memipih linear via embedding projection rahasia. ViT kemudian menstempel paten mutlak baris urutan posisinya lurus menjejali algoritma Standar *Multi-Head Self-Attention* global seketika. Bedanya mencolok: Konvolusi CNN bersifat mata sempit (local filter $3 \\times 3$), namun Self-Attention ViT adalah detektif maha pemantau *Global Receptive Field* mutlak di layar level perdananya.",
+                "contoh_nyata": "Jantung algoritma mata raksasa bodi robot otonom humanoid Tesla Bot *Optimus* yang melenggang bebas memilah balok obyek realita 3D dengan gesit dikontrol total sel saraf berstruktur ViT mematikan!"
+            }
+        ],
+        "kesulitan": "🔴 Sulit",
+        "visualisasi_interaktif": "Pemotongan Foto anjing menjadi Patch potongan 16 balok linear yang diturunkan ke rahang pipa Attention."
+    },
+    {
+        "id": "MOD-21",
+        "rumpun_id": "R8",
+        "nomor": 21,
+        "judul": "MLOps & CI/CD Produksi Model",
+        "objektif": "Rantai panjang rumit menyulap kerangka prototipe notebook akademisi Jupyter di lab gila menjadi produk raksasa milyar pengguna yang tahan serbuan ledakan server 24/7 abadi.",
+        "topik": [
+            "Mengapa Lab Bebeda Jauh Drastis dari Dunia Nyata Perusahaan?",
+            "Kemerosotan Otak (Model Degradation & Drift)",
+            "Siklus Pipa Abadi CI/CD CT",
+            "Format Onyx Portabel"
+        ],
+        "materi_detail": [
+            {
+                "judul": "Menangkal Kepikunan Data Concept Drift (MLOps)",
+                "analogi": "Kamu punya resep racikan sirup durian terhebat dekade 90-an (Model Akurat Lab). Tapi selera remaja hari ini di pasar sungguhan 2026 mendadak benci durian dan suka matcha! Resepmu seketika rugi usang basi miliaran rupiah. Kamu wajib pantau ganti resepnya ulang harian.",
+                "penjelasan_awam": "Model Machine Learning yang telah selesai di *training* canggih dengan nilai rapor A mutlak, perlahan-lahan kebodohannya akan membusuk memudar basi di dunia nyata *(Model Drift)* gara-gara tren kebiasaan sifat user aslinya lamban berubah musiman!. Mengintegrasikan robot pemantau perbaikan paksa mutakhir per-menit disebut seni taktik arsitek *MLOps* (Machine Learning Operations).",
+                "penjelasan_teknis": "Pergerakan statistik pergeseran *Covariate Shift*: Saat fungsi probabilitas distribusi $P(X)$ data input baru pelanggan di lapangan nyata membelot beda ekstrem ketimbang rekap tabel $P(X)$ set data saat si model tersebut terlahir dilatih di Lab kampus dulu, meski $P(Y|X)$ (peluang relasi klasifikasinya) sebenarnya teguh utuh. MLOps membangun sirkuit baja orkestrasi otomatis melatih **Continuous Training (CT)** menunggangi kubus *Docker/Kubernetes* kontainer server terisolir mulus dari awal pengambilan sampel, validasi uji error *shadow deploy*, sampai rilis peremajaan bergaransi nol downtime mutlak komersial.",
+                "contoh_nyata": "Algoritma model mesin penapis Penipuan (*Fraud Detection*) Gopay dan Shopee yang tak henti henti di retrain (*dilatih disiram data gres terbaru mingguan*) tiap ada hacker yang memoles taktik modus selubung anyar terobosan baru pencurian hari esoknya!"
+            }
+        ],
+        "kesulitan": "🟡 Menengah",
+        "visualisasi_interaktif": "Tak ada Visualizer Khusus.",
+        "references": [
+            {
+                "kode": "MLE-01",
+                "sitasi": "Kreuzberger, D., et al. (2022). Machine Learning Operations (MLOps): Overview, Definition, and Architecture.",
+                "url": "",
+                "bab": "CI/CD/CT Pipeline Framework Lifecycle"
+            }
+        ]
+    }
+]
