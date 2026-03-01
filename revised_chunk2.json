@@ -83,7 +83,7 @@
         "id": "MOD-10",
         "rumpun_id": "R4",
         "nomor": 10,
-        "judul": "Attention Mechanism & Sekilas Transformer",
+        "judul": "Attention Mechanism & Transformer",
         "objektif": "Belajar fondasi maha penting yang mentransformasi dunia AI hari ini: Bagaimana mesin belajar menaruh 'Fokus' dan Perhatian prioritas membaca secara bebas.",
         "topik": [
             "Mengapa LSTM Belum Cukup Bebas?",

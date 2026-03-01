@@ -388,7 +388,7 @@
       "id": "MOD-05",
       "rumpun_id": "R2",
       "nomor": 5,
-      "judul": "Unsupervised Learning",
+      "judul": "Unsupervised Learning (Mencari Pola Tersembunyi)",
       "objektif": "Cara kerja AI saat dilepas membaca jutaan data tanpa diberi embel-embel 'kunci jawaban' label apapun oleh manusia.",
       "topik": [
         "Bagaimana Mesin Memetakan Kesamaan",
@@ -477,7 +477,7 @@
       "id": "MOD-07",
       "rumpun_id": "R3",
       "nomor": 7,
-      "judul": "Deep Neural Networks",
+      "judul": "Deep Neural Networks (Belajar layaknya Sel Otak)",
       "objektif": "Membedah arsitektur paling legendaris yang memicu kebangkitan kembali era 'Deep Learning' ke seluruh ras pelopor manusia bumi.",
       "topik": [
         "Arsitektur Neuron Tunggal: Perceptron Modern",
@@ -609,7 +609,7 @@
       "id": "MOD-10",
       "rumpun_id": "R4",
       "nomor": 10,
-      "judul": "Attention Mechanism",
+      "judul": "Attention Mechanism & Sekilas Transformer",
       "objektif": "Belajar fondasi maha penting yang mentransformasi dunia AI hari ini: Bagaimana mesin belajar menaruh 'Fokus' dan Perhatian prioritas membaca secara bebas.",
       "topik": [
         "Mengapa LSTM Belum Cukup Bebas?",
@@ -754,7 +754,7 @@
       "id": "MOD-14",
       "rumpun_id": "R5",
       "nomor": 14,
-      "judul": "LLM Murni, RAG, & Tuning",
+      "judul": "LLM Murni, Rag, & Tuning",
       "objektif": "Cara merakit sendiri otak pintar sistem chat cerdas perusahaan korporasi khusus tanpa bocor halusinasi.",
       "topik": [
         "Tokenisasi & Perbendaharaan Kosa Kata",
@@ -836,7 +836,7 @@
       "id": "MOD-16",
       "rumpun_id": "R6",
       "nomor": 16,
-      "judul": "Q-Learning",
+      "judul": "Q-Learning & Formula Dewa Bellman",
       "objektif": "Bedah tuntas otak AI saat meracik tabel contekan nilai harta karun instan.",
       "topik": [
         "Q-Table: Papan Contekan Ajaib",
@@ -1105,7 +1105,7 @@
       "id": "MOD-23",
       "rumpun_id": "R7",
       "nomor": 23,
-      "judul": "Time Series Forecasting",
+      "judul": "Time Series Forecasting (Meramal Masa Depan)",
       "objektif": "Cara AI menggantikan peramal bola kristal dan membaca laju gelombang tren grafik fluktuasi uang kripto & saham.",
       "topik": [
         "Dekonstruksi Musiman & Tren Waktu",
@@ -1198,7 +1198,7 @@
       "id": "MOD-26",
       "rumpun_id": "R8",
       "nomor": 26,
-      "judul": "Multimodal AI",
+      "judul": "Multimodal AI (Melihat, Mendengar, Berucap Bersama)",
       "objektif": "Penyatuan maha sakti indera manusia di kubu peradaban AI mesin generasi tahun keemasannya.",
       "topik": [
         "CLIP (Contrastive Language-Image Pre-training)",
