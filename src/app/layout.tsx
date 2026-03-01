@@ -10,6 +10,19 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "AI Curriculum | Panduan Belajar AI Gratis",
   description: "Kurikulum bimbingan belajar AI gratis yang interaktif dan bersumber pada literatur akademik terpercaya.",
+  keywords: ["AI", "Artificial Intelligence", "Machine Learning", "Kurikulum", "Belajar AI", "Indonesia", "Deep Learning", "LLM"],
+  openGraph: {
+    title: "AI Curriculum | Panduan Belajar AI Gratis",
+    description: "Kuasai Logika di Balik Kecerdasan Buatan melalui visualisasi interaktif dan penjelasan ramah pemula.",
+    type: "website",
+    locale: "id_ID",
+    siteName: "AI Curriculum Indonesia",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Curriculum | Panduan Belajar AI Gratis",
+    description: "Kuasai Logika di Balik Kecerdasan Buatan melalui visualisasi interaktif.",
+  }
 };
 
 export default function RootLayout({
