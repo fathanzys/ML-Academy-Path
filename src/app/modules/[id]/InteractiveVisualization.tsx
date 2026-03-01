@@ -26,6 +26,9 @@ export default function InteractiveVisualization({ moduleId, description }: { mo
         case "MOD-19": return <VectorVisualizer description={description} />
         case "MOD-20": return <RAGVisualizer description={description} />
         case "MOD-21": return <ChatbotVisualizer description={description} />
+        case "MOD-22": return <QLearningVisualizer description={description} />
+        case "MOD-23": return <TimeSeriesVisualizer description={description} />
+        case "MOD-24": return <ViTVisualizer description={description} />
         default:
             return (
                 <div className="glass-card p-8 border-yellow-500/20 bg-gradient-to-br from-yellow-500/5 to-transparent relative overflow-hidden">
@@ -1620,6 +1623,381 @@ function MLOpsVisualizer({ description }: { description: string }) {
                 {driftDetected ? '✅ Retrain Model (Fix Drift)' : '⚠️ Simulasi Data Drift!'}
             </button>
             {driftDetected && <div className="mt-3 text-sm text-red-400 animate-pulse">🚨 ALERT: PSI = 0.34 (threshold &gt; 0.2). Distribusi data bergeser! Model perlu di-retrain.</div>}
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-22: Q-Learning Maze Simulator
+// ==========================================
+function QLearningVisualizer({ description }: { description: string }) {
+    const GRID = 5;
+    const GOAL = GRID * GRID - 1;
+    const WALL_CELLS = new Set([6, 7, 12, 17, 22]);
+    const ACTIONS = ['up', 'down', 'left', 'right'] as const;
+    type Action = typeof ACTIONS[number];
+
+    const initQ = () => Array.from({ length: GRID * GRID }, () => ({ up: 0, down: 0, left: 0, right: 0 }));
+    const [qTable, setQTable] = useState(initQ);
+    const [agentPos, setAgentPos] = useState(0);
+    const [episode, setEpisode] = useState(0);
+    const [totalReward, setTotalReward] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
+    const [message, setMessage] = useState('Tekan "Mulai Training" untuk melihat agen belajar menemukan jalan keluar!');
+    const [visitCount, setVisitCount] = useState(Array(GRID * GRID).fill(0));
+    const [speed, setSpeed] = useState(180);
+
+    const moveAgent = (pos: number, action: Action): number => {
+        const row = Math.floor(pos / GRID), col = pos % GRID;
+        if (action === 'up' && row > 0) return pos - GRID;
+        if (action === 'down' && row < GRID - 1) return pos + GRID;
+        if (action === 'left' && col > 0) return pos - 1;
+        if (action === 'right' && col < GRID - 1) return pos + 1;
+        return pos;
+    };
+
+    const getReward = (pos: number) => pos === GOAL ? 100 : WALL_CELLS.has(pos) ? -20 : -1;
+
+    const bestAction = (q: { up: number; down: number; left: number; right: number }): Action => {
+        return (ACTIONS.reduce((best, a) => q[a] > q[best] ? a : best, ACTIONS[0]) as Action);
+    };
+
+    const runEpisodes = async (numEps: number) => {
+        setIsRunning(true);
+        const alpha = 0.3, gamma = 0.85;
+        const q = qTable.map(row => ({ ...row }));
+        const visits = [...visitCount];
+
+        for (let ep = 0; ep < numEps; ep++) {
+            let pos = 0;
+            let epReward = 0;
+            const epsilon = Math.max(0.05, 1 - ep / (numEps * 0.8));
+            for (let step = 0; step < 80; step++) {
+                const action: Action = Math.random() < epsilon
+                    ? ACTIONS[Math.floor(Math.random() * 4)]
+                    : bestAction(q[pos]);
+                const next = moveAgent(pos, action);
+                const reward = getReward(next);
+                const maxNextQ = Math.max(...ACTIONS.map(a => q[next][a]));
+                q[pos][action] += alpha * (reward + gamma * maxNextQ - q[pos][action]);
+                visits[next]++;
+                epReward += reward;
+                pos = next;
+                if (pos === GOAL || WALL_CELLS.has(pos)) break;
+            }
+            if ((ep + 1) % Math.max(1, Math.floor(numEps / 8)) === 0 || ep === numEps - 1) {
+                await new Promise(r => setTimeout(r, speed));
+                setQTable(q.map(row => ({ ...row })));
+                setVisitCount([...visits]);
+                setEpisode(e => e + Math.floor(numEps / 8));
+                setTotalReward(r => r + epReward);
+            }
+        }
+
+        // Demo best path
+        let pos = 0;
+        const path = [0];
+        for (let step = 0; step < 30; step++) {
+            const next = moveAgent(pos, bestAction(q[pos]));
+            path.push(next);
+            if (next === GOAL || next === pos) break;
+            pos = next;
+        }
+        for (const p of path) {
+            setAgentPos(p);
+            await new Promise(r => setTimeout(r, speed * 1.5));
+        }
+        setMessage(path[path.length - 1] === GOAL
+            ? `✅ Agen menemukan jalur optimal! Setelah ${episode + numEps} episode, Q-Table sudah ter-konvergen.`
+            : `🔄 Agen butuh lebih banyak training. Coba tambah episode lagi!`);
+        setIsRunning(false);
+    };
+
+    const reset = () => {
+        setQTable(initQ());
+        setAgentPos(0);
+        setEpisode(0);
+        setTotalReward(0);
+        setVisitCount(Array(GRID * GRID).fill(0));
+        setMessage('Q-Table direset. Tekan tombol training untuk mulai dari awal.');
+        setIsRunning(false);
+    };
+
+    const maxQ = Math.max(...qTable.map(q => Math.max(q.up, q.down, q.left, q.right)), 0.1);
+
+    return (
+        <div className="glass-card p-6 border-amber-500/20 bg-gradient-to-br from-amber-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-amber-400 mb-1 flex items-center">
+                <Target className="mr-3 w-6 h-6" /> Q-Learning Maze Simulator
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <div className="text-xs text-amber-400/70 font-mono mb-2">LABIRIN 5×5 — Sel gelap = dinding</div>
+                    <div className="grid gap-1 w-fit" style={{ gridTemplateColumns: `repeat(${GRID}, 1fr)` }}>
+                        {Array.from({ length: GRID * GRID }, (_, i) => {
+                            const isAgent = agentPos === i;
+                            const isGoal = i === GOAL;
+                            const isWall = WALL_CELLS.has(i);
+                            const qMax = Math.max(qTable[i].up, qTable[i].down, qTable[i].left, qTable[i].right);
+                            const qHeat = Math.min(qMax / maxQ, 1);
+                            return (
+                                <div key={i} className={`w-12 h-12 rounded relative flex items-center justify-center text-lg font-bold transition-all duration-150 border
+                                    ${isWall ? 'bg-gray-800 border-gray-600' :
+                                        isGoal ? 'bg-amber-500/30 border-amber-400 shadow-lg shadow-amber-500/30' :
+                                            isAgent ? 'border-violet-400 scale-110 z-10' :
+                                                'border-white/5'}`}
+                                    style={!isWall && !isGoal && !isAgent ? {
+                                        background: `rgba(${Math.round(qHeat * 100)}, ${Math.round(50 + qHeat * 100)}, 80, ${0.05 + qHeat * 0.5})`
+                                    } : {}}>
+                                    {isAgent && <div className="w-8 h-8 rounded-full bg-violet-500 flex items-center justify-center text-base shadow-lg shadow-violet-500/50 animate-bounce">🤖</div>}
+                                    {isGoal && !isAgent && <span className="text-xl">🏆</span>}
+                                    {isWall && <span className="text-gray-600 text-2xl">▪</span>}
+                                    {!isWall && !isGoal && !isAgent && qMax > 1 && (
+                                        <span className="text-xs font-mono opacity-70" style={{ color: `hsl(${Math.round(qHeat * 120)}, 80%, 65%)` }}>
+                                            {qMax.toFixed(0)}
+                                        </span>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <div className="mt-3 flex items-center gap-3 text-xs text-gray-400 flex-wrap">
+                        <span>🤖 Agen</span><span>🏆 Tujuan</span><span>▪ Dinding</span>
+                        <span className="ml-auto font-mono text-amber-400">Episode: {episode}</span>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-3 gap-2">
+                        {[['Episode', episode, 'text-amber-400'], ['Total Reward', totalReward, 'text-emerald-400'], ['Sel Dikunjungi', visitCount.filter(v => v > 0).length, 'text-violet-400']].map(([label, val, cls]) => (
+                            <div key={String(label)} className="bg-black/40 rounded-lg p-3 border border-white/5 text-center">
+                                <div className={`text-xl font-bold font-mono ${cls}`}>{Number(val).toLocaleString()}</div>
+                                <div className="text-xs text-gray-500">{label}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="bg-black/30 rounded-lg p-3 border border-amber-500/10">
+                        <div className="text-xs text-gray-400 mb-2">Kecepatan Simulasi</div>
+                        <input type="range" min={50} max={500} step={50} value={speed}
+                            onChange={e => setSpeed(Number(e.target.value))}
+                            className="w-full accent-amber-500" />
+                        <div className="flex justify-between text-xs text-gray-500"><span>Cepat</span><span>{speed}ms</span><span>Lambat</span></div>
+                    </div>
+
+                    <div className="text-xs bg-amber-900/20 border border-amber-500/20 rounded p-3 text-amber-200/80 font-mono leading-relaxed">
+                        {message}
+                    </div>
+
+                    <div className="flex gap-2">
+                        <button disabled={isRunning} onClick={() => runEpisodes(50)}
+                            className="flex-1 px-3 py-2 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded text-sm hover:bg-amber-500 hover:text-black font-bold transition-all disabled:opacity-40">
+                            {isRunning ? '⏳ Training...' : '▶ 50 Episode'}
+                        </button>
+                        <button disabled={isRunning} onClick={() => runEpisodes(200)}
+                            className="flex-1 px-3 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded text-sm hover:bg-emerald-500 hover:text-black font-bold transition-all disabled:opacity-40">
+                            {isRunning ? '⏳ Training...' : '⚡ 200 Episode'}
+                        </button>
+                        <button disabled={isRunning} onClick={reset}
+                            className="px-3 py-2 bg-white/5 text-gray-400 border border-white/10 rounded text-sm hover:bg-white/10 transition-all disabled:opacity-40">
+                            <RefreshCw className="w-4 h-4" />
+                        </button>
+                    </div>
+
+                    <div className="text-xs text-gray-500 leading-relaxed bg-black/20 rounded p-3 border border-white/5">
+                        <span className="text-amber-400 font-bold">Cara baca:</span> Warna tiap sel = nilai Q tertinggi (hijau = sangat menjanjikan). Agen mulai eksplorasi acak (ε tinggi) lalu perlahan mengeksploitasi Q-Table yang sudah ter-update via Bellman Equation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-23: Time Series Decomposition Visualizer
+// ==========================================
+function TimeSeriesVisualizer({ description }: { description: string }) {
+    const N = 48;
+    const [showTrend, setShowTrend] = useState(true);
+    const [showSeasonal, setShowSeasonal] = useState(true);
+    const [showNoise, setShowNoise] = useState(true);
+    const [noiseLevel, setNoiseLevel] = useState(25);
+    const [trendSlope, setTrendSlope] = useState(2.5);
+    const [seasonalAmp, setSeasonalAmp] = useState(20);
+    const [seed] = useState(() => Array.from({ length: N }, () => Math.random() - 0.5));
+
+    const data = Array.from({ length: N }, (_, i) => {
+        const trend = showTrend ? trendSlope * i : 0;
+        const seasonal = showSeasonal ? seasonalAmp * Math.sin((2 * Math.PI * i) / 12) : 0;
+        const n = showNoise ? seed[i] * noiseLevel : 0;
+        return 100 + trend + seasonal + n;
+    });
+
+    const minV = Math.min(...data), maxV = Math.max(...data);
+    const range = maxV - minV || 1;
+    const toY = (v: number) => Math.round(((maxV - v) / range) * 120);
+    const pts = data.map((v, i) => `${(i / (N - 1)) * 500},${toY(v)}`).join(' ');
+    const trendPts = [0, N - 1].map(i => {
+        const v = 100 + trendSlope * i;
+        return `${(i / (N - 1)) * 500},${toY(v)}`;
+    }).join(' ');
+
+    return (
+        <div className="glass-card p-6 border-cyan-500/20 bg-gradient-to-br from-cyan-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-cyan-400 mb-1 flex items-center">
+                <Activity className="mr-3 w-6 h-6" /> Time Series Decomposition
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+
+            <div className="mb-5 bg-black/40 rounded border border-cyan-500/20 p-3">
+                <svg viewBox="0 0 500 130" className="w-full" style={{ height: 130 }}>
+                    <polyline points={pts} fill="none" stroke="#22d3ee" strokeWidth="2" strokeLinejoin="round" />
+                    {showTrend && <polyline points={trendPts} fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="6,3" opacity="0.9" />}
+                    <text x="4" y="12" fill="#22d3ee" fontSize="8" opacity="0.7">Penjualan (Unit)</text>
+                    <text x="4" y="126" fill="#6b7280" fontSize="7">0 ─────────────────────── 48 Bulan</text>
+                </svg>
+                <div className="flex gap-4 text-xs mt-2 flex-wrap">
+                    <span className="text-cyan-400">— Observasi (Y_t)</span>
+                    {showTrend && <span className="text-amber-400">--- Tren</span>}
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                {[
+                    { label: '📈 Tren (slope)', val: trendSlope, set: setTrendSlope, min: 0, max: 6, step: 0.5, color: 'amber', unit: 'unit/bulan', show: showTrend },
+                    { label: '🔄 Amplitudo Musiman', val: seasonalAmp, set: setSeasonalAmp, min: 0, max: 60, step: 5, color: 'violet', unit: 'unit', show: showSeasonal },
+                    { label: '🌪️ Level Noise', val: noiseLevel, set: setNoiseLevel, min: 0, max: 80, step: 5, color: 'red', unit: 'unit', show: showNoise },
+                ].map(({ label, val, set, min, max, step, color, unit }) => (
+                    <div key={label} className="bg-black/30 rounded p-3 border border-white/5">
+                        <div className={`text-xs text-${color}-400 mb-2 font-bold`}>{label}</div>
+                        <input type="range" min={min} max={max} step={step} value={val}
+                            onChange={e => set(Number(e.target.value))}
+                            className={`w-full accent-${color}-500`} />
+                        <div className="text-xs text-center text-gray-400">{Number(val).toFixed(1)} {unit}</div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-3">
+                {[{ label: '📈 Tren', val: showTrend, set: setShowTrend },
+                { label: '🔄 Seasonal', val: showSeasonal, set: setShowSeasonal },
+                { label: '🌪️ Noise', val: showNoise, set: setShowNoise }].map(({ label, val, set }) => (
+                    <button key={label} onClick={() => set(!val)}
+                        className={`px-4 py-2 rounded text-sm font-bold border transition-all ${val ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' : 'bg-white/5 text-gray-500 border-white/10'}`}>
+                        {val ? '✅' : '⬜'} {label}
+                    </button>
+                ))}
+            </div>
+            <div className="text-xs text-gray-500 bg-black/20 rounded p-3 border border-white/5">
+                <span className="text-cyan-400 font-bold">Formula:</span> Y_t = T_t + S_t + R_t &nbsp;=&nbsp; Tren + Seasonal + Noise. Matikan komponen di atas untuk melihat kontribusi masing-masing.
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-24: Vision Transformer Patch Visualizer
+// ==========================================
+function ViTVisualizer({ description }: { description: string }) {
+    const [patchSize, setPatchSize] = useState(4);
+    const [hoveredPatch, setHoveredPatch] = useState<number | null>(null);
+    const imgSize = 16;
+    const cols = Math.floor(imgSize / patchSize);
+    const numPatches = cols * cols;
+
+    const pixelColor = (r: number, c: number) => {
+        const hue = Math.round(((r * imgSize + c) / (imgSize * imgSize)) * 280);
+        return `hsl(${hue}, 70%, 45%)`;
+    };
+
+    const cellPx = 240 / imgSize;
+    const patchPx = 240 / cols;
+
+    return (
+        <div className="glass-card p-6 border-violet-500/20 bg-gradient-to-br from-violet-900/10 to-transparent">
+            <h3 className="text-2xl font-bold text-violet-400 mb-1 flex items-center">
+                <Layers className="mr-3 w-6 h-6" /> Vision Transformer — Patch Tokenizer
+            </h3>
+            <p className="text-gray-400 text-sm mb-5">{description}</p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <div className="text-xs text-violet-400/80 font-mono mb-2">INPUT IMAGE → {numPatches} PATCH ({patchSize}×{patchSize} px tiap patch)</div>
+                    <div className="relative" style={{ width: 240, height: 240 }}>
+                        {/* Pixel colors */}
+                        {Array.from({ length: imgSize }, (_, r) =>
+                            Array.from({ length: imgSize }, (_, c) => {
+                                const patchR = Math.floor(r / patchSize), patchC = Math.floor(c / patchSize);
+                                const pId = patchR * cols + patchC;
+                                return (
+                                    <div key={`${r}-${c}`}
+                                        style={{ position: 'absolute', top: r * cellPx, left: c * cellPx, width: cellPx, height: cellPx, backgroundColor: pixelColor(r, c), opacity: hoveredPatch === pId ? 1 : 0.65, transition: 'opacity 0.15s' }}
+                                        onMouseEnter={() => setHoveredPatch(pId)}
+                                        onMouseLeave={() => setHoveredPatch(null)}
+                                    />
+                                );
+                            })
+                        )}
+                        {/* Patch grid lines */}
+                        {Array.from({ length: cols + 1 }, (_, i) => (
+                            <div key={`h${i}`} style={{ position: 'absolute', top: i * patchPx, left: 0, right: 0, height: 1, background: 'rgba(255,255,255,0.5)', pointerEvents: 'none' }} />
+                        ))}
+                        {Array.from({ length: cols + 1 }, (_, i) => (
+                            <div key={`v${i}`} style={{ position: 'absolute', left: i * patchPx, top: 0, bottom: 0, width: 1, background: 'rgba(255,255,255,0.5)', pointerEvents: 'none' }} />
+                        ))}
+                        {/* Patch number labels */}
+                        {Array.from({ length: numPatches }, (_, i) => (
+                            <div key={`lbl${i}`} style={{ position: 'absolute', top: Math.floor(i / cols) * patchPx + 2, left: (i % cols) * patchPx + 2, fontSize: 9, color: hoveredPatch === i ? 'white' : 'rgba(255,255,255,0.4)', fontFamily: 'monospace', pointerEvents: 'none', fontWeight: 'bold' }}>
+                                P{i}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-2 text-xs text-gray-500">Hover patch untuk highlight</div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    <div className="bg-black/30 rounded p-3 border border-white/5">
+                        <div className="text-xs text-violet-400 mb-2 font-bold">Patch Size: {patchSize}×{patchSize} pixels</div>
+                        <input type="range" min={2} max={8} step={2} value={patchSize}
+                            onChange={e => { setPatchSize(Number(e.target.value)); setHoveredPatch(null); }}
+                            className="w-full accent-violet-500" />
+                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>2×2 (detail)</span><span>8×8 (kasar)</span>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        {[['Jumlah Patch (N)', numPatches, 'text-violet-400'], ['Token ke Transformer', numPatches + 1, 'text-amber-400']].map(([l, v, c]) => (
+                            <div key={String(l)} className="bg-black/40 rounded p-3 border border-white/5 text-center">
+                                <div className={`text-2xl font-bold font-mono ${c}`}>{v}</div>
+                                <div className="text-xs text-gray-500">{l}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="bg-black/30 rounded p-3 border border-violet-500/10">
+                        <div className="text-xs text-violet-300 font-mono mb-2">Token Sequence → Transformer Encoder</div>
+                        <div className="flex flex-wrap gap-1">
+                            <div className="px-2 py-1 rounded text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">[CLS]</div>
+                            {Array.from({ length: Math.min(numPatches, 20) }, (_, i) => (
+                                <div key={i}
+                                    className={`px-2 py-1 rounded text-xs font-mono border transition-all cursor-pointer ${hoveredPatch === i ? 'bg-violet-500/40 text-white border-violet-400 scale-110' : 'bg-violet-500/10 text-violet-300 border-violet-500/20'}`}
+                                    onMouseEnter={() => setHoveredPatch(i)}
+                                    onMouseLeave={() => setHoveredPatch(null)}>
+                                    P{i}
+                                </div>
+                            ))}
+                            {numPatches > 20 && <div className="px-2 py-1 text-xs text-gray-500">+{numPatches - 20} lagi</div>}
+                        </div>
+                    </div>
+
+                    <div className="text-xs text-gray-500 leading-relaxed bg-black/20 rounded p-3 border border-white/5">
+                        <span className="text-violet-400 font-bold">Rumus ViT:</span> N = (H×W) / P² = ({imgSize}×{imgSize}) / ({patchSize}×{patchSize}) = <span className="text-white font-mono">{numPatches}</span> patch. Plus token <span className="text-amber-400">[CLS]</span> = <span className="font-mono text-white">{numPatches + 1}</span> token total yang diproses Transformer.
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
