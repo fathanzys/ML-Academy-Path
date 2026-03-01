@@ -178,7 +178,7 @@
           "penjelasan_awam": "Dulu sebelum ada Machine Learning, AI diciptakan dengan mengetikkan ribuan aturan *IF-THEN* (JIKA-MAKA) secara manual. Pendekatan ini disebut AI Klasik. Alih-alih belajar, AI ini hanya bekerja keras menelusuri semua kemungkinan secara buta.",
           "penjelasan_teknis": "Dalam AI Klasik, kita menggunakan algoritma pencarian teliti seperti *Breadth-First Search (BFS)* atau heuristik *A-Star (A*)*. Inti kerjanya adalah mencari rute terpendek dengan fungsi $f(n) = g(n) + h(n)$, di mana $g(n)$ adalah jarak yang sudah ditempuh dan $h(n)$ adalah tebakan sisa jarak ke tujuan. Kelemahannya? Sangat kaku. Komputer catur lawas seperti Deep Blue mengalahkan juara dunia Kasparov bukan karena komputer itu *paham* catur, melainkan karena ia menghitung jutaan langkah ke depan menggunakan algoritma *Minimax* murni.",
           "contoh_nyata": "NPC musuh di game jadul yang gerakannya selalu sama, atau aplikasi GPS awal yang murni menghitung jarak antar titik tanpa memperhitungkan kemacetan realtime.",
-          "image": "/images/mod01_ai_timeline.png"
+          "image": "/images/ai_timeline.png"
         },
         {
           "judul": "Definisi Machine Learning Modern",
@@ -233,7 +233,7 @@
           "penjelasan_awam": "Inti dari proses belajar AI adalah mencari titik di mana nilai kesalahan (error)-nya paling rendah atau nol. AI melakukan ini sambil 'meraba-raba' grafik error menggunakan taktik canggih bernama *Gradient Descent*.",
           "penjelasan_teknis": "Setiap putaran belajar, komputer akan merevisi tebakannya (memperbarui bobot parameter $\\theta$) ke arah yang berlawanan dengan kemiringan kurva error $J(\\theta)$: $$ \\theta := \\theta - \\alpha \\nabla_{\\theta} J(\\theta) $$ Keterangan:\n- $:= $ artinya 'mengganti nilai yang lama menjadi yang baru'\n- $\\alpha$ (alpha) adalah *Learning Rate* (Seberapa lebar langkah si orang buta).\n- $\\nabla_{\\theta} J(\\theta)$ adalah arah kemiringan paling curam ke lembah error.",
           "contoh_nyata": "Saat Netflix berlatih menebak genre film favoritmu, setiap kali tebakannya salah, Gradient Descent akan sedikit memutar 'keran' bobotnya sampai rekomendasinya makin lama makin akurat.",
-          "image": "/images/mod02_gradient_descent.png"
+          "image": "/images/ml_pipeline.png"
         },
         {
           "judul": "Seni Mengatur Langkah: Learning Rate & Batch",
@@ -327,8 +327,7 @@
           "analogi": "Decision Tree seperti kamu main tebak tokoh, bertanya: 'Apakah laki-laki?' jika iya 'Apakah artis?', membelah asumsi sampai mengerucut ke 1 orang. Sedangkan SVM seperti menarik tali pagar beton pembatas tanah selebar-lebarnya untuk membedakan dua geng yang sedang tawuran.",
           "penjelasan_awam": "Dilihat dari cara 'berpikirnya':\n- **Decision Tree**: Memecah tebakan jadi bercabang-cabang sesuai aturan IF-THEN alami seperti diagram air terjun.\n- **K-Nearest Neighbor (KNN)**: Mesin AI 'ikut-ikutan' suara mayoritas dari 5 tetangga terdekat di sampingnya.\n- **Support Vector Machine (SVM)**: Menarik parit tebal pembatas murni yang menjaga jarak sejauh-jauhnya antar dua kubu musuh.",
           "penjelasan_teknis": "**SVM** mencari garis lurus (hyperplane) dengan porsi margin maksimum $\\frac{2}{||w||}$. Luar biasanya, jika datanya saling kusut acak bagai donat tercampur dan tidak bisa digaris pakai penggaris, SVM pakai *Kernel Trick* ajaib (mengangkat donatnya ke alam 3 dimensi) sehingga bisa ditebas membelah donat dari atas secara sempurna. Untuk **Decision Tree**, cara ia mencari titik belah cabang didasarkan pada perhitungan skor kekacauan matematika (Gini Impurity atau Entropi).",
-          "contoh_nyata": "Teknologi medis lama memprediksi risiko penyakit jantung pasien menggunakan sekumpulan cabang if-else Decision Tree karena hasil tebakannya sangat mudah dibaca/diaudit oleh dokter manusia.",
-          "image": "/images/mod04_decision_tree.png"
+          "contoh_nyata": "Teknologi medis lama memprediksi risiko penyakit jantung pasien menggunakan sekumpulan cabang if-else Decision Tree karena hasil tebakannya sangat mudah dibaca/diaudit oleh dokter manusia."
         },
         {
           "judul": "Menilai Kelulusan AI: Confusion Matrix",
@@ -367,8 +366,7 @@
           "analogi": "Bayangkan masuk ruangan dengan 1000 mainan LEGO berserakan tak berlabel. Tanpa baca kotak aslinya, kamu refleks langsung menceraikan tumpukan ke tumpukan blok balok merah ke pojok merah, balok biru di pojok biru.",
           "penjelasan_awam": "Berbeda drastis dengan Supervised Learning, di ajaran **Unsupervised Learning** manusia sama sekali lepas tangan; TIDAK ada label, TIDAK ada kunci jawaban. AI dibiarkan telanjang memandangi data penjualan perusahaan selama setahun untuk mencari sendiri grup pelanggan mana yang berkelakuan mirip.",
           "penjelasan_teknis": "Algoritma terpopuler abad ini adalah metrik *K-Means* iteratif. Kita minta AI menebak sejumlah $K$\n\n1. AI secara ngawur menjatuhkan bibit $K$ pin sentroid ke tengah peta lokasi data.\n2. Tiap titik pelanggan dipersatukan dengan pin terdekat (berbasis perhitungan jarak mistar Pythagoras *Euclidean distance*).\n3. Titik sentroid kemudian bermigrasi lamban berjalan menyesuaikan diri nangkring persis di pusat gravitasi gerombolnya.\n4. Roda diputar berulang-ulang sampai sentroid terkunci abadi tak sudi bergerak lagi.",
-          "contoh_nyata": "Mesin rekomendasi artikel Spotify/TikTok secara naif menebar pendengarnya berdasarkan selera 'terdekat', lalu mengirimkan musik dangdut bagi gerombolan yang terdeteksi suka dangdut.",
-          "image": "/images/mod05_kmeans_clustering.png"
+          "contoh_nyata": "Mesin rekomendasi artikel Spotify/TikTok secara naif menebar pendengarnya berdasarkan selera 'terdekat', lalu mengirimkan musik dangdut bagi gerombolan yang terdeteksi suka dangdut."
         },
         {
           "judul": "Cara Cerdas Menentukan Kelompok Valid? (Silhouette)",
@@ -529,8 +527,7 @@
           "analogi": "Jika membaca buku novel dari tengah, kamu pasti bingung. Kamu harus membaca dari halaman pertama dan mempertahankan cerita masa lalu di kepalamu. Begitu pula AI bahasa.",
           "penjelasan_awam": "Model Feed-Forward AI standar sangat pelupa; setiap kali melihat kata baru, ia lupa kata sebelumnya. **RNN** adalah desain terobosan yang memutar masuk kembali (me-*looping*) hasil tebakan sebelumnya ke dalam piringan telan input yang sekarang.",
           "penjelasan_teknis": "State ingatan tersembunyi (Hidden State) $h_{t}$ dihitung berdasarkan input saklar pintu $x_t$ saat ini DAN state waktu sebelumnya $h_{t-1}$: $$ h_t = \\tanh(\\mathbf{W}_{hh} h_{t-1} + \\mathbf{W}_{xh} x_t + b) $$ Oleh karena itu, kata sandang 'Budi' di kalimat paling sakral di halaman pertama masih akan tersimpan jejak voltase gaungnya ketika membaca predikat 'pergi' sepuluh kata kemudian di penghujung paragraf.",
-          "contoh_nyata": "Keyboard Autocomplete di HP Android masa lampaimu menggunakan model dasar RNN untuk menebak kata lanjutannya secara probabilistik murni.",
-          "image": "/images/mod09_rnn_lstm.png"
+          "contoh_nyata": "Keyboard Autocomplete di HP Android masa lampaimu menggunakan model dasar RNN untuk menebak kata lanjutannya secara probabilistik murni."
         },
         {
           "judul": "LSTM: Saklar Lupaan yang Jenius",
@@ -569,7 +566,7 @@
           "penjelasan_awam": "Kelemahan patal RNN dan LSTM adalah mereka harus membaca sekuens teks lamban secara kaku dari awal sampai akhir seperti antrian loket. **Self-Attention** merevolusi tata cara ini: Memungkinkan AI menoleh meloncat dan membenturkan antar-kata secara bebas serentak dalam satu kalima sembari memilah mana kata yang butuh porsi prioritas lebih 'berbobot' untuk didengarkan.",
           "penjelasan_teknis": "Algoritma menghitung skor perkawinan antara kata memakai 3 vektor turunan gaib tak berwujud: **Query (Q)** (Sifat apa yang sedang kubutuhkan?), **Key (K)** (Identitas asliku apa?), dan **Value (V)** (Mana isi sari murni makna diriku). Semua kata mengirim sinyalnya dan ditimbang oleh formulasi brilian Scaled Dot-Product: $$ \\text{Attention}(\\mathbf{Q}, \\mathbf{K}, \\mathbf{V}) = \\text{softmax}\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V} $$ Makin kuat perkalian persimpangan Key gembok dan Query kunci, makin dominan kata V tersebut diserat perhatiannya.",
           "contoh_nyata": "Fitur deteksi konteks canggih di mesin pencarian web Google Search memahami sinonim maksud pengguna tanpa perlu harus ada kata absolut pelengkap tepat persis sama persis.",
-          "image": "/images/mod10_attention_heatmap.png"
+          "image": "/images/transformer_attention_concept.png"
         }
       ],
       "kesulitan": "🔴 Sulit",
@@ -601,8 +598,7 @@
           "analogi": "Multi-Head Attention ibarat menyuruh 8 kritikus sastra membaca 1 puisi yang sama secara paralel bersamaan. Ada anggota panitia yang fokus menganalisa rima bunyi rimanya, ada juri lain yang mendedah murni muatan intrik politiknya.",
           "penjelasan_awam": "Model yang berarsitektur Transformer sanggup membaca ratusan halaman dokumen sekaligus dari awal ke akhir dalam sekedipan detik (karena tidak mengantri urutan serial layaknya RNN). Agar tulisan acak paralel itu tetap paham siapa mendahului siapa, Transformer melabeli tempelan angka *Barcode Identitas Posisi* (Positional Encoding) pada tiap dahi kata secara berurutan.",
           "penjelasan_teknis": "Dengan melipatgandakan hitungan proyektor ($h$ head) sekaligus di **Multi-Head Attention**, arsitektur ajaib ini melebarkan keragaman representasi. Dan untuk menjaga angka voltase listrik agar tak meluncur acak tumpang tindih selama ditumpuk di ratusan kubus raksasa *Deep Layer Building*, ditambahkanlah penstabil sakti mandraguna pengikat voltase listrik **Layer Normalization** di selingan tiap sela blok panggung asih tersebut dan jaringan otak padat linear (Feed Forward Network).",
-          "contoh_nyata": "Jagat Semesta ChatGPT dan Gemini 100% bergantung utuh bulat pada paten sistem perakitan arsitektur ini. Transformer sangat efisien di GPU paralel sampai dapat dilatih massal oleh megaskala cluster Google berkapasitas daya jutaan watt listrik gigahertz.",
-          "image": "/images/mod11_transformer_arch.png"
+          "contoh_nyata": "Jagat Semesta ChatGPT dan Gemini 100% bergantung utuh bulat pada paten sistem perakitan arsitektur ini. Transformer sangat efisien di GPU paralel sampai dapat dilatih massal oleh megaskala cluster Google berkapasitas daya jutaan watt listrik gigahertz."
         }
       ],
       "kesulitan": "🔴 Sulit",
@@ -633,8 +629,7 @@
           "analogi": "BERT bagaikan editor novelis jenius. Ia membaca semua lembar cetakan draf tulisan depan-belakang, menutup satu kata kosong secara iseng di tangat kata tengah kalimat, lalu ia diuji untuk menebak menambal isi frasa itu persis sempurna berkat melihat sisa teks yang ada sebelum & sesudahnya secara absolut.",
           "penjelasan_awam": "**BERT** (buatan Google) menggunakan porsi blok depan Transformer (Encoder). Jaringan otaknya dibiag bebas memandang bocoran kata dari depan dan belakang kalimat secara ugal-ugalan penuh arah (Bidirectional). Dia sangat digdaya untuk mengklasifikasi sentimen emosi review dan membedah gramatikal analisis bahasa tertulis mendalam absolut.",
           "penjelasan_teknis": "Pre-trainingnya sangat khas memakai rahasia dewa **Masked Language Modeling (MLM)**: Sekitar 15% dari kalimat masukan wikipedia disengaja diblur oleh label `[MASK]`. BERT dipaksa mengolah loss loss loss fungsi konfidensi softmax dari silangan seluruh matriks Vektor Kiri Kanan demi menduga probabiliras *cross entropy* token tersebut yang sebenarnya sembunyi.",
-          "contoh_nyata": "Google Search Mesin Pencarian merajai singgasana dengan menggunakan algoritma internal ini semenjak tahun 2019 dalam rangka merevolusi radikal cara mereka secara persis mendeteksi pencarian sinonim niat manusia via ketikan browser naif.",
-          "image": "/images/mod12_bert_finetune.png"
+          "contoh_nyata": "Google Search Mesin Pencarian merajai singgasana dengan menggunakan algoritma internal ini semenjak tahun 2019 dalam rangka merevolusi radikal cara mereka secara persis mendeteksi pencarian sinonim niat manusia via ketikan browser naif."
         },
         {
           "judul": "GPT (Sekte Penembak Sinyal Searah)",
@@ -706,8 +701,7 @@
           "analogi": "Menanya ujian biologi super susah ke Llama/ChatGPT sama seperti meminta resep masak dokter bedah, ia bakal ngarang gila-gilaan berhalusinasi ria asal bunyi mirip pakar (Halusinasi). RAG (Retrieval) ini seperti menyogokkan dulu kertas contekan ensiklopedi Wikipedia *secara sembunyi-sembunyi dan otomatis* ke pangkuan si mesin Detik sebelum ia tergesa menembak ketikan baris teks kalimat ke layarmu murni menjawabnya.",
           "penjelasan_awam": "Sistem **RAG** mengintegralkan paksa otak model pencari (*Search Engine Vector Database*) berdampingan mulus dengan kepiawaian menyusun kalimat sang LLM. Kalau kita di kantoran bertanya \"Berapa bonus divisi marketing C?\", mesin wajib otomatis lompat terbang membuka brankas file PDF internal SDM perusahaan dahulu, membaca angka nominal data gajinya mutlak, baru ia disuapkan secara khusus ke prompt Chat AI untuk menjawab bahasamu.",
           "penjelasan_teknis": "Lini eksekusi arsitekturnya pecah mutlak terbagi 2 pilar dewa: (1) Mesin *Retriever* memecah arsip triliunan bit teks dokumen PDF jadi jejak koordinat titik spasial *Vector Embeddings* di dalam ruang gema geometri milisekon. Ketika user mengetik prompt pertanyaan bimbang nan rancu $Q$, perhitungan sudut derajat kemiringan garis Cosine Similarity $\\approx \\cos(\\theta)$ diseret merampok teks terdekat. (2) Hasil tangkapan berkarung kutipan data tersebut baru dipatenkan (*Augmented*) membalut kuku melingkari Prompt panjang input sebelum diledakkan dieksekusi memuntahkan deret token jawaban absolut sang *Generator LLM*.",
-          "contoh_nyata": "Bank megabesar internasional JPMorgan memfasilitasi 200 ribu karyawan internnya sistem Chatbot AI pengakses miliaran panduan SOP reguler super rahasia berdinding benteng komputasi RAG memutus bahaya kebocoran internet.",
-          "image": "/images/mod14_llm_nexttoken.png"
+          "contoh_nyata": "Bank megabesar internasional JPMorgan memfasilitasi 200 ribu karyawan internnya sistem Chatbot AI pengakses miliaran panduan SOP reguler super rahasia berdinding benteng komputasi RAG memutus bahaya kebocoran internet."
         }
       ],
       "kesulitan": "🟡 Menengah",
@@ -739,8 +733,7 @@
           "analogi": "Bayangkan anjing robot peliharaanmu. Kalau dia berhasil melompat melewati ring api, kamu melempar sosis daging yang lezat (Reward +10). Kalau dia malah membuang kotoran sembarangan di karpet tamu, kamu memukul kentongan (Penalty -5). Lama-lama, otaknya mengerti strategi hidup apa yang paling disuka majikan.",
           "penjelasan_awam": "Berbeda mutlak dari AI penghafal gambar yang disuapi jutaan kunci jawaban (Supervised), **Reinforcement Learning (RL)** melepas AI (disebut *Agent*) ke dalam simulasi dunia kosong tak beraturan (*Environment*). Sang agen dipaksa bereksperimen trial-and-error sendiri. Misinya cuma satu: Mengumpulkan skor koin tertinggi sebelum nyawanya mati (Game Over).",
           "penjelasan_teknis": "Fondasi teori RL didasarkan pada **Markov Decision Process (MDP)**. Keseluruhan proses adalah percakapan matematis murni antara dua entitas: Agen pada waktu $t$ mengamati State kondisi lingungan $S_t$, lalu mengambil keputusan Action Aksi $A_t$. Dunia lantas membalas merespons mentransisikan kondisi terdepan $S_{t+1}$ sekaligus melempar selembar sinyal Skor $R_{t+1}$. Sang Agen AI selamanya ditargetkan menyusun *Policy* probabilitas taktik $\\pi(a|s)$ untuk menyedot kumulatif imbalan skor total diskon jangka panjang: $$ G_t = \\sum_{k=0}^{\\infty} \\gamma^k R_{t+k+1} $$",
-          "contoh_nyata": "Algoritma dewa AlphaGo dari DeepMind yang menumbangkan juara maestro Go dunia berkat melatih RL dirinya sendiri menantang dirinya bermain jutaan ronde tanpa ada master manusia yang campur tangan.",
-          "image": "/images/mod15_mlops_pipeline.png"
+          "contoh_nyata": "Algoritma dewa AlphaGo dari DeepMind yang menumbangkan juara maestro Go dunia berkat melatih RL dirinya sendiri menantang dirinya bermain jutaan ronde tanpa ada master manusia yang campur tangan."
         },
         {
           "judul": "Dilema Kehidupan: Explore vs Exploit",
