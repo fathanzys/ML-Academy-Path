@@ -12,34 +12,23 @@ export default function Home() {
     <div className="flex flex-col items-center w-full pb-16">
       {/* Hero Section */}
       <section className="w-full flex flex-col items-center justify-center min-h-[70vh] text-center pt-20 pb-16">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm font-medium mb-8"
-        >
-          <Sparkles className="w-4 h-4" />
-          <span>Versi 2.0 &bull; Dilengkapi Sitasi Akademik</span>
-        </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl"
+          className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight"
         >
-          Pahami AI dari Dasar hingga <br className="hidden md:block" />
-          <span className="text-gradient hover:glow-effect transition-shadow inline-block">Masa Depan AI</span>
+          Kuasai Logika di Balik <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 hover:glow-effect transition-shadow inline-block">Kecerdasan Buatan</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl"
+          className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed"
         >
-          Kurikulum bimbingan belajar AI gratis untuk pemula Indonesia.
-          Dibangun berdasarkan literatur terpercaya dan visualisasi interaktif yang mudah dipahami.
+          Bukan sekadar tutorial coding biasa. Pahami cara kerja Machine Learning, Neural Networks, hingga LLM modern melalui <strong className="text-white">visualisasi interaktif</strong> dan penjelasan matematis yang ramah pemula.
         </motion.p>
 
         <motion.div
