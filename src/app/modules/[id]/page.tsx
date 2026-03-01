@@ -171,34 +171,40 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
                                             <h4 className="text-sm font-mono text-cyan-400 mb-2 uppercase tracking-widest">Penjelasan Awam</h4>
                                             <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-line"><FormattedText text={materi.penjelasan_awam} /></p>
                                         </div>
-                                        <div className="p-6 rounded-xl bg-violet-900/10 border border-violet-500/20">
-                                            <h4 className="text-sm font-mono text-violet-400 mb-4 uppercase tracking-widest flex items-center gap-2">
-                                                <Microscope className="w-4 h-4" /> Detail Teknis & Rumus
-                                            </h4>
-                                            <div className="text-gray-300 leading-[1.85] text-[15px] whitespace-pre-line">
-                                                <FormattedText text={materi.penjelasan_teknis} variant="technical" />
+                                        {(materi.penjelasan_teknis || materi.detail_teknis || materi.detail_teknis_rumus) && (
+                                            <div className="p-6 rounded-xl bg-violet-900/10 border border-violet-500/20">
+                                                <h4 className="text-sm font-mono text-violet-400 mb-4 uppercase tracking-widest flex items-center gap-2">
+                                                    <Microscope className="w-4 h-4" /> Detail Teknis & Rumus
+                                                </h4>
+                                                <div className="text-gray-300 leading-[1.85] text-[15px] whitespace-pre-line">
+                                                    <FormattedText text={materi.penjelasan_teknis || materi.detail_teknis || materi.detail_teknis_rumus} variant="technical" />
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
                                     </div>
 
                                     <div className="space-y-6">
-                                        <div className="p-5 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                                            <h4 className="text-sm font-bold text-orange-400 mb-2 flex items-center gap-2">
-                                                💡 Analogi Sederhana
-                                            </h4>
-                                            <p className="text-orange-200/80 text-sm leading-relaxed italic">
-                                                "{materi.analogi}"
-                                            </p>
-                                        </div>
+                                        {materi.analogi && (
+                                            <div className="p-5 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                                                <h4 className="text-sm font-bold text-orange-400 mb-2 flex items-center gap-2">
+                                                    💡 Analogi Sederhana
+                                                </h4>
+                                                <p className="text-orange-200/80 text-sm leading-relaxed italic">
+                                                    "{materi.analogi}"
+                                                </p>
+                                            </div>
+                                        )}
 
-                                        <div className="p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                                            <h4 className="text-sm font-bold text-emerald-400 mb-2 flex items-center gap-2">
-                                                🌍 Contoh Nyata
-                                            </h4>
-                                            <p className="text-emerald-200/80 text-sm leading-relaxed">
-                                                {materi.contoh_nyata}
-                                            </p>
-                                        </div>
+                                        {materi.contoh_nyata && (
+                                            <div className="p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                                                <h4 className="text-sm font-bold text-emerald-400 mb-2 flex items-center gap-2">
+                                                    🌍 Contoh Nyata
+                                                </h4>
+                                                <p className="text-emerald-200/80 text-sm leading-relaxed">
+                                                    {materi.contoh_nyata}
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
