@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ai-bg: #030712;
+  --color-ai-card: #0f172a;
+  --color-ai-card-hover: #1e293b;
+  --color-ai-primary: #8b5cf6;
+  --color-ai-secondary: #3b82f6;
+  --color-ai-accent: #f43f5e;
+  --color-ai-border: rgba(255, 255, 255, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #030712;
+    --foreground: #f8fafc;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden;
   }
 }
 
-body {
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-blue-500 to-cyan-400;
+  }
+
+  .glass-card {
+    @apply bg-ai-card/70 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl hover:bg-ai-card-hover/90 transition-all duration-300;
+  }
+
+  .glow-effect {
+    box-shadow: 0 0 20px -5px theme('colors.violet.500 / 30%');
+  }
+}
+
+/* Custom Scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* KaTeX Formula Styling Overrides */
+.katex-display {
+  margin: 0.5em 0 !important;
+  font-size: 1.15em;
+}
+
+.katex {
+  font-size: 1.05em;
+  color: #e2d3fc;
+}
+
+.katex-display>.katex {
+  font-size: 1.2em;
+  color: #c4b5fd;
+}
+
+/* Better spacing for formulas within text blocks */
+.katex-html {
+  white-space: normal;
+  word-wrap: break-word;
 }

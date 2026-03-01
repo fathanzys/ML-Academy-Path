@@ -1,0 +1,134 @@
+{
+    "learning_paths": [
+        {
+            "id": "profil-a",
+            "nama": "Si Penasaran",
+            "background": "Non-teknis (marketing, bisnis, guru, desainer)",
+            "tujuan": "Ingin memahami AI secara konseptual dan cara pakainya",
+            "estimasi_total_jam": 15,
+            "urutan_modul_rekomendasi": [
+                1,
+                2,
+                3,
+                14,
+                15,
+                16
+            ],
+            "alasan_rekomendasi": "Fokus pada pondasi konsep, Generative AI (LLM), teknik Prompt Engineering praktis, dan Etika AI. Melewati modul penuh matematika seperti kalkulus neural network.",
+            "milestones": [
+                "Selesai Modul 1-3: Pemahaman sejati apa itu AI tanpa balutan fiksi ilmiah / film.",
+                "Selesai Modul 14-16: Menguasai esensi ChatGPT, menyusun prompt sempurna, serta sadar akan resiko halusinasi (bias) AI."
+            ],
+            "peringatan": "Modul seperti Neural Networks (7), CNN (8), dan Transformer (11) sifatnya lebih opsional dan matematis. Bisa di-skip atau diikabisa bila terlalu rumit.",
+            "rekomendasi_referensi": [
+                "ML-05",
+                "GA-07",
+                "GA-08",
+                "NEWS-03"
+            ]
+        },
+        {
+            "id": "profil-b",
+            "nama": "Si Ambisius",
+            "background": "Sudah bisa coding dasar (Python atau Javascript)",
+            "tujuan": "Ingin beralih ke karir praktis di dunia AI/ML Engineering",
+            "estimasi_total_jam": 45,
+            "urutan_modul_rekomendasi": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                14
+            ],
+            "alasan_rekomendasi": "Membangun struktur kerangka pemahaman secara riil, dari model klasik (Scikit-Learn) ke pilar-pilar spesialis Deep Learning, NLP, dan pamungkasnya mencicipi arsitektur Transformer dan LLM dasar.",
+            "milestones": [
+                "Selesai Pelatihan (Training) model Scikit-Learn pertama dengan Dataset (Modul 4-5)",
+                "Membangun dan membongkar Neural Network sendiri dari nol (Modul 7)",
+                "Mendekonstruksi rahasia Attention mechanism dalam Transformer (Modul 10-11)"
+            ],
+            "peringatan": "Pemahaman fundamental aljabar dan derivatif kalkulus ringan akan diuji keras di Modul 7 (Backpropagation) dan Modul 11 (Attention matrix formulation). Luangkan waktu berfokus komprehensif.",
+            "rekomendasi_referensi": [
+                "ML-04",
+                "DL-01",
+                "DL-06",
+                "TF-04",
+                "TF-05"
+            ]
+        },
+        {
+            "id": "profil-c",
+            "nama": "Si Profesional",
+            "background": "Bekerja di industri manajemen, ingin mengadopsi AI enterprise",
+            "tujuan": "Memahami kapabilitas & limitasi AI untuk menunjang keputusan bisnis perusahaan",
+            "estimasi_total_jam": 25,
+            "urutan_modul_rekomendasi": [
+                1,
+                2,
+                4,
+                6,
+                13,
+                14,
+                16
+            ],
+            "alasan_rekomendasi": "Mempelajari batas utilitas model konvensional untuk data perusahaan, validasi efektivitas, serta peluang Generative dan LLM Models secara fungsional. Mementingkan aspek kapabilitas vs resiko limitasi AI (Etik & Compliance).",
+            "milestones": [
+                "Pemahaman tentang model-model Machine Learning yang relevan membedah big-data perusahaan",
+                "Eksplorasi utilitas dan bahaya resiko Large Language Models di dunia enterprise (Modul 14 & 16)"
+            ],
+            "peringatan": "Melewati implementasi arsitektur granular (CNN, RNN, Transformer architecture). Lebih dianjurkan menyerap Modul 6 mengenai metrik Evaluasi Model yang esensial guna menguji kredibilitas performa AI.",
+            "rekomendasi_referensi": [
+                "ML-06",
+                "GA-04",
+                "GA-07",
+                "NEWS-02"
+            ]
+        },
+        {
+            "id": "profil-d",
+            "nama": "Si Pelajar Akademis",
+            "background": "Pelajar SMA / Mahasiswa CS",
+            "tujuan": "Mengerjakan research, skripsi, merintis karir sebagai AI Researcher",
+            "estimasi_total_jam": 60,
+            "urutan_modul_rekomendasi": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+            ],
+            "alasan_rekomendasi": "Rute maraton komplit membaca seluruh esensi AI sejak akar Machine Learning klasik hingga ke batas mutakhir kemajuan Generative AI serta Etika AI Riset.",
+            "milestones": [
+                "Kapasitas berdikari menavigasi siklus AI utuh dari Dataset, Model Arsitektur Klasik layaknya CNN, hingga Pemanfaatan BERT & GPT-architecture",
+                "Kemampuan membaca serta menelaah whitepaper penelitian NeurIPS atau CVPR orisinal"
+            ],
+            "peringatan": "Membutuhkan stamina gigih. Wajib menelaah Referensi Paper Akademik (Primary sources) di tiap modul. Jangan menyepelekan limitasi resiko AI di Modul 16.",
+            "rekomendasi_referensi": [
+                "ML-02",
+                "DL-01",
+                "NLP-01",
+                "TF-01",
+                "TF-02",
+                "GA-01",
+                "GA-07"
+            ]
+        }
+    ]
+}

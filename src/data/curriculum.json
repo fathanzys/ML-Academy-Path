@@ -1,0 +1,1604 @@
+{
+  "rumpun": [
+    {
+      "id": "R1",
+      "nama": "Fondasi AI & Machine Learning",
+      "deskripsi": "Mempelajari konsep dasar kecerdasan buatan dan bagaimana mesin belajar dari sekumpulan data.",
+      "analogi": "Seperti mengajari anak kecil mengenali anjing peliharaan.",
+      "prasyarat": [],
+      "estimasi_waktu": "4 Jam",
+      "referensi_utama": [
+        "ML-01",
+        "ML-02",
+        "ML-05"
+      ]
+    },
+    {
+      "id": "R2",
+      "nama": "Machine Learning Klasik",
+      "deskripsi": "Menyelami teknik-teknik prediktif dan klasifikasi di mana komputer mencari pola dari historical data.",
+      "analogi": "Mirip dengan filter email spam.",
+      "prasyarat": [
+        "R1"
+      ],
+      "estimasi_waktu": "6 Jam",
+      "referensi_utama": [
+        "ML-03",
+        "ML-04",
+        "ML-06"
+      ]
+    },
+    {
+      "id": "R3",
+      "nama": "Deep Learning & Neural Networks",
+      "deskripsi": "Masuk ke dunia jaringan saraf tiruan berlapis berlapis (Deep Learning).",
+      "analogi": "Seperti pabrik inspeksi kualitas bertingkat.",
+      "prasyarat": [
+        "R1",
+        "R2"
+      ],
+      "estimasi_waktu": "8 Jam",
+      "referensi_utama": [
+        "DL-01",
+        "DL-02",
+        "DL-06"
+      ]
+    },
+    {
+      "id": "R4",
+      "nama": "Natural Language Processing (NLP)",
+      "deskripsi": "Mempelajari teknik mengajarkan mesin memahami bahasa manusia.",
+      "analogi": "Seperti menggunakan kamus cerdas yang melihat konteks.",
+      "prasyarat": [
+        "R1",
+        "R2"
+      ],
+      "estimasi_waktu": "5 Jam",
+      "referensi_utama": [
+        "NLP-01",
+        "NLP-03",
+        "NLP-05"
+      ]
+    },
+    {
+      "id": "R5",
+      "nama": "Computer Vision",
+      "deskripsi": "Memberikan komputer penglihatan untuk menangkap pola dari foto.",
+      "analogi": "Sama dengan memecah lukisan besar menjadi piksel.",
+      "prasyarat": [
+        "R1",
+        "R2"
+      ],
+      "estimasi_waktu": "5 Jam",
+      "referensi_utama": [
+        "CV-01",
+        "CV-02",
+        "CV-05"
+      ]
+    },
+    {
+      "id": "R6",
+      "nama": "Transformer Architecture",
+      "deskripsi": "Teknologi tercanggih berbasis Self-Attention.",
+      "analogi": "Bagaikan membaca buku dengan stabilo.",
+      "prasyarat": [
+        "R3",
+        "R4"
+      ],
+      "estimasi_waktu": "8 Jam",
+      "referensi_utama": [
+        "TF-01",
+        "TF-02",
+        "TF-04"
+      ]
+    },
+    {
+      "id": "R7",
+      "nama": "Generative AI & LLM",
+      "deskripsi": "Era kecerdasan buatan generatif.",
+      "analogi": "Seniman master yang membaca miliaran buku.",
+      "prasyarat": [
+        "R6"
+      ],
+      "estimasi_waktu": "10 Jam",
+      "referensi_utama": [
+        "GA-01",
+        "GA-02",
+        "GA-07"
+      ]
+    }
+  ],
+  "modul": [
+    {
+      "id": "MOD-01",
+      "rumpun_id": "R1",
+      "nomor": 1,
+      "judul": "Apa itu AI? (Sejarah & Konsep Dasar)",
+      "objektif": "Memahami ruang lingkup utama AI dan membedakannya secara fundamental dengan software program konvensional yang bersifat kaku.",
+      "topik": [
+        "Definisi AI: Kecerdasan Mesin",
+        "Kecerdasan Buatan Klasik (Search Algorithms)",
+        "Pemrograman Aturan Baku Vs ML",
+        "Taksonomi AI: Narrow AI vs AGI vs Superintelligence"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Classical AI & Mesin Inferensi",
+          "analogi": "AI Klasik seperti peta labirin kertas di mana kamu mencoba menelusuri setiap lorong buntu dengan jarimu sampai menemukan jalan keluar. Machine Learning seperti helikopter yang melihat labirin dari atas berdasarkan pengalaman ratusan penerbangan sebelumnya.",
+          "penjelasan_awam": "Sebelum era Machine Learning, kecerdasan buatan (Classical AI / GOFAI) diciptakan melalui kode logika IF-THEN yang sangat kaku, atau algoritma pencarian teliti yang mencoba seluruh kemungkinan solusi satu-persatu secara buta.",
+          "penjelasan_teknis": "Algoritma pencarian dasar seperti Breadth-First Search (BFS) dan algoritma heuristik seperti A* (*A-Star Search*) merupakan pilar utama Classical AI. Konsep A* mencari lintasan paling efisien pada *Graph* dari titik awal ke tujuan dengan mengevaluasi fungsi $f(n) = g(n) + h(n)$, di mana $g(n)$ adalah ongkos terukur aktual dan $h(n)$ adalah fungsi tebakan heuristik admissibel. Komputer catur Deep Blue mengalahkan Kasparov menggunakan modifikasi algoritma pencarian pohon *Minimax* murni, bukan Machine Learning.",
+          "contoh_nyata": "NPC pergerakan musuh pada game Mario Bros klasik, atau peta rute terpendek teoretis teori graf.",
+          "image": "/images/ai_timeline.png"
+        },
+        {
+          "judul": "Definisi Machine Learning Modern",
+          "analogi": "Bayangkan AI sebagai seorang murid yang awalnya tidak tahu apa-apa, tapi punya kapasitas otak super cepat. Ia menebak dan dihukum jika salah, sampai akhirnya ia mengerti pola.",
+          "penjelasan_awam": "Artificial Intelligence (AI) modern berbasis Machine Learning (ML) adalah mesin yang mampu belajar dari data masa lalu tanpa instruksi eksplisit IF-ELSE dari pemrogram manusia.",
+          "penjelasan_teknis": "Secara teknis, Machine Learning adalah pencarian aproksimasi fungsi matematis prediktif. Diberikan himpunan data $\\mathcal{D} = \\{(x_{1}, y_{1}), \\ldots, (x_{n}, y_{n})\\}$, tujuannya adalah menemukan hipotesis (bobot) $h \\in \\mathcal{H}$ yang meminimalkan Empirical Risk (Kerugian Empiris): $$ \\hat{h} = \\arg\\min_{h \\in \\mathcal{H}} \\frac{1}{n}\\sum_{i=1}^n L(h(x_i), y_i) $$\n\n**Keterangan:**\n- $L$ adalah fungsi kerugian (Loss Function) yang mengukur divergensi antara tebakan mesin $h(x_i)$ dan label kebenaran asli $y_i$.",
+          "contoh_nyata": "Penerjemah bahasa murni seperti Google Translate modern berbantuan Tensor, sistem rekomendasi film Netflix algoritma Matrix Factorization."
+        },
+        {
+          "judul": "Taksonomi AI: Narrow AI, AGI & Expert Systems",
+          "analogi": "Narrow AI ibarat juara dunia catur yang tidak bisa memasak telur dadar. AGI ibarat manusia biasa yang bisa main catur DAN masak DAN nyetir. Superintelligence ibarat alien yang mengerti segalanya triliun kali lipat lebih baik dari seluruh manusia.",
+          "penjelasan_awam": "AI hari ini semuanya **Narrow AI** (Spesialis Sempit) — ChatGPT hanya bisa bahasa, AlphaFold hanya protein, Tesla hanya nyetir. Belum ada **AGI (Artificial General Intelligence)** yang bisa melakukan SEMUA tugas kognitif manusia. **Expert Systems** (1980-an) adalah AI rule-based paling sukses sebelum ML, menggunakan database IF-THEN yang dikurasi pakar manusia.",
+          "penjelasan_teknis": "Klasifikasi level kecerdasan AI: (1) **ANI (Artificial Narrow Intelligence)** — task-spesifik, semua AI modern; (2) **AGI** — kemampuan menalar abstrak lintas domain, belum tercapai; (3) **ASI (Artificial Superintelligence)** — hipotetis, melebihi kapabilitas manusia di segala bidang. **Expert Systems** menggunakan *Knowledge Base* (fakta domain: 10,000+ aturan) + *Inference Engine* (forward/backward chaining) untuk meniru keputusan pakar. Contoh historis: MYCIN (diagnosis infeksi darah, 1976), XCON (konfigurasi komputer DEC, menghemat $40M/tahun).",
+          "contoh_nyata": "Siri bisa menjawab pertanyaan tapi tidak bisa menggambar (Narrow AI). MYCIN bisa mendiagnosis infeksi bakteri lebih akurat dari 80% dokter sungguhan, tapi tidak bisa hal lain."
+        }
+      ],
+      "kesulitan": "🟢 Mudah",
+      "visualisasi_interaktif": "Garis waktu (Timeline) Sejarah AI dengan checkpoint interaktif tahunan.",
+      "references": [
+        {
+          "kode": "ML-02",
+          "sitasi": "Russell & Norvig (2020). Artificial Intelligence: A Modern Approach.",
+          "url": "",
+          "bab": "Bab 1"
+        }
+      ]
+    },
+    {
+      "id": "MOD-02",
+      "rumpun_id": "R1",
+      "nomor": 2,
+      "judul": "Cara Komputer Belajar (Intro ML)",
+      "objektif": "Mengerti bagaimana proses dan tahapan data disuapkan kepada Mesin untuk belajar.",
+      "topik": [
+        "Definisi Machine Learning Modern",
+        "Pembersihan Data (Data Preprocessing)",
+        "Tiga Alur Utama: Input -> Train -> Predict",
+        "Learning Rate Scheduling & Tips Praktis",
+        "Batch vs Mini-Batch vs Stochastic GD",
+        "Feature Engineering"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Data Preprocessing & Normalisasi Feature",
+          "analogi": "Kamu tak bisa memasukkan ayam berbulu utuh campur lumpur ke dalam mesin penggiling sosis. Ayamnya wajib dicuci bersih, dicabut bulunya, dan dipotong sesuai ukuran silinder memuatnya.",
+          "penjelasan_awam": "Model Machine Learning tidak mengerti huruf atau gambar, ia murni hanya mesin pembaca angka pasti. Tugas Data Scientist yang paling esensial (memakan 80% waktu kerja) adalah membersihkan data kotor, mengubah teks jadi kategori angka, rasio umur agar formatnya standar, tak ada teks rumpang bolong-bolong terlewat.",
+          "penjelasan_teknis": "Dalam fase *Preprocessing Layer*, data mutlak dipartisi menjadi *Train*, *Validation*, dan *Test Set* menghindari kebocoran (Data Leakage). Variabel diskrit/kategorikal dienkod menjadi *One-Hot Encoding* untuk menghindari implikasi relasi matematis hierarkis yang salah kaprah dari model (misal variabel warna: Merah=1 dan Hijau=0). Fitur kontinu ekstrem diseragamkan dengan *Standard Scaler (Z-score)* terpusat untuk membunuh kemencengan distribusi: $$ x_{scaled} = \\frac{x - \\mu}{\\sigma} $$\n\n**Keterangan:**\n- $x$ = nilai asli fitur\n- $\\mu$ = rata-rata (mean) seluruh data pada fitur tersebut\n- $\\sigma$ = standar deviasi (simpangan baku).",
+          "contoh_nyata": "Mengubah kata [\"Pria\", \"Wanita\"] di file excel gaji pegawai menjadi format biner terpisah $[[1,0], [0,1]]$ yang bisa diunyah mesin."
+        },
+        {
+          "judul": "Algoritma Gradient Descent",
+          "analogi": "Bayangkan orang buta yang ingin turun dari puncak gunung. Ia menggunakan kakinya untuk meraba kemiringan tanah. Ia melangkah ke arah yang dirasa paling curam menurun.",
+          "penjelasan_awam": "Setiap sistem AI melatih dirinya dengan mencari nilai kesalahan (error) paling kecil. Algoritma pelacak kesalahan terkecil ini dinamakan Gradient Descent.",
+          "penjelasan_teknis": "Proses pencarian bobot optimal dilakukan menggunakan Gradient Descent. Di setiap iterasi $t$, parameter $\\theta$ di-\"update\" berlawanan dengan arah gradien kurva fungsi kerugian terukur $J(\\theta)$: $$ \\theta := \\theta - \\alpha \\nabla_{\\theta} J(\\theta) $$\n\n**Keterangan:**\n- $\\theta$ = parameter/bobot model yang ingin dioptimasi\n- $\\alpha$ (alpha) = Learning Rate (seberapa besar langkah)\n- $\\nabla_{\\theta} J(\\theta)$ = gradien (arah kemiringan tercuram) dari fungsi loss $J$ terhadap $\\theta$\n- $:=$ berarti 'diperbarui menjadi'.",
+          "contoh_nyata": "Model prediksi suhu temperatur kota Jakarta yang perlahan melatih bobotnya mengubah koefisien tiap hari jika cuaca meleset ramalan.",
+          "image": "/images/ml_pipeline.png"
+        },
+        {
+          "judul": "Learning Rate Scheduling & Tips Memilih Hyperparameter",
+          "analogi": "Saat mendekati dasar lembah, langkah pendaki harus makin mengecil, karena jika masih berlari kencang akan melewati titik terendah dan naik ke bukit seberang.",
+          "penjelasan_awam": "Di awal training, kita menggunakan langkah besar agar cepat konvergen. Tapi makin dekat ke titik optimal, langkah harus dikecilkan. Teknik ini disebut **Learning Rate Scheduling**. Seni memilih angka-angka ini (Learning Rate, Epoch, Batch Size) disebut **Hyperparameter Tuning**.",
+          "penjelasan_teknis": "Strategi penjadwalan modern: (1) **Step Decay** menurunkan $\\alpha$ per kelipatan epoch tertentu, (2) **Cosine Annealing** mengikuti kurva kosinus: $$ \\alpha_t = \\alpha_{\\min} + \\frac{1}{2}(\\alpha_{\\max} - \\alpha_{\\min})\\left(1 + \\cos\\left(\\frac{t}{T}\\pi\\right)\\right) $$\n\n**Keterangan:**\n- $\\alpha_t$ = learning rate pada epoch ke-$t$\n- $\\alpha_{\\min}$ / $\\alpha_{\\max}$ = batas bawah/atas learning rate\n- $T$ = total jumlah epoch\n- $t$ = epoch saat ini. (3) **Warm-Up** menaikkan $\\alpha$ perlahan dari nol di epoch awal lalu barulah menurun. Pencarian hyperparameter optimal dilakukan via **Grid Search** (brute-force semua kombinasi) atau **Random Search** (sampling acak yang terbukti lebih efisien pada dimensi tinggi).",
+          "contoh_nyata": "Tim engineer Google Brain menggunakan Cosine Annealing + Linear Warm-Up saat melatih model BERT dan T5 selama berminggu-minggu di ribuan TPU."
+        },
+        {
+          "judul": "Batch vs Mini-Batch vs Stochastic Gradient Descent",
+          "analogi": "Batch GD: Membaca SELURUH 1000 halaman buku catatan kesalahan sebelum memperbaiki satu hal. Mini-Batch: Baca 32 halaman, perbaiki, ulangi. SGD: Baca 1 halaman, langsung perbaiki.",
+          "penjelasan_awam": "Ada 3 cara menjalankan Gradient Descent: **Batch GD** (hitung error dari SEMUA data, lambat tapi stabil), **Stochastic GD** (hitung dari 1 data, sangat cepat tapi berisik), dan **Mini-Batch GD** (kompromi keduanya, paling populer dengan batch_size 32/64/128).",
+          "penjelasan_teknis": "**Batch GD**: $\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta; X, Y)$ — menggunakan seluruh dataset $N$. Konvergen mulus tapi $O(N)$ per step. **SGD**: $\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta; x_i, y_i)$ — satu sample per update, sangat noisy tapi bisa escape local minima. **Mini-Batch** (ukuran $B$): $\\theta := \\theta - \\alpha \\frac{1}{B}\\sum_{i=1}^{B} \\nabla_\\theta J(\\theta; x_i, y_i)$ — sweet spot komputasi GPU paralel dan kestabilan gradien.",
+          "contoh_nyata": "PyTorch DataLoader secara default menggunakan mini-batch. Batch size 32 adalah starting point umum; BERT dilatih dengan batch_size=256, GPT-3 dengan batch_size=3.2M tokens."
+        },
+        {
+          "judul": "Feature Engineering: Seni Meracik Fitur",
+          "analogi": "Bayangkan Anda seorang koki. Bahan mentah (data) sudah ada. Feature Engineering adalah seni meracik bumbu baru dari bahan yang ada: mencampurkan tepung + telur + gula menjadi 'adonan' (fitur baru) yang lebih bermakna.",
+          "penjelasan_awam": "Feature Engineering adalah kemampuan membuat kolom data baru dari data yang sudah ada untuk membantu model belajar lebih baik. Contoh: dari kolom 'tanggal lahir' Anda bisa buat kolom 'usia', 'hari dalam seminggu', atau 'zodiak'. Ini adalah skill yang membedakan Data Scientist pemula dari profesional.",
+          "penjelasan_teknis": "Teknik umum Feature Engineering: (1) **Polynomial Features**: membuat interaksi $x_1 \\cdot x_2$ atau kuadrat $x_1^2$. (2) **Binning/Discretization**: mengubah variabel kontinu menjadi bucket (usia 0-17='remaja'). (3) **Log Transform**: $x' = \\log(1+x)$ untuk menekan outlier dan skewness. (4) **Target Encoding**: mengganti kategori dengan rata-rata target-nya. (5) **Date decomposition**: mengekstrak tahun, bulan, hari, hari kerja/weekend dari timestamp.",
+          "contoh_nyata": "Tim pemenang Kaggle Competition untuk House Price Prediction membuat fitur 'total_area = basement_area + ground_floor + first_floor' yang tidak ada di kolom asli, meningkatkan akurasi 8%."
+        }
+      ],
+      "kesulitan": "🟢 Mudah",
+      "visualisasi_interaktif": "Blok diagram alur hidup data (Data Lifecycle).",
+      "references": [
+        {
+          "kode": "ML-06",
+          "sitasi": "Domingos, P. (2012). A few useful things to know about machine learning.",
+          "url": "",
+          "bab": "Fundamental Concepts"
+        }
+      ]
+    },
+    {
+      "id": "MOD-03",
+      "rumpun_id": "R1",
+      "nomor": 3,
+      "judul": "Data adalah Raja",
+      "objektif": "Mengenal bias pada data modern dan dampak bahaya ketidakseimbangan kelas (Imbalanced Data).",
+      "topik": [
+        "Prinsip Garbage In Garbage Out (GIGO)",
+        "Keseimbangan Data (Class Imbalance)",
+        "Bias-Variance Tradeoff (Underfitting vs Overfitting)",
+        "Teknik SMOTE & Data Augmentation",
+        "ROC Curve, AUC & Confusion Matrix"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Dilema Bias-Variance & Overfitting",
+          "analogi": "Siswa A tidak belajar (Underfitting/Bias Tinggi) jadi selalu menebak C. Siswa B menghafal mutlak kunci jawaban soal try-out tahun lalu koma demi koma (Overfitting/Variance Tinggi), sehingga ketika soal UN asli ditanyakan dengan sedikit huruf dibalik, nilainya 0.",
+          "penjelasan_awam": "Model AI yang terlalu pintar dan 100% akurat saat Training biasanya adalah pembohong (Overfitting). Ia tak mengerti konsep asli, ia cuma hafal data lampau mentah-mentah. Begitu dites dengan data dunia nyata masa depan modelnya hancur. Ini disebut ketidakmampuan Jenderal (Generalisasi).",
+          "penjelasan_teknis": "Fenomena *Bias-Variance Tradeoff* adalah hukum konservasi kerugian model ekspektasional pada target asing di masa inkognita: $$ \\text{Err}(x) = \\text{Bias}^2 + \\text{Variance} + \\text{Irreducible Error} $$\n\n**Keterangan:**\n- $\\text{Err}(x)$ = total error prediksi pada titik data $x$\n- $\\text{Bias}^2$ = error akibat model terlalu sederhana (underfitting)\n- $\\text{Variance}$ = error akibat model terlalu kompleks (overfitting)\n- $\\text{Irreducible Error}$ = noise bawaan data yang tak bisa dihilangkan. Regulariasi (seperti *L1 Lasso* atau *L2 Ridge Parameter Shrinkage*) disuntikkan demi menghukum dan membunuh fitur-fitur yang menyebabkan variance membengkak. Pengujiannya memerlukan metode rotasional *K-Fold Cross Validation* mutlak untuk mengusir ilusi performa latih overfitting di awal.",
+          "contoh_nyata": "Model pendeteksi kucing mengenali semua foto di dataset labnya karena background sofa abu-abu kebetulan selalu ada (Overfitting pola tak masuk akal)."
+        },
+        {
+          "judul": "Bias Data dan Evaluasi F1-Score",
+          "analogi": "Bayangkan dokter yang mendiagnosis 99% pasien sebagai sehat karena memang demografi rumah sakitnya dominan pasien sehat. Akurasinya 99%, namun gagal menyelamatkan 1% yang benar-benar sakit parah.",
+          "penjelasan_awam": "Jika kita memberi 1 juta transaksi aman dan 1 transaksi penipuan ke AI, maka AI akan selalu menebak 'Aman'. Akurasinya seakan 99%, tapi ia gagal fungsinya sama sekali.",
+          "penjelasan_teknis": "Dalam Imbalanced Classification, matrik Akurasi ($Accuracy$) rusak parah. Kita wajib menggunakan F1-Score yang membobot harmoni antara Kepresisian ($Precision$) dan Daya Ingat ($Recall$). $$ Precision = \\frac{TP}{TP + FP} \\quad , \\quad Recall = \\frac{TP}{TP + FN} $$ $$ F_1 = 2 \\cdot \\frac{Precision \\cdot Recall}{Precision + Recall} $$\n\n**Keterangan:**\n- $TP$ (True Positive) = benar terdeteksi positif\n- $FP$ (False Positive) = salah tuduh positif padahal negatif\n- $FN$ (False Negative) = lolos tak terdeteksi padahal positif\n- $TN$ (True Negative) = benar terdeteksi negatif. Model dituntut memiliki presisi (jangan salahkan tebak) dan recall (jangan sampai kelewatan) yang imbang.",
+          "contoh_nyata": "Sistem deteksi Anomali Kartu Kredit fraud perbankan memprioritaskan skor F1-Score mutlak sebesar >0.90, menolak mentah-mentah metrik Akurasi yang gampang dimanipulasi."
+        },
+        {
+          "judul": "Teknik Penanganan Imbalance: SMOTE & Augmentasi",
+          "analogi": "Jika di kelas hanya 2 murid dari suku X dan 98 murid dari suku Y, bukankah lebih adil jika kita mengundang lebih banyak murid suku X (Oversampling) atau mengurangi murid suku Y (Undersampling) agar guru bisa mengajar merata?",
+          "penjelasan_awam": "Ada dua strategi utama mengatasi data timpang: **Oversampling** menambah data kelas minoritas (membuat duplikat sintesis cerdas) dan **Undersampling** mengurangi data kelas mayoritas. SMOTE adalah teknik oversampling paling populer karena tidak hanya mengkopi, tapi menciptakan data baru di antara titik-titik asli.",
+          "penjelasan_teknis": "**SMOTE (Synthetic Minority Over-sampling Technique)** mensintesis sampel minoritas baru pada segmen garis penghubung antar tetangga terdekat minoritas: $$ x_{\\text{new}} = x_i + \\lambda \\cdot (x_{\\text{nn}} - x_i), \\quad \\lambda \\in [0,1] $$\n\n**Keterangan:**\n- $x_i$ = sampel minoritas asli\n- $x_{\\text{nn}}$ = tetangga terdekat dari $x_i$ di kelas minoritas\n- $\\lambda$ = angka acak antara 0 dan 1 (menentukan posisi sampel baru di antara keduanya)\n- $x_{\\text{new}}$ = sampel sintetis baru yang dihasilkan. Pendekatan alternatif: **Random Undersampling** (hapus acak mayoritas), **Class Weights** (membebani loss function), atau **Data Augmentation** (untuk gambar: rotasi, flip, crop; untuk teks: back-translation, synonym replacement).",
+          "contoh_nyata": "Tim data scientist Bank Mandiri menggunakan SMOTE untuk menyeimbangkan rasio transaksi fraud (0.01%) vs transaksi normal (99.99%) sebelum melatih model deteksi penipuan kartu kredit."
+        },
+        {
+          "judul": "Confusion Matrix, ROC Curve & AUC",
+          "analogi": "Confusion Matrix ibarat rapor detail siswa: bukan cuma nilai akhir, tapi juga rincian soal mana yang benar/salah. ROC Curve ibarat grafik trade-off antara 'kewaspadaan' (jangan sampai lolos penjahat) vs 'ketentraman' (jangan salah tangkap orang baik).",
+          "penjelasan_awam": "**Confusion Matrix** menampilkan 4 skenario: True Positive (deteksi benar kena), False Positive (salah tuduh), True Negative (benar-benar aman), False Negative (lolos tanpa terdeteksi). **ROC Curve** menggambar trade-off antara True Positive Rate vs False Positive Rate di berbagai threshold. **AUC** (Area Under Curve) mengukur keseluruhan kualitas model: AUC=1 sempurna, AUC=0.5 sama saja dengan menebak acak.",
+          "penjelasan_teknis": "**Confusion Matrix** mengorganisir prediksi biner menjadi 4 kuadran: $\\begin{bmatrix} TP & FP \\\\ FN & TN \\end{bmatrix}$. Darinya diturunkan: Precision $= \\frac{TP}{TP+FP}$, Recall $= \\frac{TP}{TP+FN}$, Specificity $= \\frac{TN}{TN+FP}$. **ROC Curve** mengeplot TPR ($= Recall$) vs FPR ($= 1 - Specificity$) di semua threshold $t \\in [0,1]$. **AUC** = area di bawah kurva ROC: $$ AUC = \\int_0^1 TPR(FPR^{-1}(x)) \\, dx $$ AUC robust terhadap class imbalance (tidak terpengaruh rasio kelas), menjadikannya metrik superior dibanding akurasi.",
+          "contoh_nyata": "Model deteksi kanker payudara mengincar AUC > 0.95. Threshold yang dipilih bergantung konteks: untuk penyakit mematikan, recall tinggi lebih penting (meski ada false alarm) karena meloloskan pasien sakit (FN) lebih fatal."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Penggeser keseimbangan rasio data latih.",
+      "references": [
+        {
+          "kode": "ML-05",
+          "sitasi": "Ng, A. Machine Learning Specialization. Coursera",
+          "url": "",
+          "bab": "Week 1"
+        }
+      ]
+    },
+    {
+      "id": "MOD-04",
+      "rumpun_id": "R2",
+      "nomor": 4,
+      "judul": "Supervised Learning",
+      "objektif": "Mampu membedakan konsep klasifikasi & regresi dari data historis yang sudah berlabel.",
+      "topik": [
+        "Regresi dan Klasifikasi Logistik",
+        "Decision Trees & Random Forests",
+        "Support Vector Machines (SVM)",
+        "K-Nearest Neighbors (KNN)",
+        "Panduan Memilih Algoritma & Hyperparameter Tuning",
+        "XGBoost & K-Fold Cross-Validation"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Regresi Linear vs Klasifikasi Logistik",
+          "analogi": "Regresi ibarat menimbang berat badan orang (mendapatkan angka desimal), sedangkan Klasifikasi ibarat mensortir orang ke pintu 'Pria' ke kiri dan 'Wanita' ke kanan.",
+          "penjelasan_awam": "Regresi Linear menarik sebuah pita lurus panjang untuk menebak tren masa depan. Sedangkan Klasifikasi Logistik mengekang tebakan itu menjadi persentase 0 hingga 100% peluang (Probabilitas) sebuah kejadian, misal 90% peluang timbul Kanker.",
+          "penjelasan_teknis": "**1. Regresi Linear** diukur menggunakan *Mean Squared Error* (MSE) / *Mean Absolute Error* (MAE) / $R^2$ untuk mengeliminasi outlier: $$ MSE = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2 $$\n\n**Keterangan:**\n- $n$ = jumlah data\n- $y_i$ = nilai asli (ground truth)\n- $\\hat{y}_i$ = nilai prediksi model ($\\hat{y} = w^T x + b$, dengan $w$ = bobot\n- $x$ = fitur input\n- $b$ = bias). **2. Regresi Logistik (Klasifikasi Binary)** membatasi angka via fungsi aktivasi Sigmoid $\\sigma(z) = \\frac{1}{1 + e^{-z}}$ (di mana $z$ = output linier $w^T x + b$\n- $e$ = bilangan Euler ≈ 2.718) dan dievaluasi ketajamannya memakai *Confusion Matrix* (True Positive, False Positive, dll) melawan *Cross-Entropy Loss*.",
+          "contoh_nyata": "Regresi menaksir harga rumah di area Jakarta bertaupan Rp 1.5M (Angka Absolut). Klasifikasi Logistik memutus apakah tumor paru-paru pasien terekam Ganas=1 atau Jinak=0 (Biner).",
+          "image": "/images/supervised_vs_unsupervised.png"
+        },
+        {
+          "judul": "Decision Trees & Random Forest",
+          "analogi": "Seperti permainan 'Tebak Siapa Dia' dengan 20 pertanyaan (Apakah dia berkacamata? Apakah dia punya kumis?) untuk mengerucutkan kandidat.",
+          "penjelasan_awam": "Model ini membangun pohon aturan IF-THEN bercabang. Untuk Random Forest, bayangkan kita bertanya pada 100 pakar berbeda lalu mengambil suara mayoritas (Voting) agar hasil tebakan lebih akurat dan tidak melampaui batas (Overfitting).",
+          "penjelasan_teknis": "Pohon Keputusan (Decision Tree) membelah *feature space* menjadi region terpisah demi meminimalisir fungsi impuritas seperti *Entropy*: $$ Entropy(S) = - \\sum_{i=1}^{c} p_i \\log_2(p_i) $$\n\n**Keterangan:**\n- $S$ = himpunan data pada node saat ini\n- $c$ = jumlah kelas (misalnya 2: spam/bukan spam)\n- $p_i$ = proporsi data kelas ke-$i$ di node tersebut\n- $\\log_2$ = logaritma basis 2. Entropy = 0 berarti node murni (semua satu kelas), Entropy = 1 berarti campuran 50:50. Random Forest adalah metode *Ensemble Bagging* di mana pohon-pohon independen dilatih pada obyek *bootstrap samples* paralel guna menurunkan varians prediksi final komutatif.",
+          "contoh_nyata": "Sistem persetujuan otomatis pengajuan Kredit Pinjaman Bank berdasarkan riwayat nasabah, gaji, usia pemohon dan riwayat galbay."
+        },
+        {
+          "judul": "Support Vector Machine (SVM)",
+          "analogi": "Membangun jalan tol yang seluas-luasnya lurus di antara dua desa terluar, tanpa sedikitpun menabrak satu pun rumah dari kedua kelompok desa tersebut.",
+          "penjelasan_awam": "SVM mencari garis pemisah (atau batas tiga dimensi) yang paling 'Aman' di antara dua kelompok data. Batas pemisah ini sengaja dibuat memiliki ruang ekstra (Margin) paling maksimal sehingga model kebal dari kekeliruan mutlak.",
+          "penjelasan_teknis": "SVM merupakan algoritma maksimisasi Margin (Hard/Soft Margin) di *Hyperplane* linier yang dinyatakan secara matematis sebagai optimisasi primal: $$ \\min_{w, b} \\frac{1}{2} ||w||^2 + C \\sum_{i=1}^{n} \\xi_i $$\n\n**Keterangan:**\n- $w$ = vektor bobot (menentukan orientasi hyperplane)\n- $b$ = bias (jarak hyperplane dari origin)\n- $||w||^2$ = norma kuadrat bobot (semakin kecil = margin semakin lebar)\n- $C$ = parameter regulasi (trade-off antara margin lebar vs toleransi kesalahan)\n- $\\xi_i$ = slack variable (seberapa jauh titik $i$ melanggar margin)\n- $y_i$ = label kelas (+1 atau -1). *Kernel Trick* (seperti RBF) memetakan matriks 2D tersebut ke multidimensi untuk melengkasi fitur acak non-linear.",
+          "contoh_nyata": "Deteksi pengenalan tulisan plat nomor kendaraan otomatis milik kamera lampu lalu lintas E-Tilang Kepolisian."
+        },
+        {
+          "judul": "K-Nearest Neighbors (KNN) & Naive Bayes (Probabilitas & Likelihood)",
+          "analogi": "KNN ibarat menebak sifat seseorang dari 5 teman akrab terdekatnya. Sedangkan Naive Bayes ibarat detektif yang melihat bukti jejak sepatu masa lalu dengan menghitung rasio kecenderungan (Likelihood) pelaku.",
+          "penjelasan_awam": "Dalam KNN, mesin mengambil kesimpulan murni dengan cara melihat \"tetangga titik data\" terdekatnya seketika itu juga pada grafik. Sedangkan Naive Bayes adalah filter probabilitas yang menghitung 3 hal: Prior (Kepercayaan Awal), Likelihood (Kecenderungan Bukti ditebak jika terjadi suatu skenario), dan Posterior (Keyakinan Akhir ditarik dari bukti).",
+          "penjelasan_teknis": "KNN mengandalkan metrik jarak non-parametrik lazimnya Jarak Euclidean $d(x, y) = \\sqrt{\\sum_{i=1}^{n} (x_i - y_i)^2}$, tanpa fase pembentukan *weights* awal (Lazy Learning). Sebaliknya Naive Bayes didasarkan pada Teorema Bayes di mana ia menghitung **Posterior** = (**Prior** $\\times$ **Likelihood**) / **Marginal**. Model ini secara kuat berasumsi probabilitas fitur berdimensi saling independen (Naive) satu sama lainnya: $$ P(y \\mid x_1, \\dots, x_n) = \\frac{P(y) \\prod_{i=1}^{n} P(x_i \\mid y)}{P(x_1, \\dots, x_n)} $$\n\n**Keterangan:**\n- $P(x_i \\mid y)$ adalah *Likelihood* bahwa kumpulan fitur $x$ eksis hanya pada kelas spesifik $y$.",
+          "contoh_nyata": "KNN dominan dipakai sistem e-Commerce yang melayout label \"Barang Serupa\" di Tokopedia. Naive Bayes dengan pemodelan *Multinomial Likelihood* adalah raja mutlak filter pendeteksi Spam Email Gmail era lampau yang menimbang probabilitas munculnya kata 'Menang' atau 'Lotere'."
+        },
+        {
+          "judul": "Panduan Kapan Memilih Algoritma Apa? (Cheatsheet)",
+          "analogi": "Tidak semua obat sakit yang sama. Dokter memilih obat berdasarkan gejala: paracetamol untuk demam rendah, antibiotik untuk infeksi, kemoterapi untuk kanker. Begitu pula model ML, dipilih sesuai 'penyakit' datanya.",
+          "penjelasan_awam": "**Linear Regression** untuk prediksi angka kontinu. **Logistic Regression** untuk klasifikasi yang butuh interpretasi probabilitas. **Decision Tree** jika butuh model yang mudah dijelaskan ke manajemen. **Random Forest** jika akurasi lebih penting dari interpretabilitas. **SVM** untuk dataset kecil-menengah berdimensi tinggi. **KNN** untuk prototipe cepat. **Naive Bayes** untuk teks/NLP. Pencarian hyperparameter optimal dilakukan via **Grid Search** atau **Random Search**.",
+          "penjelasan_teknis": "Pemilihan algoritma pada dasarnya meminimalisasi **Expected Generalization Error** terhadap distribusi data target. **Hyperparameter Tuning** mencari konfigurasi optimal $\\lambda^*$ yang meminimalisir Cross-Validation Error: $$ \\lambda^* = \\arg\\min_{\\lambda} \\frac{1}{K} \\sum_{k=1}^{K} L(f_{\\lambda}(X_{\\text{val}}^{(k)}), y_{\\text{val}}^{(k)}) $$ **Grid Search** mengevaluasi setiap sel dalam grid kombinasi hyperparameter. **Random Search** (Bergstra & Bengio, 2012) terbukti lebih efisien karena pada ruang berdimensi tinggi, tidak semua hyperparameter sama pentingnya.",
+          "contoh_nyata": "Seorang Data Scientist Gojek harus memilih antara Random Forest vs XGBoost untuk menentukan estimasi waktu kedatangan driver. Ia menggunakan Random Search dengan 5-Fold Cross-Validation untuk menemukan jumlah pohon dan kedalaman optimal."
+        },
+        {
+          "judul": "XGBoost (Gradient Boosting) & K-Fold Cross-Validation",
+          "analogi": "Random Forest ibarat 100 orang yang menebak paralel secara independen (Bagging). XGBoost ibarat tim relay: pelari pertama berlari sejauh dia bisa, pelari kedua melanjutkan dari titik kesalahan pelari pertama, dst (Boosting).",
+          "penjelasan_awam": "**XGBoost** adalah algoritma ML paling populer di Kaggle karena akurasinya yang luar biasa. Ia melatih pohon-pohon keputusan secara berurutan di mana setiap pohon berikutnya fokus memperbaiki kesalahan pohon sebelumnya. **K-Fold Cross-Validation** adalah cara memvalidasi model dengan membagi data menjadi K lipatan, melatih pada K-1, menguji pada sisa, dan merotasinya K kali.",
+          "penjelasan_teknis": "**Gradient Boosting** membangun ensemble secara aditif: $F_m(x) = F_{m-1}(x) + \\eta h_m(x)$, di mana setiap pohon $h_m$ di-fit pada *pseudo-residual* $r_i = -\\frac{\\partial L(y_i, F(x_i))}{\\partial F(x_i)}$. **XGBoost** menambahkan regularisasi: $$ \\mathcal{L} = \\sum_{i} L(y_i, \\hat{y}_i) + \\sum_{t} \\left[ \\gamma T_t + \\frac{1}{2}\\lambda ||w_t||^2 \\right] $$ di mana $T_t$ = jumlah daun, $w_t$ = skor daun, $\\gamma$/$\\lambda$ = regularisasi. **K-Fold CV** mengestimasi generalization error: $$ CV_K = \\frac{1}{K}\\sum_{k=1}^K L(y_{\\text{val}}^{(k)}, f_{-k}(X_{\\text{val}}^{(k)})) $$",
+          "contoh_nyata": "80%+ pemenang kompetisi Kaggle tabular data menggunakan XGBoost atau LightGBM. Perusahaan asuransi Prudential menggunakan XGBoost untuk memprediksi risiko klaim nasabah dengan AUC 0.96."
+        }
+      ],
+      "kesulitan": "🟢 Mudah",
+      "visualisasi_interaktif": "Regresi Linear Interaktif.",
+      "references": [
+        {
+          "kode": "ML-04",
+          "sitasi": "Géron, A. Hands-On ML with Scikit-Learn.",
+          "url": "",
+          "bab": "Supervised ML"
+        }
+      ]
+    },
+    {
+      "id": "MOD-05",
+      "rumpun_id": "R2",
+      "nomor": 5,
+      "judul": "Unsupervised Learning",
+      "objektif": "Paham bagaimana AI mencari kelompok dalam lautan data tanpa pedoman manusia.",
+      "topik": [
+        "Pembelajaran Tanpa Guru",
+        "Clustering K-Means & DBSCAN",
+        "Principal Component Analysis (PCA)",
+        "Anomaly Detection (Isolation Forest)",
+        "Evaluasi Cluster: Silhouette Score & Elbow Method",
+        "Hierarchical Clustering & t-SNE/UMAP"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Clustering Matematis K-Means",
+          "analogi": "Melemparkan permen acak dan menonton mereka otomatis bergerak berdekatan ke permen sewarna secara ajaib.",
+          "penjelasan_awam": "Mesin mengelompokkan jutaan profil orang ke dalam beberapa kotak rahasia berdasar kemiripan profil pribadi mereka tanpa diberi tahu apa kriteria kelompoknya sejak awal (Pembelajaran Tanpa Guru).",
+          "penjelasan_teknis": "Algoritma *K-Means* Clustering mengoptimasi letak centroid $\\mu_j$ untuk mereduksi varians inter-kluster (inertia / Within-Cluster Sum of Squares): $$ J = \\sum_{j=1}^{k} \\sum_{x_i \\in S_j} || x_i - \\mu_j ||^2 $$\n\n**Keterangan:**\n- $J$ = total inertia (semakin kecil = cluster semakin rapat)\n- $k$ = jumlah cluster yang dipilih\n- $S_j$ = himpunan titik-titik dalam cluster ke-$j$\n- $x_i$ = titik data\n- $\\mu_j$ = centroid (titik pusat) cluster ke-$j$\n- $||...||^2$ = jarak Euclidean kuadrat. Mesin akan mencari matriks *assignment* $S = \\{S_1, S_2\n- \\dots, S_k\\}$ dengan meminimalisir jarak kuadrat Euclidean titik ke titik tengah kelompoknya (EM-algorithm).",
+          "contoh_nyata": "Netflix meng-cluster Anda dalam segmen 'Pencinta Film Horor' bersama 5 juta orang benua lain berkat kalkulasi kemiripan tontonan. Sistem toko Alfamart mengelompokkan bahwa pembeli Popok selalu membeli Susu bersamaan.",
+          "image": "/images/supervised_vs_unsupervised.png"
+        },
+        {
+          "judul": "Reduksi Dimensi PCA & Deteksi Anomali",
+          "analogi": "PCA: Mengompres bayangan teko 3D (Panjang, Lebar, Tinggi) menjadi siluet foto 2D di tembok tanpa menghilangkan bentuk aslinya. Anomaly Detection: Mencari 1 jarum emas cacat di tumpukan 1 ton jarum perak seragam.",
+          "penjelasan_awam": "PCA menyusutkan 1000 kolom kepribadian Big Data menjadi 2 kolom terpenting saja agar bisa digambar di kertas dan tak membebani RAM CPU. Deteksi anomali mencari benda aneh yang sangat jarang bertingkah laku keluar dari kumpulan lazimnya.",
+          "penjelasan_teknis": "PCA merekonstruksi kumpulan eigenvektor $W_{d}$ yang berkorespondensi dengan *D* eigen-value matriks kovarians terbesar. Proyeksian dataset meminimalisir redundansi varians ortogonal $Z = X \\cdot W$. Dalam ranah ekuivalen *Isolation Forest* (Deteksi Anomali), partisi rekursif dibangun secara random: sampel anomali adalah observasi dengan alur node path logaritmik mutlak terlacak terpendek menuju root (mudah diisolasi algoritma).",
+          "contoh_nyata": "Mesin kasir Bank BCA memblokir transaksi ATM Anda mendadak (Anomaly Detection) karena tiba-tiba Anda menggesek kartu dengan mata uang Rusia jam 2 pagi, hal yang mustahil dilakukan manusia di Jakarta secara tren statistik harian."
+        },
+        {
+          "judul": "DBSCAN & Evaluasi Cluster (Silhouette Score)",
+          "analogi": "K-Means ibarat membagi anak pramuka menjadi 4 regu secara paksa (meski ada anak yang berdiri sendirian). DBSCAN ibarat membiarkan anak-anak mengerumun alami berdasarkan kedekatan pertemanan, dan anak yang sendirian dianggap 'penyendiri' (outlier).",
+          "penjelasan_awam": "K-Means punya kelemahan: harus tahu jumlah cluster $K$ di awal, dan gagal pada bentuk data non-bulat. **DBSCAN** otomatis menemukan jumlah cluster dan bisa mendeteksi kelompok berbentuk apapun. Untuk mengukur sebaik apa hasil clustering, kita gunakan **Silhouette Score** dan **Elbow Method**.",
+          "penjelasan_teknis": "**DBSCAN** mendefinisikan cluster sebagai *dense region* (region $\\epsilon$-neighborhood berisi $\\geq$ MinPts titik). Titik tanpa cluster = **Noise**. Bebas asumsi bentuk spherical. Evaluasi tanpa label (Unsupervised) menggunakan **Silhouette Score** per sampel $i$: $$ s(i) = \\frac{b(i) - a(i)}{\\max\\{a(i), b(i)\\}} $$ di mana $a(i)$ = rata-rata jarak intra-cluster dan $b(i)$ = rata-rata jarak ke cluster terdekat. Skor $s \\in [-1, 1]$: semakin mendekati 1, semakin baik pemisahan cluster. **Elbow Method** mengeplot inertia (WCSS) vs jumlah K; titik 'siku' pada kurva menunjukkan $K$ optimal.",
+          "contoh_nyata": "Riset geospasial Grab menggunakan DBSCAN untuk mengelompokkan titik-titik pickup yang berdekatan menjadi 'zona penjemputan virtual' berbentuk tidak beraturan mengikuti jalan raya."
+        },
+        {
+          "judul": "Hierarchical Clustering & Visualisasi t-SNE/UMAP",
+          "analogi": "Hierarchical Clustering ibarat silsilah keluarga (pohon genealogi): pertama individu, lalu keluarga inti, lalu keluarga besar, lalu marga, lalu suku. t-SNE/UMAP ibarat mengambil peta 3D bumi dan meratakan jadi peta datar 2D sambil mempertahankan benua-benua tetap terpisah.",
+          "penjelasan_awam": "**Hierarchical Clustering** membangun hierarki (Dendogram) dari bawah ke atas: tiap titik data bertemu 'tetangga terdekatnya' lalu bergabung pelan-pelan menjadi cluster besar. **t-SNE** dan **UMAP** adalah teknik ajaib untuk memvisualisasikan data berdimensi tinggi (ribuan kolom) menjadi plot 2D yang bisa dilihat mata manusia, sambil mempertahankan struktur tetangga lokal.",
+          "penjelasan_teknis": "**Agglomerative Clustering** memulai dari $N$ cluster tunggal, lalu iteratif menggabungkan pasangan terdekat berdasarkan linkage (Single/Complete/Average/Ward). Divisive melakukan sebaliknya. Hasilnya divisualisasikan dalam **Dendogram**. **t-SNE** (van der Maaten, 2008) meminimalkan KL-divergence antara distribusi probabilitas pasangan di ruang tinggi vs rendah: $$ C = \\sum_i KL(P_i || Q_i) = \\sum_i \\sum_j p_{j|i} \\log \\frac{p_{j|i}}{q_{j|i}} $$ **UMAP** (McInnes, 2018) lebih cepat dan mempertahankan struktur global lebih baik, berbasis Riemannian geometry dan fuzzy simplicial sets.",
+          "contoh_nyata": "Riset genomik menggunakan Hierarchical Clustering untuk mengelompokkan gen berdasar ekspresi. Ilmuwan OpenAI menggunakan t-SNE untuk memvisualisasikan embedding 768-dimensi BERT menjadi plot 2D warna-warni per topik."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Scatter Plot titik-titik campur aduk.",
+      "references": [
+        {
+          "kode": "ML-03",
+          "sitasi": "Bishop, C. Pattern Recognition and Machine Learning.",
+          "url": "",
+          "bab": "Chapter 9"
+        }
+      ]
+    },
+    {
+      "id": "MOD-06",
+      "rumpun_id": "R1",
+      "nomor": 6,
+      "judul": "Fondasi Matematika untuk AI",
+      "objektif": "Memahami fondasi matematika esensial (Probabilitas, Statistik, Linear Algebra) yang mendasari seluruh algoritma Machine Learning.",
+      "topik": [
+        "Probabilitas & Statistik Dasar",
+        "Linear Algebra: Vektor & Matriks",
+        "Kalkulus: Turunan & Gradien",
+        "Distribusi Probabilitas"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Probabilitas, Statistik & Distribusi: Bahasa Universal AI",
+          "analogi": "Probabilitas ibarat judi dadu: Anda tidak bisa memprediksi pasti angka apa keluar, tapi Anda BISA menghitung peluangnya 1/6. Seluruh AI pada dasarnya adalah mesin penghitung peluang yang sangat canggih.",
+          "penjelasan_awam": "Hampir semua AI berbasis probabilitas. **Mean** (rata-rata), **Variance** (sebaran), dan **Standard Deviation** (seberapa 'liar' datanya) adalah 3 angka ajaib yang merangkum jutaan data. **Distribusi Normal** (lonceng) muncul di mana-mana: tinggi badan, suhu, skor ujian. **Probabilitas Bersyarat** P(A|B) adalah fondasi Naive Bayes dan Bayesian AI.",
+          "penjelasan_teknis": "**Aturan Bayes**: $P(A|B) = \\frac{P(B|A) P(A)}{P(B)}$ — di mana $P(A|B)$ = probabilitas A terjadi JIKA B sudah terjadi (posterior), $P(B|A)$ = probabilitas B terjadi JIKA A benar (likelihood), $P(A)$ = probabilitas awal A (prior), $P(B)$ = probabilitas total B (evidence). **Distribusi Normal/Gaussian**: $f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}$ — di mana $\\mu$ = mean (titik puncak lonceng), $\\sigma$ = standar deviasi (lebar lonceng), $e$ = bilangan Euler (≈ 2.718), $\\pi$ ≈ 3.14159. **Expected Value**: $E[X] = \\sum x_i P(x_i)$ — di mana $x_i$ = nilai ke-$i$, $P(x_i)$ = peluang munculnya $x_i$. **Variance**: $\\text{Var}(X) = E[(X - \\mu)^2]$ — rata-rata kuadrat jarak tiap data dari mean. **Information Entropy**: $H(X) = -\\sum P(x) \\log P(x)$ — di mana $P(x)$ = probabilitas kejadian $x$, $\\log$ = logaritma natural. Entropy = 0 berarti kepastian total, Entropy tinggi = tingkat ketidakpastian tinggi.",
+          "contoh_nyata": "Saat Google Search menampilkan 'Mungkin maksud Anda...', ia menggunakan probabilitas bersyarat P(kata_benar | kata_salah). Ketika model ML memilih split node di Decision Tree, ia menghitung Information Gain berdasarkan Entropy."
+        },
+        {
+          "judul": "Linear Algebra & Kalkulus: Bahasa Mesin Neural Network",
+          "analogi": "Matriks ibarat spreadsheet Excel raksasa berisi jutaan angka. Operasi matrik perkalian ibarat cara otak AI memproses jutaan input secara paralel dalam satu langkah. Turunan/kalkulus ibarat GPS yang memberi tahu arah menurun paling curam.",
+          "penjelasan_awam": "**Vektor** = deretan angka (fitur data). **Matriks** = tabel angka 2D (bobot neural network). **Perkalian matriks** adalah operasi paling fundamental di semua neural network. **Turunan parsial** (kalkulus) digunakan dalam Gradient Descent untuk menemukan arah menurunkan error tercepat. Simbol $\\nabla$ (nabla) artinya 'semua turunan parsial sekaligus'.",
+          "penjelasan_teknis": "Sebuah layer neural network: $\\mathbf{z} = \\mathbf{W}\\mathbf{x} + \\mathbf{b}$, di mana $\\mathbf{W} \\in \\mathbb{R}^{m \\times n}$ = matriks bobot, $\\mathbf{x} \\in \\mathbb{R}^n$ = vektor input, $\\mathbf{b} \\in \\mathbb{R}^m$ = bias. **Dot Product**: $\\mathbf{a} \\cdot \\mathbf{b} = \\sum a_i b_i$ — operasi dasar Attention. **Eigendecomposition** dipakai PCA: $\\mathbf{A}\\mathbf{v} = \\lambda\\mathbf{v}$. **Gradien** multi-dimensi: $\\nabla f = \\left[\\frac{\\partial f}{\\partial x_1}, \\ldots, \\frac{\\partial f}{\\partial x_n}\\right]$ — dipakai Backpropagation. **Chain Rule** kalkulus: $\\frac{\\partial f}{\\partial x} = \\frac{\\partial f}{\\partial g} \\cdot \\frac{\\partial g}{\\partial x}$ — fondasi seluruh deep learning.",
+          "contoh_nyata": "GPU (Graphics Processing Unit) 100x lebih cepat dari CPU untuk AI karena dirancang khusus untuk perkalian matriks paralel. Itulah mengapa perusahaan AI berlomba membeli GPU NVIDIA H100 seharga $40,000/unit."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Kalkulator Matriks & Distribusi interaktif.",
+      "references": [
+        {
+          "kode": "MATH-01",
+          "sitasi": "Goodfellow, I. et al. (2016). Deep Learning. MIT Press.",
+          "url": "",
+          "bab": "Part I: Applied Math and Machine Learning Basics"
+        }
+      ]
+    },
+    {
+      "id": "MOD-07",
+      "rumpun_id": "R3",
+      "nomor": 7,
+      "judul": "Neural Network Dasar",
+      "objektif": "Memahami arsitektur internal Neural Network, tahu konsep dasar Perceptron.",
+      "topik": [
+        "Neuron Biologi ke Perceptron",
+        "Hidden Layer",
+        "Konsep Backpropagation",
+        "Vanishing/Exploding Gradient & Dropout"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Fungsi Aktivasi (Perceptron Singkat)",
+          "analogi": "Neuron ibarat bendungan air. Air masuk dari berbagai kali sungai (Synaps Input). Bendungan hanya akan pecah menyalurkan air jika total tekanannya sudah melampaui batas ambang tertentu (Activation Threshold).",
+          "penjelasan_awam": "Jaringan saraf (Neural Networks) mereplika struktur otak mamalia di mana sel saraf buatan merangkum sinyal input menjadi satu keluaran kuat. Fungsi aktivasi ini menjamin bahwa komputer bisa membengkokkan garis logikanya, tidak cuma berpikir lurus kaku.",
+          "penjelasan_teknis": "Neuron pada *Feed Forward Network* mengaplikasikan matriks bobot untuk menciptakan manifold proyektif berdimensi tak linear. Operasinya murni komputasi dot-product linier dipadu Fungsi Aktivasi $\\sigma$ non-linear (seperti *ReLU*, *Sigmoid*, atau *Tanh*). Persamaan aktivasi *layer* ke-$l$: $$ z^{(l)} = W^{(l)} \\cdot a^{(l-1)} + b^{(l)} \\\\ a^{(l)} = \\sigma(z^{(l)}) $$\n\n**Keterangan:**\n- $z^{(l)}$ = output linier (pre-activation) layer ke-$l$\n- $W^{(l)}$ = matriks bobot layer ke-$l$\n- $a^{(l-1)}$ = output (aktivasi) dari layer sebelumnya\n- $b^{(l)}$ = bias layer ke-$l$\n- $\\sigma$ = fungsi aktivasi non-linear\n- $a^{(l)}$ = output akhir (post-activation) layer ke-$l$. ReLU didefinisikan sebagai $f(x) = \\max(0, x)$ — hanya meloloskan nilai positif.",
+          "contoh_nyata": "Merangkai probabilitas skor tulisan dari tiap piksel untuk menebak angka 0-9 pada sistem scan kodepos surat.",
+          "image": "/images/neural_network.png"
+        },
+        {
+          "judul": "Backpropagation & Adam Optimizer",
+          "analogi": "Sistem komando militer: Jenderal di garis depan melihat bahwa misil meleset 100 meter (Loss). Ia marah, lalu meneriakkan instruksi evaluasi mundur ke Kolonel pembidingnya 'Geser serong 50m!', Kolonel berteriak lagi mundur ke Prajurit artilerinya 'Ubah sudut peluncur 2 derajat!'.",
+          "penjelasan_awam": "Bagaimana tepatnya ribuan otak kecil ini belajar dari kesalahan? Ia akan menyalurkan nilai kesalahannya dari depan (output) dirambat berjalan **mundur** lapis demi lapis ke belakang. Teknik merambat balik ini dinamakan Backpropagation.",
+          "penjelasan_teknis": "Backpropagation mengaplikasikan **Kalkulus Aturan Rantai (Chain Rule)** secara iteratif mutlak untuk menghitung *gradient* loss fungsi $J$ terhadap bobot individual $W^{(l)}$ sedalam apapun lapisannya: $$ \\frac{\\partial J}{\\partial W^{(l)}} = a^{(l-1)} \\left( \\dots \\left( \\frac{\\partial J}{\\partial a^{(L)}} \\odot \\sigma'(z^{(L)}) \\right) \\dots W^{(l+1)\\top} \\right) $$ Optimisasi canggih abad ini tak lagi menggunakan SGD murni, melainkan \n**Adam Optimizer** yang memperhitungkan rasio momentum pergerakan dinamis (*First & Second Moments of Gradient*) agar pembelajaran lebih cepat & stabil menghindari kurva lembah lokal (Local Minima).",
+          "contoh_nyata": "Mengajarkan mobil AI self-driving berulang-ulang cara berbelok setir meniru supir manusia yang ahli tanpa perlu menulis aturan pakemnya."
+        },
+        {
+          "judul": "Vanishing/Exploding Gradient & Teknik Regularisasi",
+          "analogi": "Bisikan rahasia yang disampaikan berantai dari orang ke orang (layer ke layer). Jika setiap orang berbisik terlalu pelan (vanishing), pesan hilang di orang ke-50. Jika terlalu keras (exploding), pesan berubah menjadi teriakan tak bermakna.",
+          "penjelasan_awam": "Pada neural network yang sangat dalam (banyak layer), gradien dari backpropagation bisa menyusut hingga nyaris nol (**Vanishing**) atau meledak tak terbatas (**Exploding**). Solusinya: **Batch Normalization** (menormalisasi input tiap layer), **Residual Connections** (lompatan jalan pintas ala ResNet), dan **Dropout** (mematikan acak sebagian neuron saat training agar tidak menghafal).",
+          "penjelasan_teknis": "Pada layer ke-$l$, gradien menderita perkalian berantai Jacobian: $\\frac{\\partial J}{\\partial W^{(1)}} = \\prod_{l=2}^{L} \\frac{\\partial a^{(l)}}{\\partial a^{(l-1)}}$. Jika eigenvalue Jacobian $< 1$ terus-menerus, gradien menuju nol eksponensial. **Batch Normalization** (Ioffe & Szegedy, 2015) menormalisasi distribusi aktivasi: $$ \\hat{x}_i = \\frac{x_i - \\mu_B}{\\sqrt{\\sigma_B^2 + \\epsilon}} $$ **Dropout** (Srivastava et al., 2014) mematikan neuron acak dengan probabilitas $p$, memaksa jaringan belajar fitur redundan dan mencegah co-adaptasi: $$ \\tilde{a}^{(l)} = a^{(l)} \\odot m, \\quad m_i \\sim \\text{Bernoulli}(1-p) $$ **Residual Connections** (He et al., 2015): $a^{(l)} = F(a^{(l-1)}) + a^{(l-1)}$, memungkinkan gradien mengalir langsung via identitas.",
+          "contoh_nyata": "ResNet-152 (152 layer!) mampu dilatih berkat Residual Connections. Tanpa shortcut skip connections ini, neural network sedalam 50+ layer mustahil konvergen karena vanishing gradient."
+        },
+        {
+          "judul": "Weight Initialization: Xavier & He Init",
+          "analogi": "Bayangkan menyetel volume 100 speaker di konser. Jika semua di-set ke 0 (terlalu kecil), tak ada suara. Jika semua di-set ke 100 (terlalu besar), akan pecah. Weight Initialization mencari titik start yang 'pas'.",
+          "penjelasan_awam": "Sebelum neural network mulai belajar, bobot awalnya harus diinisialisasi dengan angka acak yang tepat. Terlalu kecil = sinyal menghilang (vanishing). Terlalu besar = sinyal meledak (exploding). **Xavier Init** untuk Sigmoid/Tanh, **He Init** untuk ReLU.",
+          "penjelasan_teknis": "**Xavier/Glorot Init** (2010): $W \\sim \\mathcal{N}(0, \\frac{2}{n_{in} + n_{out}})$ — di mana $W$ = bobot initial, $\\mathcal{N}$ = distribusi Normal, $n_{in}$ = jumlah neuron input, $n_{out}$ = jumlah neuron output. Menjaga varians aktivasi konstan untuk Sigmoid/Tanh. **He Init** (2015): $W \\sim \\mathcal{N}(0, \\frac{2}{n_{in}})$ — dirancang khusus untuk ReLU yang hanya meloloskan separuh distribusi (bagian positif). Tanpa inisialisasi tepat, **symmetry breaking** tidak terjadi dan semua neuron belajar hal yang sama.",
+          "contoh_nyata": "PyTorch secara default menggunakan Kaiming He Init untuk layer Conv2d dan Linear. Setting ini sering diabaikan pemula padahal krusial — model yang sama bisa gagal total atau sukses hanya karena perbedaan inisialisasi."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Kanvas Network Interaktif (TensorFlow Playground UI).",
+      "references": [
+        {
+          "kode": "DL-01",
+          "sitasi": "Goodfellow et al. Deep Learning. MIT Press.",
+          "url": "",
+          "bab": "Chapter 6"
+        }
+      ]
+    },
+    {
+      "id": "MOD-08",
+      "rumpun_id": "R5",
+      "nomor": 8,
+      "judul": "Convolutional Neural Network",
+      "objektif": "Sadar esensi teknik Spatial-Filtering.",
+      "topik": [
+        "Gambar dalam Matriks Pixel Angka",
+        "Revolusi Konvolusi & Pooling Layer",
+        "Optical Character Recognition (OCR) & Transfer Learning",
+        "Evolusi Arsitektur CNN & Object Detection"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Operasi Matematis Konvolusi (Convolution)",
+          "analogi": "Kamu memegang kaca pembesar kecil dan menggesernya perlahan inci demi inci demi mencari jejak lekukan sidik jari pencuri di permukaan meja kaca raksasa.",
+          "penjelasan_awam": "CNN adalah mata buatan. Ia punya ribuan lensa filter ukuran 3x3. Filter pertama hanya bereaksi pada garis vertikal, filter lapisan selanjutnya menangkap kurva, sampai akhirnya tergambar utuh wajah kucing.",
+          "penjelasan_teknis": "Operasi konvolusi 2D diskrit meluncurkan matriks Kernel (Filter) K di atas matriks Gambar asli I. Hasil piksel lokasinya $S(i, j)$ dibentuk via perjumlahan Hadamard: $$ S(i, j) = (I * K)(i, j) = \\sum_{m} \\sum_{n} I(i-m, j-n) K(m, n) $$\n\n**Keterangan:**\n- $I$ = matriks gambar input (pixel)\n- $K$ = kernel/filter konvolusi (misal 3×3)\n- $S(i,j)$ = output feature map di posisi $(i,j)$\n- $m, n$ = indeks baris-kolom kernel\n- $*$ = operasi konvolusi (bukan perkalian biasa). Filter yang sama digeser ke seluruh posisi gambar (Weight Sharing), memungkinkan deteksi fitur yang sama di mana pun letaknya (Translational Invariance).",
+          "contoh_nyata": "AI biometrik pengenal wajah muka iPhone FaceID, diagnosis Rontgen Paru-Paru, dan deteksi marka jalan pada mobil otomatis Tesla AutoPilot.",
+          "image": "/images/cnn_vision.png"
+        },
+        {
+          "judul": "Max Pooling & Arus Curang Transfer Learning",
+          "analogi": "Pooling: Daripada membawa peta kota berukuran raksasa kemana-mana, Anda hanya memotong bagian peta yang krusial (ada rumah sakitnya) jadi kecil. Transfer Learning: Daripada menyekolahkan anak dari TK sampai S3 Kedokteran, Anda menyewa Einstein seharga milyaran, lalu kursus pendekkan Einstein seminggu belajar Gigi.",
+          "penjelasan_awam": "CNN akan meledakkan sistem komputer jika memproses jutaan piksel langsung. **Pooling** berguna menurunkan paksa ukuran gambar menjadi kerdil tanpa menghilangkan isi utamanya (Downsampling). **Transfer Learning** adalah jalan tikus praktisi industri AI masa kini: Kita tinggal 'mendownload' otak robot pengenal miliaran wajah buatan lab raksasa miliki Google (Pre-Trained model), lalu mengubah paksa output otaknya untuk spesifik mengenali ras sapi ternak saja dalam 1 hari eksperimen.",
+          "penjelasan_teknis": "**Max Pooling** memicu ekuivarian toleransi translasi spasial ekstrem, beroperasi deterministik via jendela non-parameter $p_{i,j} = \\max_{m,n \\in \\text{window}} x_{i-m, j-n}$. Di sisi lain, **Transfer Learning** melibatkan pemangkasan *Fully Connected Layers* tebal dari arsitektur raksasa mutakhir ImageNet sekelas ResNet-50 / VGG-16, kemudian membekukan (*freeze*) kedalaman lapisan fiturnya, hanya melatih ulang *Classifier Head* lapisan paling terluar di set target kecil yang minim data.",
+          "contoh_nyata": "Meng-clone model YOLOX-v8 pengenal jenis burung sedunia milik Ultralytics, dan dipakai melacak truk pasir curian di jalan tol Cipali hanya berbekal 300 foto CCTV truk saja sebagai modal latih ulangnya."
+        },
+        {
+          "judul": "Optical Character Recognition (OCR) & Engine Tesseract",
+          "analogi": "Seperti anak SD yang baru belajar membaca tulisan cepat dokter yang berantakan lalu menyalinnya kembali menjadi ketikan keyboard komputer yang sangat rapi di sebuah file Ms Word.",
+          "penjelasan_awam": "OCR adalah keajaiban sistem AI yang 'menyedot' teks dari ruang pixel yang mati di dalam foto ke deretan huruf hidup yang bisa Anda Copy-Paste. Tesseract adalah salah satu robot legendaris buatan Google yang melakukan OCR.",
+          "penjelasan_teknis": "Tesseract AI beroperasi pada *Pipeline* pengolahan citra (*Binarization* via Otsu & *Adaptive Thresholding*) sebelum masuk ke modul pelacak garis (Line finding). Versi modern Tesseract (v4+) migrasi dari pola pixel absolut mesin kuno menuju Deep Learning **LSTM (Long-Short Term Memory) Neural Networks**.\n\n**Keterangan:**\n- urutan slice gambar dideret temporal sekuensial agar mampu membaca huruf latin yang bengkok dengan mengoptimalkan fungsi kerugian dinamis *Connectionist Temporal Classification (CTC) Loss*: $$ L_{CTC} = -\\log \\sum_{\\pi \\in B^{-1}(y)} p(\\pi \\mid x) $$",
+          "contoh_nyata": "Di dunia riil, teknologi OCR marak dipakai oleh Bank Nasional saat Anda memfoto KTP untuk buka rekening (e-KYC otomatis tanpa ketik NIK), pada mode Google Translate Kamera HP, atau gerbang tol merekam plat nomor via kamera E-Tilang (ETLE)."
+        },
+        {
+          "judul": "Evolusi Arsitektur CNN: LeNet → AlexNet → VGG → ResNet & Object Detection",
+          "analogi": "Evolusi CNN ibarat evolusi ponsel: dari Nokia 3310 (LeNet, 1998) ke iPhone pertama (AlexNet, 2012) ke flagship modern (ResNet, 2015). Masing-masing generasi mendobrak batas performansi dunianya sendiri.",
+          "penjelasan_awam": "**LeNet** (Yann LeCun, 1998) adalah CNN pertama untuk baca angka cek bank. **AlexNet** (2012) memenangkan ImageNet dengan margin besar menggunakan GPU dan ReLU. **VGG** (2014) membuktikan bahwa 'lebih dalam = lebih baik' dengan 16-19 layer. **ResNet** (2015) memecahkan masalah depth limit dengan skip connections. Untuk mendeteksi DAN melokalisasi objek dalam gambar (bukan hanya mengenali), digunakan **Object Detection**: YOLO, R-CNN, atau SSD.",
+          "penjelasan_teknis": "Evolusi arsitektur berkisar pada kedalaman dan efisiensi: LeNet-5 ($\\sim$60K params), AlexNet ($\\sim$60M params, ReLU + Dropout), VGGNet ($\\sim$138M params, kernel 3×3 konsisten), ResNet ($\\sim$25M params, **Skip Connections** $F(x) + x$). Untuk **Object Detection**, YOLO (*You Only Look Once*) membagi gambar menjadi grid $S \\times S$ dan memprediksi bounding box + kelas secara simultan dalam satu forward pass, memungkinkan deteksi real-time: $$ \\text{YOLO Output} = S \\times S \\times (B \\times 5 + C) $$ di mana $B$ = jumlah bounding box per cell, 5 = $(x, y, w, h, \\text{confidence})$, dan $C$ = jumlah kelas. **R-CNN** menggunakan Region Proposal terpisah lalu CNN klasifikasi (lebih akurat, lebih lambat).",
+          "contoh_nyata": "Sistem CCTV keamanan bandara Soekarno-Hatta menggunakan YOLOv8 untuk mendeteksi wajah + tas mencurigakan secara real-time. Mobil otonom Tesla menggunakan varian CNN Object Detection untuk mengenali rambu, pejalan kaki, dan kendaraan lain."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Glass Magnifier Konvolusi.",
+      "references": [
+        {
+          "kode": "CV-02",
+          "sitasi": "Krizhevsky et al. ImageNet Classification with AlexNet",
+          "url": "",
+          "bab": "Architecture Revolution"
+        }
+      ]
+    },
+    {
+      "id": "MOD-09",
+      "rumpun_id": "R3",
+      "nomor": 9,
+      "judul": "RNN & LSTM (Sequence Models)",
+      "objektif": "Memahami arsitektur Recurrent Neural Network untuk data sekuensial (teks, waktu, audio) dan mengapa LSTM diciptakan untuk mengatasi masalah memori jangka panjang.",
+      "topik": [
+        "Data Sekuensial & Kebutuhan Memori",
+        "Arsitektur RNN (Recurrent Neural Network)",
+        "Masalah Vanishing Gradient pada RNN",
+        "LSTM & GRU: Gerbang Memori"
+      ],
+      "materi_detail": [
+        {
+          "judul": "RNN: Neural Network dengan Memori Waktu",
+          "analogi": "RNN ibarat Anda membaca kalimat kata per kata sambil mengingat kata-kata sebelumnya. Saat membaca 'Kucing itu mengejar...', otak Anda sudah mengantisipasi bahwa kata berikutnya mungkin 'tikus' berdasarkan konteks sebelumnya.",
+          "penjelasan_awam": "Neural network biasa (feedforward) memperlakukan setiap input secara independen — ia tak punya 'ingatan'. **RNN** menambahkan loop balik: output dari langkah sebelumnya diumpankan kembali sebagai input tambahan di langkah sekarang. Ini membuatnya cocok untuk data berurutan: teks, harga saham, suhu harian, sinyal suara.",
+          "penjelasan_teknis": "RNN memproses sekuens $(x_1, x_2, \\ldots, x_T)$ dengan hidden state $h_t$ yang menyimpan 'memori': $$ h_t = \\tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h) $$ $$ y_t = W_{hy} h_t + b_y $$\n\n**Keterangan:**\n- $x_t$ = input pada langkah waktu $t$\n- $h_t$ = hidden state (memori internal) pada waktu $t$\n- $h_{t-1}$ = hidden state SEBELUMNYA\n- $W_{hh}$ = bobot recurrent (menghubungkan memori lama ke baru)\n- $W_{xh}$ = bobot input-ke-hidden\n- $W_{hy}$ = bobot hidden-ke-output\n- $b_h$/$b_y$ = bias\n- $y_t$ = output pada waktu $t$. Masalah: saat BPTT, gradien dikalikan $W_{hh}$ sebanyak $T$ kali. Jika $||W_{hh}|| < 1$ → **vanishing gradient**. Jika $||W_{hh}|| > 1$ → **exploding gradient**.",
+          "contoh_nyata": "Keyboard autocorrect HP Anda menggunakan varian RNN: saat Anda ketik 'Aku mau makan', ia memprediksi 'nasi' berdasarkan konteks kata-kata sebelumnya, bukan hanya kata terakhir."
+        },
+        {
+          "judul": "LSTM & GRU: Mengatasi Amnesia RNN",
+          "analogi": "Jika RNN ibarat manusia yang hanya ingat 5 detik terakhir (Dory di Finding Nemo), maka LSTM ibarat manusia normal dengan kemampuan memilih: 'ini penting, saya ingat' atau 'ini tidak penting, saya lupakan'.",
+          "penjelasan_awam": "**LSTM (Long Short-Term Memory)** menambahkan 3 gerbang pintar: **Forget Gate** (apa yang harus dilupakan), **Input Gate** (apa yang baru harus diingat), dan **Output Gate** (apa yang harus dikeluarkan). **GRU (Gated Recurrent Unit)** adalah versi lebih sederhana dengan hanya 2 gerbang (update + reset), lebih cepat tapi sedikit kurang powerful.",
+          "penjelasan_teknis": "**LSTM** memiliki cell state $C_t$ (memori jangka panjang terpisah): $$ f_t = \\sigma(W_f [h_{t-1}, x_t] + b_f) \\quad \\text{(Forget Gate)} $$ $$ i_t = \\sigma(W_i [h_{t-1}, x_t] + b_i) \\quad \\text{(Input Gate)} $$ $$ \\tilde{C}_t = \\tanh(W_C [h_{t-1}, x_t] + b_C) \\quad \\text{(Kandidat)} $$ $$ C_t = f_t \\odot C_{t-1} + i_t \\odot \\tilde{C}_t \\quad \\text{(Update memori)} $$ $$ o_t = \\sigma(W_o [h_{t-1}, x_t] + b_o) \\quad \\text{(Output Gate)} $$ $$ h_t = o_t \\odot \\tanh(C_t) $$\n\n**Keterangan:**\n- $f_t$ = forget gate (0=lupakan, 1=ingat)\n- $i_t$ = input gate (seberapa banyak info baru masuk)\n- $\\tilde{C}_t$ = kandidat memori baru\n- $C_t$ = cell state (memori jangka panjang)\n- $o_t$ = output gate (apa yang dikeluarkan)\n- $\\sigma$ = fungsi sigmoid (output 0-1)\n- $\\odot$ = perkalian element-wise\n- $[h_{t-1}, x_t]$ = concatenation hidden state & input. Cell state $C_t$ mengalir linear tanpa perkalian berulang, mengatasi vanishing gradient.",
+          "contoh_nyata": "Google Translate era 2014-2017 menggunakan stacked LSTM encoder-decoder. Siri dan Alexa menggunakan LSTM untuk speech recognition. Sebelum Transformer (2017), LSTM adalah raja NLP selama 5 tahun."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Simulator Memori RNN vs LSTM.",
+      "references": [
+        {
+          "kode": "DL-03",
+          "sitasi": "Hochreiter, S. & Schmidhuber, J. (1997). Long Short-Term Memory.",
+          "url": "",
+          "bab": "Neural Computation, 9(8)"
+        }
+      ]
+    },
+    {
+      "id": "MOD-10",
+      "rumpun_id": "R6",
+      "nomor": 10,
+      "judul": "Attention Mechanism",
+      "objektif": "Paham konsep Matriks Attention dan mengapa ia memecahkan problema Amnesia kronis pada RNN yang kuno.",
+      "topik": [
+        "Penyakit Ingatan Jangka Pendek AI",
+        "Mekanisme Memberi Atensi",
+        "Multi-Head Attention"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Mekanisme Perataan Atensi",
+          "analogi": "Kamu membaca koran sembari menorehkan tinta stabilo fokus merah pada kata \"Presiden\". Kata rujukan \"Beliau\" di baris 5 jelas memiliki koneksi tarik sebesar 90% pada kata \"Presiden\" tersebut.",
+          "penjelasan_awam": "Komputer tidak lagi repot mengingat seluruh kalimat dari huruf awal. Ia menenggak seluruh kata di meja sekaligus, dan menggunakan korelasi matematis untuk memberitahu \"Bagian manakah di kalimat ini yang harus aku beri porsi paling besar perhatikan saat merangkai responku?\"",
+          "penjelasan_teknis": "Model Bahdanau melepaskan RNN klasikal dengan vektor Attention terdistribusi $c_i$ diolah untuk setiap status unit target terjemahan: $$ c_i = \\sum_{j=1}^{T_x} \\alpha_{ij} h_j $$\n\n**Keterangan:**\n- bobot skala perhatian $\\alpha_{ij}$ didistribusikan secara statistik halus dengan fungsi Softmax di atas skor keselarasan energinya: $$ \\alpha_{ij} = \\frac{\\exp(e_{ij})}{\\sum_{k=1}^{T_x} \\exp(e_{ik})}  \\quad\\text{dengan}\\quad e_{ij} = a(s_{i-1}, h_j) $$",
+          "contoh_nyata": "Awal revolusi kecanggihan presisi pada Google Translate era 2017.",
+          "image": "/images/transformer_attention.png"
+        },
+        {
+          "judul": "Multi-Head Attention: Melihat dari Banyak Sudut Pandang",
+          "analogi": "Bayangkan membaca novel detektif bersama 8 teman. Kamu fokus cari motif pelaku. Teman A fokus cari alibi. Teman B fokus hubungan antar karakter. Setelah berdiskusi, kalian mendapat pemahaman yang jauh lebih kaya dari satu orang saja.",
+          "penjelasan_awam": "Alih-alih memakai satu 'kacamata' attention saja, Transformer menggunakan banyak head (8-128) yang masing-masing melihat aspek linguistik yang berbeda: satu head menangkap sintaks, head lain menangkap semantik, head lain menangkap referensi antar kalimat.",
+          "penjelasan_teknis": "Multi-Head Attention menjalankan $h$ mekanisme attention paralel dengan proyeksi linier berbeda, lalu mengkonkatenasi hasilnya: $$ \\text{MultiHead}(Q,K,V) = \\text{Concat}(\\text{head}_1, \\dots, \\text{head}_h) W^O $$ di mana setiap head diproyeksikan: $\\text{head}_i = \\text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$. Dengan $d_k = d_{\\text{model}} / h$, total komputasi setara single-head attention berdimensi penuh, namun dengan representasi sub-ruang yang jauh lebih kaya.",
+          "contoh_nyata": "Model BERT-base menggunakan 12 attention heads. Riset menunjukkan bahwa head tertentu secara otomatis belajar menangkap hubungan subjek-verba, sementara head lainnya menangkap referensi pronoun (kata ganti orang)."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Garis Heatmap Kata demi Kata.",
+      "references": [
+        {
+          "kode": "TF-03",
+          "sitasi": "Bahdanau et al. (2015). Neural Machine Translation by Jointly Learning to Align.",
+          "url": "",
+          "bab": "Soft Attention Mechanism"
+        }
+      ]
+    },
+    {
+      "id": "MOD-11",
+      "rumpun_id": "R6",
+      "nomor": 11,
+      "judul": "Transformer Architecture",
+      "objektif": "Mendalami pilar mekanis Self-Attention Transformer dan kenapa ia menjadi revolusi GPU terbesar abad ini.",
+      "topik": [
+        "Self-Attention Matrix",
+        "Positional Encoding",
+        "Layer Normalization & Feed-Forward Network",
+        "Encoder vs Decoder (BERT vs GPT)"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Rumus Induk Transformer (Attention Is All You Need)",
+          "analogi": "Setiap kata di dalam ruangan ditugaskan punya Kartu Nama ($K$), Buku Tanya Jawab ($Q$), dan Kunci Jawaban ($V$). Bila buku tanya jawab 'Dia' bertaut dekat pada kartu nama 'Budi', maka intisarinya ($V$) diserap 90%.",
+          "penjelasan_awam": "Paper Transformer merombak total struktur AI. Ia menghapus keharusan memproses bahasa sesuai antrian. Kata pertama dan kata ke 1000 dikunyah mesih ini di detik super cepat bersamaan dengan GPU. Menjadikannya merajai segalanya.",
+          "penjelasan_teknis": "Esensi sakral The Transformer (Vaswani et al, 2017) murni dipusatkan pada komputasi **Scaled Dot-Product Attention**. Input ditransformasi pada tiga sub-matriks: *Query* ($Q$), *Key* ($K$), dan *Value* ($V$): $$ \\text{Attention}(Q, K, V) = \\text{softmax}\\left( \\frac{Q K^T}{\\sqrt{d_k}} \\right) V $$\n\n**Keterangan:**\n- $Q$ (Query) = 'apa yang saya cari?'\n- $K$ (Key) = 'apa yang saya tawarkan?' dari setiap kata\n- $V$ (Value) = 'isi informasi saya' dari setiap kata\n- $K^T$ = transpose matriks Key\n- $d_k$ = dimensi vektor Key\n- $\\sqrt{d_k}$ = faktor pembagi untuk menstabilkan gradien softmax. Skor $QK^T$ menghasilkan matriks perhatian yang menentukan seberapa besar kata A fokus ke kata B.",
+          "contoh_nyata": "Arsitektur Transformer adalah tulang punggung seluruh model Raksasa AI hari ini, mulai dari LLM (GPT-4, Claude, Llama 3) yang bisa coding, pembuatan gambar ajaib Midjourney dari teks, hingga melipat urutan asam amino protein kompleks di DeepMind AlphaFold-3 untuk menemukan obat kanker.",
+          "image": "/images/transformer_attention.png"
+        },
+        {
+          "judul": "Rahasia Positional Encoding",
+          "analogi": "Ratusan anak-anak berseragam sama masuk gerbang sekolah bersamaan disuruh panitia berbaris. Kepala sekolah akan bingung memanggil mereka jika mereka tak memegang nomor dada (Nomor Antrian/Posisi) saat berlarian.",
+          "penjelasan_awam": "Karena mesin Transformer menyedot seluruh kata 1 paragraf sekaligus (bukan satu per satu lagi seperti AI jaman kuno rnn), Transformer jadi 'buta urutan'. Kata 'Buku tebal' akan dianggap sama dengan 'Tebal buku'. Oleh karenanya, dicaplah sebuah stempel tanda nomor urut pada masing-masing punggung kata tersebut (Positional Encoding).",
+          "penjelasan_teknis": "Arsitektur tidak memiliki konsep rekuransi ($RNN$) amupun konvolusi spasial ($CNN$). Posisi kata disuntikkan via gelombang Sinusoida pada input Embedding: $$ PE_{(pos, 2i)} = \\sin(pos / 10000^{2i/d_{\\text{model}}}) $$ $$ PE_{(pos, 2i+1)} = \\cos(pos / 10000^{2i/d_{\\text{model}}}) $$\n\n**Keterangan:**\n- $pos$ = posisi kata dalam kalimat (0, 1, 2, ...)\n- $i$ = indeks dimensi embedding (0, 1, ...\n- $d/2$)\n- $d_{\\text{model}}$ = dimensi total embedding (misal 512)\n- $10000$ = konstanta skala frekuensi. Dimensi genap (2i) menggunakan $\\sin$, dimensi ganjil (2i+1) menggunakan $\\cos$. Fungsi ini memungkinkan model menghitung jarak relatif antar kata.",
+          "contoh_nyata": "Transformer mengurutkan tata bahasa kerangka kalimat panjang 2.000 kata tanpa menukar Subjek (S) dengan Obyek (O)."
+        },
+        {
+          "judul": "Layer Norm, FFN, dan Dualitas Encoder vs Decoder",
+          "analogi": "Setiap blok Transformer ibarat stasiun kerja pabrik: setelah dikerjakan mesin Attention, produk teks masuk ke mesin inspeksi kualitas (Layer Norm), lalu ke mesin pengolah lanjut (FFN). Encoder = pabrik pembaca (BERT), Decoder = pabrik penulis (GPT).",
+          "penjelasan_awam": "Selain Attention, setiap blok Transformer punya dua komponen vital lainnya: **Layer Normalization** (menjaga stabilitas angka agar training tidak meledak) dan **Feed-Forward Network** (dua layer dense yang memroses setiap posisi secara independen). Arsitektur Transformer punya dua varian besar: **Encoder-only** (BERT, untuk memahami/klasifikasi teks) vs **Decoder-only** (GPT, untuk menghasilkan/menulis teks).",
+          "penjelasan_teknis": "**Layer Normalization** menormalisasi aktivasi per sampel (bukan per batch): $$ \\text{LN}(x) = \\frac{x - \\mu}{\\sqrt{\\sigma^2 + \\epsilon}} \\odot \\gamma + \\beta $$ Di mana: $x$ = vektor aktivasi input, $\\mu$ = mean dari $x$, $\\sigma^2$ = variance dari $x$, $\\epsilon$ = konstanta stabilitas (≈10⁻⁶), $\\gamma$ = parameter skala (dipelajari), $\\beta$ = parameter shift (dipelajari), $\\odot$ = perkalian element-wise. **Position-wise FFN**: $$ \\text{FFN}(x) = \\max(0, xW_1 + b_1)W_2 + b_2 $$ Di mana: $W_1, W_2$ = matriks bobot dua layer linear, $b_1, b_2$ = bias, $\\max(0, \\cdot)$ = aktivasi ReLU. **Encoder** (BERT) = Bidirectional. **Decoder** (GPT) = Causal/Masked. **Encoder-Decoder** (T5) = keduanya dengan Cross-Attention.",
+          "contoh_nyata": "BERT (Encoder) dominan untuk tugas pencarian Google Search, deteksi sentimen, dan question answering. GPT (Decoder) dominan untuk chatbot, penulisan kode, dan generasi teks kreatif. T5 (Encoder-Decoder) dipakai untuk terjemahan dan summarization."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Sebuah interaktif blok diagram animasi Encoder.",
+      "references": [
+        {
+          "kode": "TF-01",
+          "sitasi": "Vaswani, A. et al. Attention Is All You Need.",
+          "url": "",
+          "bab": "Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-12",
+      "rumpun_id": "R6",
+      "nomor": 12,
+      "judul": "BERT & Fine-Tuning (NLU)",
+      "objektif": "Mendalami arsitektur BERT sebagai terobosan NLU (Natural Language Understanding) dan teknik fine-tuning untuk tugas-tugas downstream.",
+      "topik": [
+        "Pre-training: Masked Language Model & Next Sentence Prediction",
+        "Fine-Tuning untuk Classification, NER, QA",
+        "IndoBERT & Model Bahasa Indonesia"
+      ],
+      "materi_detail": [
+        {
+          "judul": "BERT: Bidirectional Encoder Representations from Transformers",
+          "analogi": "Bayangkan belajar bahasa dengan cara mengisi titik-titik: 'Aku ___ nasi goreng di warung'. BERT belajar seperti ini — ia membaca kalimat dari KIRI dan KANAN sekaligus (bidirectional) sambil menebak kata yang disembunyikan.",
+          "penjelasan_awam": "**BERT** (Google, 2018) merevolusi NLP dengan ide sederhana tapi jenius: ambil arsitektur Transformer Encoder, lalu latih di miliaran kalimat internet dengan tugas 'tebak kata yang di-mask'. Hasilnya: model yang MEMAHAMI bahasa secara mendalam. Setelah pre-training, BERT bisa di-**fine-tune** (dilatih tambahan sedikit) untuk tugas spesifik: deteksi sentimen, question answering, NER (Named Entity Recognition).",
+          "penjelasan_teknis": "BERT di-pre-train dengan dua objectives: (1) **Masked Language Model (MLM)**: mask 15% token secara acak, prediksi token aslinya: $P(w_i | w_1, \\ldots, w_{i-1}, \\text{[MASK]}, w_{i+1}, \\ldots, w_n)$ — memaksa representasi bidirectional. (2) **Next Sentence Prediction (NSP)**: prediksi apakah kalimat B benar-benar mengikuti kalimat A. **Fine-Tuning**: tambahkan classification head (Linear + Softmax) di atas [CLS] token output, lalu train end-to-end pada labeled dataset kecil (~10K sampel). BERT-base: 12 layers, 768 hidden, 110M params. BERT-large: 24 layers, 1024 hidden, 340M params.",
+          "contoh_nyata": "Google Search mengadopsi BERT pada 2019 dan mengklaim 'peningkatan terbesar dalam 5 tahun terakhir'. IndoBERT (Universitas Indonesia & Tokopedia) adalah BERT yang di-pre-train pada 220M kata Bahasa Indonesia."
+        },
+        {
+          "judul": "Fine-Tuning: Dari Model Umum ke Spesialis",
+          "analogi": "Pre-trained BERT ibarat lulusan S1 Sastra yang fasih berbahasa. Fine-Tuning ibarat mengirimnya magang 1 bulan di rumah sakit — ia tetap paham bahasa, tapi kini bisa membaca rekam medis dan menulis laporan kesehatan.",
+          "penjelasan_awam": "Fine-tuning adalah proses **melatih ulang** model pre-trained pada dataset spesifik Anda yang kecil. Keuntungannya: Anda TIDAK perlu melatih dari nol (hemat waktu, data, dan biaya). Cukup modifikasi layer terakhir dan latih 3-5 epoch. Teknik ini disebut **Transfer Learning** di dunia NLP.",
+          "penjelasan_teknis": "Arsitektur Fine-Tuning BERT per task: **Klasifikasi**: [CLS] → Linear → Softmax (Sentiment, Spam Detection). **NER/Token Classification**: setiap token output → Linear → Softmax per token (B-PER, I-PER, O). **Question Answering**: prediksi span start ($s$) dan span end ($e$): $P_s = \\text{softmax}(W_s h_i), P_e = \\text{softmax}(W_e h_j)$, answer = $\\arg\\max_{i \\leq j} P_s(i) + P_e(j)$. **Learning Rate** fine-tuning jauh lebih kecil (2e-5 vs pre-training 1e-4). Varian: RoBERTa (no NSP, lebih banyak data), ALBERT (parameter sharing), DeBERTa (disentangled attention).",
+          "contoh_nyata": "Dengan hanya 5000 review Tokopedia berlabel, fine-tuning IndoBERT mencapai akurasi sentimen 92%, jauh di atas model Naive Bayes (78%) yang perlu ratusan ribu data."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Simulator Masked Language Model.",
+      "references": [
+        {
+          "kode": "TF-03",
+          "sitasi": "Devlin, J. et al. (2019). BERT: Pre-training of Deep Bidirectional Transformers.",
+          "url": "",
+          "bab": "Architecture & Fine-Tuning"
+        }
+      ]
+    },
+    {
+      "id": "MOD-13",
+      "rumpun_id": "R7",
+      "nomor": 13,
+      "judul": "Generative AI (VAE, GAN, Diffusion)",
+      "objektif": "Memahami tiga paradigma utama AI generatif: Variational Autoencoders, Generative Adversarial Networks, dan Diffusion Models.",
+      "topik": [
+        "Variational Autoencoder (VAE)",
+        "GAN: Generator vs Discriminator",
+        "Diffusion Models (Stable Diffusion, DALL-E)",
+        "Text-to-Image & Multimodal Generation"
+      ],
+      "materi_detail": [
+        {
+          "judul": "VAE & GAN: Dua Paradigma Generatif",
+          "analogi": "VAE ibarat seorang pelukis yang belajar 'esensi' wajah (mata, hidung, mulut) lalu menggambar wajah baru dari esensi itu. GAN ibarat pemalsu uang (Generator) yang berlatih melawan polisi (Discriminator) — keduanya semakin ahli sampai uang palsu tak bisa dibedakan.",
+          "penjelasan_awam": "**VAE (Variational Autoencoder)** mengkompres gambar jadi titik di ruang laten, lalu mengekspansi kembali menjadi gambar baru. **GAN** mengadu dua neural network: Generator membuat gambar palsu, Discriminator mendeteksi mana yang asli. Mereka berlomba sampai Generator menghasilkan gambar yang sempurna. GAN menghasilkan gambar lebih tajam tapi lebih sulit dilatih (mode collapse).",
+          "penjelasan_teknis": "**VAE** memaksimalkan Evidence Lower Bound (ELBO): $$ \\mathcal{L} = \\mathbb{E}_{q(z|x)}[\\log p(x|z)] - D_{KL}(q(z|x) || p(z)) $$\n\n**Keterangan:**\n- $x$ = data asli (gambar)\n- $z$ = representasi laten (kode terkompresi)\n- $q(z|x)$ = encoder (menebak distribusi laten dari input)\n- $p(x|z)$ = decoder (merekonstruksi gambar dari kode laten)\n- $D_{KL}$ = KL-Divergence (mengukur seberapa jauh distribusi laten dari prior Normal). Term pertama = kualitas rekonstruksi, term kedua = regularisasi. **GAN** memainkan minimax game: $\\min_G \\max_D V = \\mathbb{E}[\\log D(x)] + \\mathbb{E}[\\log(1-D(G(z)))]$ — di mana $G$ = Generator (pembuat gambar palsu)\n- $D$ = Discriminator (pendeteksi asli/palsu)\n- $z$ = noise acak input Generator. Tantangan: **Mode Collapse** dan **Training Instability**.",
+          "contoh_nyata": "StyleGAN3 (NVIDIA) menghasilkan foto wajah manusia yang TIDAK PERNAH ADA dengan resolusi 1024x1024 — website thispersondoesnotexist.com. VAE dipakai Spotify untuk merekomendasikan lagu berdasarkan 'mood space'."
+        },
+        {
+          "judul": "Diffusion Models: Revolusi Text-to-Image",
+          "analogi": "Bayangkan menjatuhkan tetesan pewarna ke air jernih — itu proses 'forward diffusion' (menambah noise). Diffusion Model belajar MEMBALIKKAN proses ini: dari air keruh (noise murni), perlahan memulihkan gambar jernih yang indah.",
+          "penjelasan_awam": "**Diffusion Models** adalah teknologi di balik DALL-E 2, Midjourney, dan Stable Diffusion. Cara kerjanya: (1) Ambil gambar asli, tambahkan noise bertahap sampai jadi static TV. (2) Latih model belajar menghilangkan noise step-by-step. (3) Saat generate: mulai dari noise acak, model perlahan-lahan 'membersihkannya' menjadi gambar sesuai prompt teks.",
+          "penjelasan_teknis": "**Forward process** menambah Gaussian noise bertahap: $q(x_t | x_{t-1}) = \\mathcal{N}(x_t; \\sqrt{1-\\beta_t} x_{t-1}, \\beta_t I)$. **Reverse process** belajar menghilangkan noise: $p_\\theta(x_{t-1} | x_t) = \\mathcal{N}(x_{t-1}; \\mu_\\theta(x_t, t), \\sigma_t^2 I)$. Training objective: $$ L = \\mathbb{E}_{t, x_0, \\epsilon}\\left[||\\epsilon - \\epsilon_\\theta(\\sqrt{\\bar{\\alpha}_t} x_0 + \\sqrt{1-\\bar{\\alpha}_t} \\epsilon, t)||^2\\right] $$\n\n**Keterangan:**\n- $x_0$ = gambar asli\n- $x_t$ = gambar pada step $t$ (makin besar $t$ = makin noisy)\n- $\\epsilon$ = noise acak yang ditambahkan\n- $\\epsilon_\\theta$ = prediksi noise oleh model (U-Net)\n- $\\beta_t$ = jadwal noise (seberapa banyak noise per step)\n- $\\bar{\\alpha}_t = \\prod(1-\\beta_s)$ = kumulatif sinyal tersisa\n- $t$ = timestep (0 = bersih\n- $T$ = noise penuh). **Latent Diffusion** melakukan proses ini di ruang laten (bukan pixel) untuk efisiensi.",
+          "contoh_nyata": "Stable Diffusion bisa menghasilkan gambar fotorealistik dari prompt 'kucing astronaut di bulan, gaya Van Gogh' dalam 10 detik di laptop. Midjourney menghasilkan $200M+ revenue per tahun dari AI art generation."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Simulator Proses Denoising Diffusion.",
+      "references": [
+        {
+          "kode": "GA-04",
+          "sitasi": "Ho, J. et al. (2020). Denoising Diffusion Probabilistic Models.",
+          "url": "",
+          "bab": "Architecture & Training"
+        }
+      ]
+    },
+    {
+      "id": "MOD-14",
+      "rumpun_id": "R7",
+      "nomor": 14,
+      "judul": "Large Language Models Modern",
+      "objektif": "Mengenal jenis model GPT.",
+      "topik": [
+        "Definisi Parameter LLM",
+        "Tebak-tebakan Next-Token Prediction Task",
+        "Prompt Engineering & PEFT (LoRA)",
+        "Scaling Laws & Tokenization"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Tebak Murni The Next Token Prediction",
+          "analogi": "Anggaplah ChatGPT itu mesin penyusun batu-bata HP, tapi ia membaca perpustakaan semesta bumi. Kala ditanya 'Siapa presiden', ia tak melihat Google, ia menyambung probabilitas kata mutlak 'S-o-e-k-a-r-n-o' via ingatan laten tersembunyinya.",
+          "penjelasan_awam": "LLM adalah Jaringan Saraf Transformer raksasa yang tugas kerjanya hanya mutlak satu saja: \"Memprediksi huruf dan suku kata berikutnya\".",
+          "penjelasan_teknis": "Pemodelan bahasa generatif murni (Auto-Regressive Decoder) mendistribusikan ruang probabilitas dari *Token* kata selanjutnya $w_t$ dikondisikan lewat jendela memori sekuens masa lampau: $$ P(w_{1:T}) = \\prod_{t=1}^{T} P(w_t \\mid w_1, w_2, \\dots, w_{t-1}; \\Theta) $$\n\n**Keterangan:**\n- $w_t$ = token ke-$t$ (kata/sub-kata)\n- $T$ = total panjang sekuens\n- $\\Theta$ = seluruh parameter model (miliaran angka bobot)\n- $P(w_t | ...)$ = probabilitas token berikutnya dihitung dari SEMUA token sebelumnya\n- $\\prod$ = perkalian berantai probabilitas setiap token.",
+          "contoh_nyata": "Menggunakan ChatGPT untuk merancang seluruh struktur kodingan website e-Commerce ber-bahasa Next.js dari nol, atau menyuruh mesin menulis esai analisa hukum dari dokumen 100 lembar PDF yang kita unggah."
+        },
+        {
+          "judul": "Prompt Engineering & Parameter-Efficient Fine-Tuning (PEFT)",
+          "analogi": "Prompt Engineering ibarat memberi instruksi spesifik ke koki magang: 'Buatkan nasi goreng, jangan pakai kecap, tiru gaya masak Gordon Ramsay'. Sedang PEFT ibarat mengajari koki bintang 5 resep rahasia nenekmoyangmu tanpa menyaput bersih ingatan cara masak prancisnya yang sudah eksis.",
+          "penjelasan_awam": "Model LLM mentah sering salah jawab. Kita bisa memaksanya pintar via **Prompt Engineering** (memberi contoh format jawaban di awal chat) atau menyuntikkan dokumen PDF rahasia kantor kita ke otaknya via RAG (Retrieval). Jika itu kurang, kita ajari ia gaya bahasa spesifik perusahaan kita dengan **Fine-Tuning** murah (PEFT/LoRA) tanpa perlu komputer miliaran rupiah.",
+          "penjelasan_teknis": "Teknik inferensi optimal melibatkan *In-Context Learning* seperti *Few-Shot Prompting* (memberi shot pasangan QA) dan *Chain-of-Thought (CoT)* untuk memaksa model men-generate runtutan logika step-by-step. Untuk merubah behavior permanen, *Low-Rank Adaptation (LoRA)* membekukan bobot awal $W_0$ dan melatih dua matriks kecil $A$ dan $B$: $$ W = W_0 + \\Delta W = W_0 + BA $$\n\n**Keterangan:**\n- $W_0$ = bobot pre-trained asli (dibekukan, tidak diubah)\n- $B \\in \\mathbb{R}^{d \\times r}$ dan $A \\in \\mathbb{R}^{r \\times d}$ = matriks adaptasi rank-rendah\n- $r$ = rank (biasanya 4-64, jauh lebih kecil dari $d$)\n- $\\Delta W = BA$ = perubahan bobot yang dipelajari. Karena $r \\ll d$, jumlah parameter yang dilatih hanya $\\sim$0.1-1% dari total, memangkas VRAM hingga 90%.",
+          "contoh_nyata": "Mengambil Llama-3 open-source gratis, lalu melatih ulang gaya bicaranya (Fine-Tuning LoRA) di laptop pribadi 8GB RAM agar ia selalu menjawab layaknya Customer Service Bank BCA berbahasa Indonesia kromo inggil."
+        },
+        {
+          "judul": "Scaling Laws & Tokenization di LLM Modern",
+          "analogi": "Seperti melatih juara catur: berikan ia papan catur lebih besar (parameter), lebih banyak lawan tanding (data), dan waktu latihan lebih lama (compute). Hasilnya: kemampuan meningkat sesuai rumus matematika yang bisa diprediksi.",
+          "penjelasan_awam": "Mengapa GPT-4 (1.8T parameter) lebih pintar dari GPT-3 (175B)? Riset **Scaling Laws** (Kaplan et al., 2020) menemukan hukum pangkat: performa model meningkat secara power-law terhadap 3 faktor — jumlah parameter ($N$), ukuran dataset ($D$), dan anggaran compute ($C$). Sebelum masuk ke model, teks dipecah menjadi token (bukan kata utuh) menggunakan tokenizer seperti **BPE** (GPT), **WordPiece** (BERT), atau **SentencePiece** (Llama/T5).",
+          "penjelasan_teknis": "**Scaling Laws** menunjukkan hubungan power-law: $$ L(N) \\propto N^{-\\alpha_N}, \\quad L(D) \\propto D^{-\\alpha_D}, \\quad L(C) \\propto C^{-\\alpha_C} $$\n\n**Keterangan:**\n- $L$ = loss (error model, semakin kecil = semakin pintar)\n- $N$ = jumlah parameter model\n- $D$ = ukuran dataset training\n- $C$ = jumlah compute (FLOPs)\n- $\\alpha$ = eksponen power-law ($\\alpha_N \\approx 0.076$\n- $\\alpha_D \\approx 0.095$). Artinya: menambah 10× parameter hanya menurunkan loss ~17%. *Chinchilla* (2022) membuktikan model kecil + data banyak = lebih efisien. BPE/WordPiece/SentencePiece adalah algoritma tokenizer yang memecah teks menjadi sub-kata.",
+          "contoh_nyata": "Meta memilih melatih Llama-3 (70B parameter) dengan 15 triliun token, lebih besar dari Chinchilla-optimal, karena saat inference parameter kecil = lebih murah. Google DeepMind menggunakan SentencePiece untuk Gemini agar mendukung 100+ bahasa termasuk bahasa Indonesia yang tidak berbasis spasi."
+        },
+        {
+          "judul": "Temperature, Top-p Sampling & RLHF",
+          "analogi": "Temperature ibarat knob kreativitas: di suhu rendah (0.1), AI selalu menjawab jawaban paling aman dan membosankan. Di suhu tinggi (1.5), AI bereksperimen gila-gilaan dan bisa menghasilkan puisi indah ATAU omong kosong.",
+          "penjelasan_awam": "Mengapa output ChatGPT berbeda setiap kali ditanya hal yang sama? Karena ada **Temperature** yang mengontrol seberapa 'acak' pemilihan kata. **Top-p (Nucleus Sampling)** hanya memilih dari kata-kata yang probabilitas kumulatifnya ≤ p. **RLHF** (Reinforcement Learning from Human Feedback) adalah cara melatih model agar menjawab sesuai preferensi manusia, bukan cuma prediksi statistik.",
+          "penjelasan_teknis": "**Temperature** ($\\tau$) memodifikasi distribusi softmax: $P(w_i) = \\frac{\\exp(z_i / \\tau)}{\\sum_j \\exp(z_j / \\tau)}$ — di mana $z_i$ = logit (skor mentah) untuk token $i$, $\\tau$ = temperature (suhu), $P(w_i)$ = probabilitas akhir token $i$. Efek: $\\tau \\to 0$ = distribusi menjadi one-hot (greedy, selalu pilih skor tertinggi). $\\tau \\to \\infty$ = distribusi menjadi uniform (acak total). **Top-p** memfilter vocabulary ke subset minimal $V'$ di mana $\\sum_{w \\in V'} P(w) \\geq p$ — hanya token dengan probabilitas kumulatif ≤ $p$ yang dipertimbangkan. **RLHF Pipeline**: (1) SFT, (2) Train Reward Model, (3) **PPO**: $J(\\theta) = \\mathbb{E}[\\min(r_t(\\theta)\\hat{A}_t, \\text{clip}(r_t, 1\\pm\\epsilon)\\hat{A}_t)]$ — di mana $r_t$ = rasio probabilitas kebijakan baru/lama, $\\hat{A}_t$ = advantage estimate, $\\epsilon$ = batas clip (~0.2).",
+          "contoh_nyata": "ChatGPT menggunakan temperature=0.7 default. Untuk code generation, temperature rendah (0.2) lebih baik. Untuk creative writing, temperature tinggi (1.0+). RLHF adalah alasan ChatGPT terasa 'sopan' dan 'helpful' — tanpa RLHF, model mentah sering toxic."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Autokemplete Chat Interaktif.",
+      "references": [
+        {
+          "kode": "GA-01",
+          "sitasi": "Brown, T. et al. Language Models are Few-Shot Learners.",
+          "url": "",
+          "bab": "GPT-3 Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-15",
+      "rumpun_id": "R7",
+      "nomor": 15,
+      "judul": "MLOps & Deployment",
+      "objektif": "Memahami cara membawa model AI dari notebook riset ke sistem produksi yang melayani jutaan pengguna secara realtime.",
+      "topik": [
+        "ML Pipeline: Research → Production",
+        "Model Serving & API Deployment",
+        "Monitoring, Drift Detection & CI/CD",
+        "Cloud vs Edge Deployment"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Dari Jupyter Notebook ke Sistem Produksi",
+          "analogi": "Membuat model ML di Jupyter Notebook ibarat memasak resep di dapur rumah. MLOps ibarat mengubah resep itu menjadi pabrik makanan yang bisa memproduksi jutaan porsi per hari dengan kualitas konsisten, kontrol mutu, dan packaging otomatis.",
+          "penjelasan_awam": "87% model ML TIDAK PERNAH sampai ke produksi (Gartner). **MLOps** adalah disiplin yang menjembatani gap ini. Tahapannya: (1) **Packaging**: Model di-export ke format standar (ONNX, TorchScript). (2) **API Serving**: Model dibungkus REST API (FastAPI/Flask). (3) **Containerization**: Docker memastikan 'di laptop saya jalan' = 'di server juga jalan'. (4) **Monitoring**: Memantau apakah model masih akurat setelah deployed.",
+          "penjelasan_teknis": "**Model Serialization**: PyTorch (`torch.save`), TensorFlow (SavedModel), ONNX (Open Neural Network Exchange) untuk interoperabilitas. **Serving Frameworks**: TorchServe, TensorFlow Serving, Triton (NVIDIA). **Containerization**: `Dockerfile → docker build → docker run` → deploy ke Kubernetes cluster. **CI/CD for ML**: GitHub Actions / Jenkins pipeline: data validation → training → evaluation → A/B test → deploy. **Feature Store** (Feast, Tecton) menyimpan fitur agar konsisten antara training dan serving.",
+          "contoh_nyata": "Tim ML Gojek menggunakan Feast (Feature Store) + Kubernetes + Seldon Core untuk melayani model ETA prediction yang diakses 100 juta kali/hari."
+        },
+        {
+          "judul": "Monitoring, Data Drift & Model Retraining",
+          "analogi": "Model ML ibarat obat — ia punya 'tanggal kedaluwarsa'. Data dunia nyata terus berubah (musim, tren, pandemi), dan model yang akurat bulan lalu bisa gagal bulan depan jika tidak di-monitor.",
+          "penjelasan_awam": "**Data Drift** terjadi saat distribusi data baru berbeda dari data training (misal: pandemi mengubah pola belanja). **Concept Drift** terjadi saat hubungan input→output berubah (misal: makanan yang dulu populer kini tidak). **Monitoring** melacak metrik model secara real-time (latency, accuracy, error rate). Saat drift terdeteksi, model harus di-**retrain** dengan data baru.",
+          "penjelasan_teknis": "**Data Drift Detection**: (1) **Population Stability Index (PSI)**: $PSI = \\sum (p_i - q_i) \\ln(p_i / q_i)$ — di mana $p_i$ = proporsi data bucket ke-$i$ saat training, $q_i$ = proporsi bucket ke-$i$ pada data baru (produksi), $\\ln$ = logaritma natural. PSI < 0.1 = stabil, 0.1-0.2 = perlu perhatian, PSI > 0.2 = drift signifikan! (2) **Kolmogorov-Smirnov test** untuk distribusi kontinu. (3) **Chi-squared test** untuk kategorikal. **Monitoring**: track accuracy, latency p50/p95/p99, error rate di dashboard (Grafana, MLflow). **Retraining**: scheduled (mingguan), trigger-based (saat PSI > threshold), atau online learning.",
+          "contoh_nyata": "Model fraud detection bank BCA harus di-retrain setiap minggu karena penipu terus menemukan pola baru. Netflix me-retrain model rekomendasi setiap 24 jam dengan data viewing terbaru."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Diagram Alur Pipeline MLOps.",
+      "references": [
+        {
+          "kode": "ML-10",
+          "sitasi": "Google. (2015). Hidden Technical Debt in Machine Learning Systems.",
+          "url": "",
+          "bab": "NeurIPS 2015"
+        }
+      ]
+    },
+    {
+      "id": "MOD-16",
+      "rumpun_id": "R7",
+      "nomor": 16,
+      "judul": "AI Ethics & Responsible AI",
+      "objektif": "Memahami bahaya halusinasi.",
+      "topik": [
+        "Stochastic Parrots",
+        "Halusinasi Fakta & Bahaya Hoaks Akut",
+        "Algorithmic Fairness (Bias Rasisme/Gender AI)",
+        "Data Privacy & Federated Learning",
+        "Guardrails, Red Teaming & Copyright AI"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Kullback-Leibler Divergence (Hallucinations)",
+          "analogi": "Jika burung beo bisa melafalkan rumus Fisika Quantum, burung tak memahaminya, melainkan murni mengejakan silabel.",
+          "penjelasan_awam": "LLM dirancang untuk menebak kata logis, bukan sebagai kamus kebenaran faktual absolut. Ketika bingung, ia akan menenun kisah bohong (Halusinasi) seakan hal nyata fiktif.",
+          "penjelasan_teknis": "Dalam konteks teori informasi statistika kebohongan, fenomena Halusinasi Generatif adalah besaran entropi Kullback-Leibler Divergence di mana model menebak distribusi ruang $Q(x)$ yang berdeviasi mutlak tanpa jangkar eksternal teodolit kebenaran sejati alam $P(x)$ yang sesungguhnya: $$ D_{KL}(P \\parallel Q) = \\sum_{x \\in \\mathcal{X}} P(x) \\log\\left( \\frac{P(x)}{Q(x)} \\right) $$ Ini dibenarkan dengan teknik Alignment post-training RHLF (Reinforcement Learning from Human Feedback).",
+          "contoh_nyata": "Pengacara di pengadilan New York dituntut dan hancur karirnya akibat mereferensikan arsip historis fiktif pengadilan bikinan ChatGPT yang murni imajinasi mesin tersebut tanpa kroscek manual."
+        },
+        {
+          "judul": "Bias Ekstrem (Algorithmic Fairness) & Perlindungan Privasi",
+          "analogi": "Jika sebuah AI pencari pelamar kerja hanya dilatih dengan CV Pria sukses dari tahun 1950, maka AI akan spontan menilai CV milik Wanita dengan skor rendah (Seksism), murni karena ia menghamba pada korelasi cacat data masa lalu.",
+          "penjelasan_awam": "AI tidak pernah netral karena pembuat data di internet tidak netral. Bahaya terbesar abad ini adalah Bias Demografi (AI menolak kredit perumahan orang kulit hitam), penyalahgunaan video palsu (Deepfakes), dan mesin yang mencuri data pribadi chat Anda untuk dilatih ke model.",
+          "penjelasan_teknis": "Evaluasi *Algorithmic Fairness* menuntut kesetaraan matrik kondisional *Equal Opportunity/Demographic Parity* di atas atribut sensitif (Ras, Gender). Proteksi modern terhadap hak kebocoran data (*Data Privacy*) diselesaikan via kerangka **Federated Learning**. Model global dipancarkan ke HP tiap user untuk secara terdistribusi menghitung delta komputasi lokasional $\\Delta w$, lalu hanya mentransfer derivasi gradien agregasi pulangnya ke server agnostik: $$ w_{t+1} = w_t + \\sum_{k=1}^{K} \\frac{n_k}{n} \\Delta w_t^{(k)} $$ Menjaminkan data gambar orisinil user tak pernah melangkahi server pusat.",
+          "contoh_nyata": "Insiden 2018 di mana robot filter HRD rekrutmen Amazon ketahuan otomatis memberikan penalti skor buruk pada Resume CV pelamar kerja yang mencantumkan embel-embel organisasi 'Wanita'. Di sisi privasi baik, keyboard Google Gboard melatih AI pengetikannya langsung di HP pengguna tanpa mengupload ketikan asli ke Google berbekal Federated Learning."
+        },
+        {
+          "judul": "AI Safety: Guardrails, Red Teaming & Regulasi Copyright",
+          "analogi": "Guardrails ibarat pagar pembatas di jalan tol: bukan untuk memperlambat mobil, tapi untuk mencegah kecelakaan fatal saat pengemudi (AI) lepas kendali. Red Teaming ibarat menyewa hacker profesional untuk menjebol keamanan rumah Anda SEBELUM pencuri asli melakukannya.",
+          "penjelasan_awam": "Model AI yang dirilis ke publik wajib dilengkapi **Guardrails** (filter yang memblokir output berbahaya seperti instruksi bom/narkoba). **Red Teaming** adalah proses pengujian adversarial oleh tim keamanan khusus yang berusaha membobol pertahanan model. Di sisi legal, **Copyright AI** masih abu-abu: apakah karya seni yang dihasilkan AI (gambar, musik, tulisan) dilindungi hak cipta? Siapa pemiliknya — user, perusahaan AI, atau seniman yang datanya dipakai training?",
+          "penjelasan_teknis": "**Content Filtering** umumnya menggunakan classifier bertingkat: (1) Input filter (mendeteksi prompt jailbreak via teknik DAN/roleplay), (2) Output filter (memblokir konten NSFW/kekerasan via binary classifier terlatih). **Red Teaming** menggunakan teknik adversarial: prompt injection, many-shot jailbreaking, encoded instructions (Base64), dan multi-turn exploitation. OpenAI dan Anthropic menggunakan **Constitutional AI** dan **RLHF** untuk mengalign model dengan prinsip keamanan sebelum deployment. Regulasi EU AI Act (2024) mengkategorisasi AI berdasarkan tingkat risiko (Unacceptable/High/Limited/Minimal).",
+          "contoh_nyata": "Meta merilis Llama Guard sebagai classifier safety open-source. OpenAI menyelenggarakan Bug Bounty untuk jailbreak GPT-4 (temuan dibayar hingga $20,000). Kasus Getty Images vs Stability AI (2023) menjadi preseden hukum pertama soal penggunaan data gambar berhak cipta untuk training AI."
+        },
+        {
+          "judul": "Deepfakes: Bagaimana AI Memalsukan Realitas",
+          "analogi": "Deepfakes ibarat tukang sulap digital: ia bisa 'menempelkan' wajah siapapun ke video orang lain dengan presisi yang hampir sempurna, membuat yang palsu terlihat nyata.",
+          "penjelasan_awam": "**Deepfakes** menggunakan AI untuk mengganti wajah seseorang di video secara realistis. Teknologi ini berbasis **GAN (Generative Adversarial Network)** — dua AI bertarung: satu membuat gambar palsu (Generator), satu mendeteksi kepalsuan (Discriminator), sampai Generator menang dan hasilnya tak bisa dibedakan.",
+          "penjelasan_teknis": "**GAN** terdiri dari Generator $G$ dan Discriminator $D$ dalam minimax game: $$ \\min_G \\max_D V(D,G) = \\mathbb{E}_{x \\sim p_{data}}[\\log D(x)] + \\mathbb{E}_{z \\sim p_z}[\\log(1 - D(G(z)))] $$ Generator mengubah noise $z$ menjadi gambar realistis, Discriminator membedakan real vs fake. Model modern (StyleGAN3, Stable Diffusion) menggunakan **Diffusion Models** alih-alih GAN: mulai dari noise murni, lalu iteratif menghilangkan noise: $x_{t-1} = \\frac{1}{\\sqrt{\\alpha_t}}(x_t - \\frac{1-\\alpha_t}{\\sqrt{1-\\bar{\\alpha}_t}}\\epsilon_\\theta(x_t, t))$. Deteksi deepfakes menggunakan inconsistensi biologis: kedipan mata, refleksi pupil, dan frekuensi spectral.",
+          "contoh_nyata": "Video deepfake Presiden Zelensky 'menyerah' beredar saat invasi Rusia 2022. Platform deteksi deepfake Microsoft Video Authenticator menganalisis perbedaan pixel-level yang tak kasat mata manusia."
+        }
+      ],
+      "kesulitan": "🟢 Mudah",
+      "visualisasi_interaktif": "Simulasi Halusinasi Chat.",
+      "references": [
+        {
+          "kode": "GA-07",
+          "sitasi": "Bender et al. On the Dangers of Stochastic Parrots.",
+          "url": "",
+          "bab": "Social Implication"
+        }
+      ]
+    },
+    {
+      "id": "MOD-17",
+      "rumpun_id": "R4",
+      "nomor": 17,
+      "judul": "Regex & Pengolahan Teks (BPE)",
+      "objektif": "Memahami pemrosesan teks tingkat dasar dengan Regular Expressions dan Tokenisasi Subkata (Byte Pair Encoding).",
+      "topik": [
+        "Regular Expressions vs LLM",
+        "Tokenisasi: BPE vs Spasi",
+        "Lematisasi vs Stemming"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Regex & Ekstraksi Pattern",
+          "analogi": "Regex ibarat menyewa detektif yang sangat kaku tapi super cepat; ia akan mencari persis ciri-ciri buronan yang Anda deskripsikan (misal: 'Pria bertopi, huruf depan S').",
+          "penjelasan_awam": "Regular Expressions (Regex) adalah bahasa sandi untuk mencari pola teks tertentu. Regex jauh lebih cepat dan ringan dibanding AI/LLM untuk tugas sederhana, cocok untuk HP atau IoT yang baterainya terbatas.",
+          "penjelasan_teknis": "Regex beroperasi melalui finite-state automata dengan sintaks operasional seperti disjungsi `[Gg]`, kuantifikasi `+` (1 atau lebih), dan jangkar `^` / `$`. Performa ekstraksi dievaluasi dengan *Precision* (meminimalkan *False Positives*) dan *Recall* (meminimalkan *False Negatives*). Hukum kosakata korpus mengikuti Hukum Heaps: $$ |V| = kN^{\\beta} $$ di mana kosakata berekspansi seiring N token.",
+          "contoh_nyata": "Memfilter format alamat Email atau nomor telepon 628-XXX-XXX dari dokumen PDF tebal secara instan."
+        },
+        {
+          "judul": "Byte Pair Encoding (BPE) & Morfologi",
+          "analogi": "Alih-alih menyuruh anak menghafal kata 'Mempertanggungjawabkan' bulat-bulat, kita ajar dia memecahnya jadi blok lego: 'Mem-pertanggung-jawab-kan'.",
+          "penjelasan_awam": "Memecah teks dengan 'spasi' sering gagal (misal untuk tagar atau URL). BPE belajar menggabungkan huruf-huruf yang paling sering kumpul bareng menjadi satu 'subkata' baru.",
+          "penjelasan_teknis": "BPE (Byte Pair Encoding) mengiterasi frekuensi pasangan byte/karakter teratas dalam korpus latih dan menggabungkannya bertahap ke dalam *vocabulary*. Di sisi morfologis, *Stemming* memotong afiks secara algoritmik paksa (rentan *overstemming*), sedangkan *Lematisasi* lebih superior karena memetakan kata ke akar leksikal murninya (*Lemma*) berbasis kamus PoS tag.",
+          "contoh_nyata": "Kompresi triliunan token internet ke dalam blok-blok kamus (Vocabulary) berukuran stabil 50.000 (Ollama / GPT Tokenizer)."
+        }
+      ],
+      "kesulitan": "🟢 Mudah",
+      "visualisasi_interaktif": "Konsep Visual: Simulator Regex Engine.",
+      "references": [
+        {
+          "kode": "NLP-01",
+          "sitasi": "Jurafsky & Martin. Speech and Language Processing.",
+          "url": "",
+          "bab": "Bab 2: Regular Expressions, Text Normalization, Edit Distance"
+        }
+      ]
+    },
+    {
+      "id": "MOD-18",
+      "rumpun_id": "R4",
+      "nomor": 18,
+      "judul": "Model Bahasa N-Gram",
+      "objektif": "Mendalami probabilitas transisi Markov untuk memprediksi kata berdasarkan riwayat n-kata sebelumnya.",
+      "topik": [
+        "Probabilitas Bersyarat (Chain Rule)",
+        "Markov Assumption",
+        "Smoothing & Backoff",
+        "Evaluasi: Perplexity"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Statistik Urutan Kata N-Gram",
+          "analogi": "Seperti permainan tebak-tebakan lirik lagu. Jika saya bilang 'Balonku ada...', kamu pasti refleks menjawab 'Lima' karena otakmu punya statistik Bigram untuk urutan itu.",
+          "penjelasan_awam": "Model N-Gram mencoba menebak kata selanjutnya murni hanya dengan menghitung seberapa sering urutan $N$ kata tersebut berdampingan di masa lalu. Ia tidak paham makna, ia murni beo frekuensi.",
+          "penjelasan_teknis": "Probabilitas sekuens teks dihitung menggunakan kalkulus *Chain Rule*. Markov Assumption menyederhanakan sejarah panjang kalimat ke probabilitas bersyarat $n-1$ kata terakhir: $$ P(w_N | w_1 \\dots w_{N-1}) \\approx P(w_N | w_{N-n+1} \\dots w_{N-1}) $$ Estimasi Maximum Likelihood (MLE) sering menderita isu *Sparsity* (N-gram tak terlihat = Peluang 0). Diatasi via *Add-k Smoothing* atau interpolasi mundur (*Stupid Backoff*) ke himpunan (N-1)-gram.",
+          "contoh_nyata": "Sistem Autocomplete (T9) pada keypad HP jadul tahun 2000-an."
+        },
+        {
+          "judul": "Perplexity: Seberapa 'Bingung' Model Bahasa Anda?",
+          "analogi": "Perplexity ibarat tingkat keheranan pendengar saat Anda berbicara. Jika Anda mengatakan 'Kucing makan ikan', pendengar tidak heran (perplexity rendah). Tapi jika 'Kucing makan gedung', pendengar sangat bingung (perplexity tinggi).",
+          "penjelasan_awam": "Akurasi saja tidak cukup untuk mengevaluasi model bahasa. **Perplexity** mengukur seberapa 'terkejut' model terhadap data uji. Semakin rendah perplexity, semakin baik model memprediksi kata-kata yang akan muncul. GPT-4 memiliki perplexity yang jauh lebih rendah daripada model N-Gram kuno.",
+          "penjelasan_teknis": "Perplexity adalah eksponensiasi dari entropy rata-rata per kata: $$ PP(W) = P(w_1 w_2 \\dots w_N)^{-1/N} = \\exp\\left(-\\frac{1}{N} \\sum_{i=1}^{N} \\log P(w_i \\mid w_1 \\dots w_{i-1})\\right) $$ Interpretasi intuitif: $PP = k$ berarti model 'seolah-olah' memilih secara seragam dari $k$ kandidat kata di setiap posisi. Model N-Gram sederhana mencapai PP $\\approx$ 200-300. GPT-2 mencapai PP $\\approx$ 35 pada WebText. GPT-3 semakin rendah lagi ($\\approx$ 20). Perplexity juga dipakai untuk membandingkan efektivitas berbagai teknik smoothing.",
+          "contoh_nyata": "Peneliti NLP di Universitas Indonesia menggunakan Perplexity untuk membandingkan model bahasa Indonesia: IndoBERT (PP=42) vs GPT-2 fine-tuned Bahasa Indonesia (PP=28) untuk tugas generasi teks berita."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Konsep Visual: Kalkulator Probabilitas N-Gram vs Smoothing.",
+      "references": [
+        {
+          "kode": "NLP-01",
+          "sitasi": "Jurafsky & Martin. Speech and Language Processing.",
+          "url": "",
+          "bab": "Bab 3: N-gram Language Models"
+        }
+      ]
+    },
+    {
+      "id": "MOD-19",
+      "rumpun_id": "R4",
+      "nomor": 19,
+      "judul": "Semantik Vektor & Celah Etika",
+      "objektif": "Memahami representasi Dense Vector per kata (Word2Vec) dan implikasi penyusupan bias rasial/gender manusia ke dalamnya.",
+      "topik": [
+        "Dari TF-IDF ke Word2Vec (Dense Vectors)",
+        "Cosine Similarity",
+        "Algorithmic Bias (Racism / Gender Stereotyping)",
+        "Skip-Gram vs CBOW & Contextual Embeddings"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Ruang Geometris Makna (Embeddings)",
+          "analogi": "Alih-alih menyusun tata letak buku abjad A-Z (TF-IDF konvensional), AI menyusun buku di perpustakaan berdasar 'Tema'. Buku masak ditaruh jauh dari buku mekanika.",
+          "penjelasan_awam": "Komputer tak bisa membaca huruf ASCII selayaknya manusia. Kita harus memetakan kata menjadi deretan angka riil (Koordinat vektor). Semakin mirip maknanya, semakin berdekatan posisi derajat koordinatnya.",
+          "penjelasan_teknis": "Model modern meninggalkan reprentasi *Sparse Bag-of-Words* (TF-IDF) menuju orientasi *Dense Vector Embeddings* berdimensi rendah (D $\\approx$ 300) seperti Word2Vec atau GloVe. Kedekatan semantik dieksplorasi absolut menggunakan kalkukasi algebra basis geometri spasial *Cosine Similarity*: $$ \\text{sim}(u, v) = \\frac{u \\cdot v}{||u|| ||v||} = \\frac{\\sum_{i=1}^n u_i v_i}{\\sqrt{\\sum u_i^2} \\sqrt{\\sum v_i^2}} $$",
+          "contoh_nyata": "Mengajarkan Google Search memahami bahwa 'Laptob Cepat' adalah Sinonim kental dengan 'Macbook Ngebut'."
+        },
+        {
+          "judul": "Titik Buta: Mewarisi Bias Kognitif Manusia",
+          "analogi": "Seperti anak kecil yang secara lugu meniru ucapan rasis atau seksis orang tuanya di rumah, karena begitulah 'data latih' pergaulannya.",
+          "penjelasan_awam": "Model Embeddings ini merekam pola internet. Jika di internet kata 'Perawat' selalu diapit kata 'Wanita', dan 'Direktur' diapit 'Pria', AI akan merumuskan bahwa Wanita = Perawat dan Pria = Bos.",
+          "penjelasan_teknis": "Jarak semantik mengamplifikasi *Algorithmic Bias* akut. Vektor `Word2Vec` publik sering menunjukkan perhitungan relasional manipulatif: $$ \\vec{Man} - \\vec{Computer\\_Programmer} + \\vec{Woman} \\approx \\vec{Homemaker} $$ Kegagalan mende-bias latensi vektor sebelum fase produksi merupakan kecerobohan luar biasa pada SOP tata kelola (AI Governance).",
+          "contoh_nyata": "AI perekrutan Resume lamaran kerja Amazon yang diskriminatif dan otomatis mendowngrade kandidat lulusan Universitas Khusus Wanita."
+        },
+        {
+          "judul": "Skip-Gram vs CBOW & Evolusi ke Contextual Embeddings",
+          "analogi": "Skip-Gram ibarat melihat 1 kata lalu menebak 5 kata di sekitarnya. CBOW kebalikannya: melihat 5 kata sekitar lalu menebak kata di tengah. Contextual Embeddings (ELMo/BERT) ibarat kata 'bank' yang artinya berubah tergantung konteks: bank sungai vs bank uang.",
+          "penjelasan_awam": "**Word2Vec** punya dua arsitektur: **Skip-Gram** (given kata tengah, prediksi konteks — lebih baik untuk kata langka) dan **CBOW** (given konteks, prediksi kata tengah — lebih cepat). Kelemahan besar Word2Vec: setiap kata hanya punya SATU vektor, padahal 'apel' bisa berarti buah atau merek HP. **Contextual Embeddings** (ELMo → BERT) menyelesaikan ini: vektor kata berubah sesuai kalimatnya.",
+          "penjelasan_teknis": "**Skip-Gram** memaksimalkan: $\\frac{1}{T}\\sum_{t=1}^{T} \\sum_{-c \\leq j \\leq c, j \\neq 0} \\log P(w_{t+j} | w_t)$ menggunakan Negative Sampling. **CBOW** memaksimalkan: $P(w_t | w_{t-c}, \\dots, w_{t+c})$. **ELMo** (Peters, 2018) menggunakan BiLSTM untuk menghasilkan embeddings kontekstual: representasi kata = fungsi dari seluruh kalimat. **BERT** (Devlin, 2019) menggunakan Transformer Encoder + **Masked Language Model** (memprediksi kata yang di-mask) untuk pre-training bidirectional. Transisi paradigma: Static (Word2Vec) → Contextualized (ELMo) → Pre-trained Transformer (BERT/GPT).",
+          "contoh_nyata": "Kata 'jaguar' di Word2Vec hanya punya 1 vektor. Di BERT, 'jaguar lari kencang' menghasilkan vektor berbeda dari 'jaguar model terbaru' karena konteksnya berbeda. Google Search beralih ke BERT pada 2019 dan kualitas pencarian meningkat drastis."
+        }
+      ],
+      "kesulitan": "🔴 Sulit",
+      "visualisasi_interaktif": "Konsep Visual: Kanvas Ruang Vektor Proyeksi Kata 3D.",
+      "references": [
+        {
+          "kode": "NLP-03",
+          "sitasi": "Mikolov et al. (2013). Distributed Representations of Words and Phrases and their Compositionality.",
+          "url": "",
+          "bab": "Architecture"
+        }
+      ]
+    },
+    {
+      "id": "MOD-20",
+      "rumpun_id": "R4",
+      "nomor": 20,
+      "judul": "Information Retrieval & RAG System",
+      "objektif": "Mendalami pilar krusial sistem penarik konteks pencarian semantik raksasa di balik layar, meminimalisir penyakit halusinasi LLM.",
+      "topik": [
+        "Vector Databases & Inverted Indexes",
+        "Arsitektur Retrieval-Augmented Generation (RAG)",
+        "Chunking Strategies & Hybrid Search",
+        "Evaluasi IR: MRR, NDCG, Recall@K"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Vector Databases (Information Retrieval)",
+          "analogi": "Jika LLM adalah seorang pemikir jenius yang terjebak amnesia lupa data baru, maka RAG adalah memberinya akses internet dan asisten perpustakaan kilat.",
+          "penjelasan_awam": "RAG menggabungkan AI Obrolan (LLM) dengan mesin telusur semantik private milik perusahaan. Model disuapi jawaban mentah hasil 'pencarian file teratas', lalu AI merangkumnya rapi di depan layar Anda.",
+          "penjelasan_teknis": "Alih-alih memaksakan retensi long-term knowledge instabil ke dalam matriks weight LLM yang rentan fenomena *Catastrophic Forgetting*, sistem RAG mengandalkan penyimpanan statis indeks *Vector Database* (Milvus, Pinecone, FAISS). *Information Retrieval* (IR) menggunakan Dense Passage Retrieval metrik (ANN - Approximate Nearest Neighbors) untuk mengekstraksi Top-K sekumpulan dokumen $d$ yang memaksimalkan kosinus relasional kueri $q$. Konteks $d$ ini ditambahkan (Augmented) sekuensial ke jendela Prompt sebelum LLM mengeksekusi probabilistik *generation* huruf. Kualitas sistem 90% bersandar pada kapabilitas blok IR, bukan seberapa pintar *parameter size* basis LLM-nya.",
+          "contoh_nyata": "Perplexxity AI, atau Chatbot Customer Service Tokopedia yang bisa langsung spesifik merangkum syarat retur barang PDF khusus perusahaannya."
+        },
+        {
+          "judul": "Chunking, Hybrid Search & Evaluasi IR",
+          "analogi": "Chunking ibarat memotong novel menjadi bab-bab yang mandiri ('Bab 7: Pertempuran Terakhir'). Hybrid Search ibarat mencari buku di perpustakaan dengan DUA cara sekaligus: cari di katalog digital (Dense) DAN tanya pustakawan langsung (Sparse/BM25).",
+          "penjelasan_awam": "Sebelum dokumen dimasukkan ke Vector DB, ia harus dipotong (**Chunking**) menjadi potongan-potongan kecil yang bermakna. **Hybrid Search** menggabungkan pencarian vektor semantik (Dense) dengan pencarian kata kunci tradisional (BM25/Sparse) untuk hasil terbaik. Kualitas retrieval diukur dengan metrik khusus: **MRR**, **NDCG**, dan **Recall@K**.",
+          "penjelasan_teknis": "**Chunking Strategies**: (1) Fixed-size (512 tokens, overlap 50), (2) Recursive/Semantic (potong di paragraf/kalimat), (3) Document-aware (per section/header). **Hybrid Search** mengkombinasikan: $\\text{score} = \\alpha \\cdot \\text{Dense}(q, d) + (1-\\alpha) \\cdot \\text{BM25}(q, d)$. Metrik evaluasi IR: **MRR** (Mean Reciprocal Rank) = $\\frac{1}{|Q|} \\sum_{i=1}^{|Q|} \\frac{1}{\\text{rank}_i}$, **NDCG@K** (Normalized Discounted Cumulative Gain) mengukur relevansi bertingkat, **Recall@K** = fraksi dokumen relevan yang berhasil diambil di Top-K.",
+          "contoh_nyata": "Pinecone dan Weaviate mendukung Hybrid Search secara native. Sistem RAG produksi LangChain menggunakan RecursiveCharacterTextSplitter dengan chunk_size=1000 dan overlap=200 sebagai default."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Konsep Visual: Diagram Alir RAG.",
+      "references": [
+        {
+          "kode": "NLP-05",
+          "sitasi": "Lewis, P. et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+          "url": "",
+          "bab": "Architecture Design"
+        }
+      ]
+    },
+    {
+      "id": "MOD-21",
+      "rumpun_id": "R4",
+      "nomor": 21,
+      "judul": "Chatbot & Social Computing Analytics",
+      "objektif": "Membangun sistem dialog fungsional serta mengeksploitasi teknik NLP untuk membedah opini publik di jejaring sosial skala masif.",
+      "topik": [
+        "Sistem Dialog Rule-Based vs Neural",
+        "Analisis Kebijakan, Misinformasi, dan Opini Publik Multimodal",
+        "Integritas Riset & IRB",
+        "Dialogue State Tracking & Sentiment Analysis Pipeline"
+      ],
+      "materi_detail": [
+        {
+          "judul": "Sistem Dialog (Chatbot Architectures)",
+          "analogi": "Rule-based bot ibarat mesin penjawab otomatis bank (Tekan 1 untuk X, Tekan 2 untuk Y) berbatas lorong kaku. Sedangkan Corpus-based (Neural) bot ibarat teman ngobrol murni yang bisa menimpal secara bebas adaptif.",
+          "penjelasan_awam": "Dunia terbagi dua Chatbot: Skrip terprogram (Pasti tapi Kaku), dan obrolan bebas belajar model (Cerdas tapi Rawan halusinasi tak terkontrol/Toksik jika diajari lingkungan provokatif).",
+          "penjelasan_teknis": "Sistem dialog diukur bukan oleh MSE/Cross-entropy konvensional, melainkan *Human Satisfaction Metrics* dan Turn-Compression (Kecepatan solusi dialog). Kasus \"Microsoft Tay (2016)\" menyoroti betapa rentannya Corpus-based chatbot terekspos terhadap injeksi adversarial internet, menyerap perilaku Neo-Nazi eksplisit dalam 24 jam. Tanpa moderasi filter klasifikasi ketat (Guardrails), kebebasan generatif chatbot adalah pisau bermata dua berisiko meruntuhkan reputasi kapital pemegang.",
+          "contoh_nyata": "Asisten virtual Siri / Alexa (Hybrid task-driven) vs Tay AI (Open-domain fiasco)."
+        },
+        {
+          "judul": "Komputasi Sosial: Deteksi Hoaks Multimodal",
+          "analogi": "NLP tidak sekadar membedah kata, melainkan membedah pola gerak masyarakat di Twitter/X—apakah ujaran 'kebijakan ini keren sekali' bermakna sejati pujian, atau murni ledakan Sarkasme akut berhiaskan meme foto?",
+          "penjelasan_awam": "Ilmuawan Komputasi Sosial merangkul teknologi bahasa (Sentimen) bercampur visi (Meme Gambar) demi melacak jala kelompok penebar Disinformasi teroganisasi (Buzzer Pemilu).",
+          "penjelasan_teknis": "Skala pemrosesan komputasi lintas domain (Multimodal) mewajibkan Transformer mencairkan ruang penyatuan antara layer ekstraksi Visi (ViT) dan Semantik (RoBERTa). Ekstraksi ini memecahkan jebakan linguistik rumit semacam Sarkasme di mana label sentimen positif diputar telak $180^{\\circ}$ oleh isyarat tagar/gambar visual terlampir. Pemrosesan data riil audiens non-anonim mewajibkan *Informed Consent* hukum dan restu dewan kode etik institusi riset primer IRB (Institutional Review Board) demi menangkal distopia pembobolan privasi massif empirik ala skandal *Cambridge Analytica*.",
+          "contoh_nyata": "Algoritma penyeleksi Trending Topics di Platform X dan filter red label misinformasi."
+        },
+        {
+          "judul": "Dialogue State Tracking & Sentiment Analysis Pipeline",
+          "analogi": "DST ibarat pelayan restoran yang mengingat seluruh pesanan Anda meski Anda mengubahnya 3 kali: 'Jadi nasi goreng ya Pak, bukan mie goreng, dan tidak pakai telur'. Sentiment Analysis ibarat pembaca emosi yang tahu apakah review 'Bagus banget deh~' itu tulus atau sarkastik.",
+          "penjelasan_awam": "**Dialogue State Tracking (DST)** adalah otak di balik chatbot pintar yang mengingat konteks percakapan: apa yang sudah dipesan, diubah, atau dibatalkan user. **Sentiment Analysis Pipeline** adalah urutan langkah lengkap dari teks mentah → pembersihan → fitur → model → prediksi sentimen (Positif/Negatif/Netral).",
+          "penjelasan_teknis": "**DST** melacak slot-value pairs: $B_t = \\{(s_1: v_1), (s_2: v_2), \\dots\\}$ di setiap turn $t$ dialog. Model modern (TripPy, SimpleTOD) menggunakan pre-trained LM + copy mechanism untuk mengekstrak value dari utterance. **Sentiment Analysis Pipeline**: (1) Text Preprocessing (lowercasing, stopword removal, tokenization), (2) Feature extraction (TF-IDF / BERT Embeddings), (3) Classification (Logistic Regression / Fine-tuned IndoBERT), (4) Evaluation (F1-Score macro/micro, per-class precision/recall). Tantangan: sarkasme, negasi ('tidak buruk' = positif), aspek-based sentiment.",
+          "contoh_nyata": "Chatbot booking GoFood menggunakan DST untuk melacak: restoran='McDonalds', menu='Big Mac x2', alamat='Jl. Sudirman'. Brand monitoring tools seperti Brandwatch menganalisis jutaan tweet per hari untuk mendeteksi krisis PR perusahaan secara real-time."
+        }
+      ],
+      "kesulitan": "🟡 Menengah",
+      "visualisasi_interaktif": "Konsep Visual: Radar Prediksi Sentimen Sosial Publik.",
+      "references": [
+        {
+          "kode": "NLP-05",
+          "sitasi": "Lazer, D. et al. (2009). Computational Social Science.",
+          "url": "",
+          "bab": "Science Ethics"
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_M01_1",
+      "modul_id": "MOD-01",
+      "pertanyaan": "Manakah pernyataan yang paling tepat mendeskripsikan perbedaan AI dengan Program Komputer biasa?",
+      "pilihan": [
+        "A. AI tidak menggunakan tenaga listrik",
+        "B. Program biasa bisa belajar sendiri",
+        "C. Program biasa butuh instruksi eksplisit, AI mencari pola solusinya sendiri",
+        "D. AI hanya dalam bahasa mesin"
+      ],
+      "jawaban_benar": "C",
+      "penjelasan": "Pemrograman konvensional berpusat pada penulisan logika eksplisit. Model AI modern menyesuaikan parameter pada iterasi asupan data tanpa aturan ketat.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M01_2",
+      "modul_id": "MOD-01",
+      "pertanyaan": "Algoritma A* (A-Star) termasuk ke dalam kategori AI yang mana?",
+      "pilihan": [
+        "A. Machine Learning Modern",
+        "B. Deep Learning",
+        "C. Kecerdasan Buatan Klasik (Search Algorithms)",
+        "D. Generative AI"
+      ],
+      "jawaban_benar": "C",
+      "penjelasan": "A* adalah algoritma pencarian heuristik yang termasuk Classical AI (GOFAI), bukan Machine Learning yang belajar dari data.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M02_1",
+      "modul_id": "MOD-02",
+      "pertanyaan": "Apa fungsi utama Standard Scaler (Z-score Normalization) dalam Data Preprocessing?",
+      "pilihan": [
+        "A. Menghapus baris data yang kosong",
+        "B. Menyeragamkan skala fitur agar terpusat di mean=0 dan std=1",
+        "C. Mengubah gambar menjadi angka",
+        "D. Membuat model lebih akurat 100%"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Standard Scaler menormalkan fitur dengan formula (x - μ) / σ agar semua fitur memiliki distribusi terpusat dan model tidak bias terhadap fitur berskala besar.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M02_2",
+      "modul_id": "MOD-02",
+      "pertanyaan": "Dalam Gradient Descent, apa yang terjadi jika Learning Rate (α) terlalu besar?",
+      "pilihan": [
+        "A. Model belajar lebih akurat",
+        "B. Model berhenti belajar",
+        "C. Bobot akan melompat-lompat liar dan gagal konvergen (diverge)",
+        "D. Data akan rusak"
+      ],
+      "jawaban_benar": "C",
+      "penjelasan": "Learning rate terlalu besar menyebabkan langkah update terlalu panjang, sehingga melewati titik minimum kurva loss dan memantul-mantul (diverge).",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M03_1",
+      "modul_id": "MOD-03",
+      "pertanyaan": "Sebuah model mendeteksi fraud dengan akurasi 99.5% pada data 1000 transaksi (hanya 5 fraud). Mengapa akurasi ini menyesatkan?",
+      "pilihan": [
+        "A. Karena datanya terlalu banyak",
+        "B. Model bisa selalu menebak 'Aman' dan tetap 99.5% akurat, padahal gagal deteksi fraud (Imbalanced Data)",
+        "C. Karena F1-Score lebih mudah dihitung",
+        "D. Akurasi selalu menyesatkan"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Pada imbalanced data, model bisa mencapai akurasi tinggi hanya dengan menebak kelas mayoritas. F1-Score lebih cocok karena mempertimbangkan Precision dan Recall.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M03_2",
+      "modul_id": "MOD-03",
+      "pertanyaan": "Model training Anda mendapat akurasi 99% tapi saat diuji dengan data baru hanya 55%. Fenomena ini disebut?",
+      "pilihan": [
+        "A. Underfitting",
+        "B. Overfitting",
+        "C. Data Leakage",
+        "D. Gradient Vanishing"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Overfitting terjadi ketika model menghafal data latih alih-alih belajar pola umum, menyebabkan performa buruk pada data baru (generalisasi gagal).",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M04_1",
+      "modul_id": "MOD-04",
+      "pertanyaan": "Apa perbedaan mendasar antara Regresi Linear dan Klasifikasi Logistik?",
+      "pilihan": [
+        "A. Regresi memprediksi angka kontinu, Logistik memprediksi probabilitas kelas (0/1)",
+        "B. Regresi lebih akurat",
+        "C. Logistik tidak menggunakan fungsi loss",
+        "D. Keduanya sama saja"
+      ],
+      "jawaban_benar": "A",
+      "penjelasan": "Regresi Linear output angka kontinu (misal harga rumah), sedangkan Logistik menggunakan fungsi Sigmoid untuk output probabilitas kelas biner.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M04_2",
+      "modul_id": "MOD-04",
+      "pertanyaan": "Dalam Teorema Bayes, apa yang dimaksud dengan Likelihood P(x|y)?",
+      "pilihan": [
+        "A. Probabilitas awal sebelum melihat bukti",
+        "B. Probabilitas bukti muncul jika kelas tertentu benar",
+        "C. Probabilitas akhir setelah kalkulasi",
+        "D. Jarak Euclidean antar titik"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Likelihood P(x|y) mengukur seberapa mungkin bukti/fitur x muncul jika kelas y benar. Ini berbeda dari Prior (kepercayaan awal) dan Posterior (keyakinan akhir).",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M05_1",
+      "modul_id": "MOD-05",
+      "pertanyaan": "Apa tujuan utama algoritma K-Means Clustering?",
+      "pilihan": [
+        "A. Memprediksi label kelas dari data berlabel",
+        "B. Mengelompokkan data tanpa label ke dalam K cluster berdasarkan kemiripan",
+        "C. Menghitung F1-Score",
+        "D. Melakukan regresi linear"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "K-Means adalah algoritma unsupervised yang mengelompokkan data ke K cluster dengan meminimalkan jarak intra-cluster (Within-Cluster Sum of Squares).",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M05_2",
+      "modul_id": "MOD-05",
+      "pertanyaan": "PCA (Principal Component Analysis) berguna untuk?",
+      "pilihan": [
+        "A. Menambah fitur baru ke dataset",
+        "B. Mereduksi dimensi data sambil mempertahankan varians informasi terbesar",
+        "C. Melatih model deep learning",
+        "D. Membersihkan data yang kotor"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "PCA menemukan komponen utama (eigenvectors) yang menangkap varians terbesar, memungkinkan kompresi dimensi tanpa kehilangan informasi signifikan.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M07_1",
+      "modul_id": "MOD-07",
+      "pertanyaan": "Mengapa fungsi aktivasi non-linear (seperti ReLU) diperlukan pada Neural Network?",
+      "pilihan": [
+        "A. Agar komputasi lebih cepat",
+        "B. Tanpa non-linearitas, seluruh jaringan hanya setara transformasi linear tunggal",
+        "C. Agar bobot selalu positif",
+        "D. Untuk mengurangi jumlah parameter"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Tanpa aktivasi non-linear, komposisi berlapis-lapis operasi linear tetaplah linear. Non-linearitas memungkinkan jaringan memodelkan fungsi kompleks.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M07_2",
+      "modul_id": "MOD-07",
+      "pertanyaan": "Backpropagation menggunakan prinsip matematika apa untuk menghitung gradient?",
+      "pilihan": [
+        "A. Teorema Pythagoras",
+        "B. Aturan Rantai (Chain Rule) Kalkulus",
+        "C. Transformasi Fourier",
+        "D. Statistik Bayesian"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Backpropagation mengaplikasikan Chain Rule secara iteratif dari output ke input untuk menghitung gradient loss terhadap setiap bobot di jaringan.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M08_1",
+      "modul_id": "MOD-08",
+      "pertanyaan": "Apa keunggulan utama Transfer Learning dalam Computer Vision?",
+      "pilihan": [
+        "A. Tidak perlu GPU",
+        "B. Memanfaatkan model pre-trained sehingga bisa mencapai performa tinggi dengan data latih yang sedikit",
+        "C. Hanya bisa untuk gambar kucing",
+        "D. Menghilangkan kebutuhan akan data sepenuhnya"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Transfer Learning membekukan fitur-fitur yang sudah dipelajari model besar (ResNet, VGG), lalu hanya melatih ulang klasifier akhirnya dengan data target yang minim.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M08_2",
+      "modul_id": "MOD-08",
+      "pertanyaan": "Apa fungsi Max Pooling pada arsitektur CNN?",
+      "pilihan": [
+        "A. Menambah resolusi gambar",
+        "B. Menurunkan dimensi spasial (downsampling) sambil mempertahankan fitur dominan",
+        "C. Menghitung gradient",
+        "D. Melakukan augmentasi data"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Max Pooling mengambil nilai maksimum dari jendela lokal, mengurangi ukuran feature map dan memberikan toleransi terhadap translasi spasial.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M10_1",
+      "modul_id": "MOD-10",
+      "pertanyaan": "Masalah utama RNN klasik yang diselesaikan oleh Attention Mechanism adalah?",
+      "pilihan": [
+        "A. RNN terlalu cepat",
+        "B. RNN melupakan informasi dari awal kalimat panjang (Amnesia/Long-range dependency)",
+        "C. RNN tidak bisa membaca teks",
+        "D. RNN hanya untuk gambar"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "RNN memproses sekuensial dan menderita vanishing gradient, membuat informasi awal kalimat panjang terlupakan. Attention memberi akses langsung ke semua posisi.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M11_1",
+      "modul_id": "MOD-11",
+      "pertanyaan": "Kenapa Transformer membutuhkan Positional Encoding?",
+      "pilihan": [
+        "A. Untuk mempercepat training",
+        "B. Karena Self-Attention memproses kata secara paralel sehingga tidak tahu urutan posisi kata",
+        "C. Untuk menambah parameter model",
+        "D. Karena GPU membutuhkannya"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Berbeda dengan RNN yang sekuensial, Self-Attention bersifat permutation-invariant. Positional Encoding menyuntikkan informasi urutan agar model tahu posisi kata.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M11_2",
+      "modul_id": "MOD-11",
+      "pertanyaan": "Dalam Scaled Dot-Product Attention, kenapa skor di-scale dengan √dk?",
+      "pilihan": [
+        "A. Agar hasilnya selalu positif",
+        "B. Untuk menghindari dot product yang terlalu besar sehingga Softmax menjadi saturasi (gradient → 0)",
+        "C. Agar komputasi lebih lambat",
+        "D. Karena tradisi paper"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Tanpa scaling, dot product berdimensi tinggi menghasilkan nilai besar yang membuat Softmax menghasilkan distribusi hampir one-hot, mematikan gradient.",
+      "tingkat": "Sulit",
+      "poin": 20
+    },
+    {
+      "id": "quiz_M14_1",
+      "modul_id": "MOD-14",
+      "pertanyaan": "Apa tugas fundamental yang dilakukan LLM seperti GPT?",
+      "pilihan": [
+        "A. Mencari informasi di internet",
+        "B. Memprediksi token (kata/subkata) selanjutnya berdasarkan konteks sebelumnya",
+        "C. Menyimpan seluruh Wikipedia di memori",
+        "D. Menjalankan kode Python secara langsung"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "LLM adalah auto-regressive model yang tugas utamanya adalah next-token prediction: P(w_t | w_1...w_{t-1}). Semua kemampuannya emerge dari tugas sederhana ini.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M14_2",
+      "modul_id": "MOD-14",
+      "pertanyaan": "LoRA (Low-Rank Adaptation) memungkinkan fine-tuning LLM dengan cara?",
+      "pilihan": [
+        "A. Melatih seluruh parameter dari awal",
+        "B. Membekukan bobot asli dan hanya melatih matriks dekomposisi rank-rendah",
+        "C. Menghapus separuh layer model",
+        "D. Menggunakan lebih banyak data"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "LoRA membekukan W_0 (pre-trained weights) dan hanya melatih ΔW = BA (dua matriks kecil), memangkas kebutuhan VRAM hingga 90%.",
+      "tingkat": "Sulit",
+      "poin": 20
+    },
+    {
+      "id": "quiz_M16_1",
+      "modul_id": "MOD-16",
+      "pertanyaan": "Mengapa LLM bisa mengalami halusinasi (menghasilkan fakta palsu)?",
+      "pilihan": [
+        "A. Karena LLM dirancang untuk menebak token paling probabilistik, bukan menjadi ensiklopedia faktual",
+        "B. Karena LLM sengaja berbohong",
+        "C. Karena koneksi internet terputus",
+        "D. Karena datanya terlalu sedikit"
+      ],
+      "jawaban_benar": "A",
+      "penjelasan": "LLM dioptimalkan untuk next-token prediction, bukan kebenaran faktual. Ketika distribusi probabilitas tidak pasti, model menghasilkan teks yang terdengar masuk akal tapi fiktif.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M16_2",
+      "modul_id": "MOD-16",
+      "pertanyaan": "Federated Learning melindungi privasi data pengguna dengan cara?",
+      "pilihan": [
+        "A. Mengenkripsi server pusat",
+        "B. Melatih model di perangkat user lokal, hanya mengirim gradient update (bukan data asli) ke server",
+        "C. Menghapus semua data setelah training",
+        "D. Tidak menggunakan data sama sekali"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Pada Federated Learning, data asli tidak pernah meninggalkan perangkat pengguna. Server hanya menerima gradient/parameter update yang diagregasi.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M17_1",
+      "modul_id": "MOD-17",
+      "pertanyaan": "Apa keunggulan Regex dibandingkan LLM untuk tugas ekstraksi pola teks sederhana?",
+      "pilihan": [
+        "A. Regex lebih pintar",
+        "B. Regex jauh lebih cepat, ringan, dan deterministik (hasilnya selalu konsisten)",
+        "C. Regex bisa memahami konteks",
+        "D. Regex tidak perlu komputer"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Regex beroperasi via finite-state automata yang sangat cepat dan deterministik, ideal untuk pattern matching sederhana tanpa overhead GPU LLM.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M18_1",
+      "modul_id": "MOD-18",
+      "pertanyaan": "Apa kelemahan utama model N-Gram untuk prediksi bahasa?",
+      "pilihan": [
+        "A. Terlalu pintar",
+        "B. Tidak memahami makna kata, hanya menghitung frekuensi co-occurrence statistik",
+        "C. Membutuhkan GPU",
+        "D. Hanya bisa bahasa Inggris"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "N-Gram murni statistik frekuensi. Ia menebak kata berdasarkan seberapa sering urutan muncul, tanpa pemahaman semantik apapun.",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M19_1",
+      "modul_id": "MOD-19",
+      "pertanyaan": "Word2Vec menghasilkan representasi kata sebagai?",
+      "pilihan": [
+        "A. Gambar pixel",
+        "B. Vektor numerik berdimensi tetap yang menangkap hubungan semantik",
+        "C. Tabel frekuensi",
+        "D. Kode binary"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Word2Vec memetakan setiap kata ke dense vector di mana kata-kata yang mirip secara semantik memiliki vektor yang berdekatan (cosine similarity tinggi).",
+      "tingkat": "Mudah",
+      "poin": 10
+    },
+    {
+      "id": "quiz_M20_1",
+      "modul_id": "MOD-20",
+      "pertanyaan": "RAG (Retrieval-Augmented Generation) mengurangi halusinasi LLM dengan cara?",
+      "pilihan": [
+        "A. Melatih model dari awal dengan data baru",
+        "B. Menyuntikkan dokumen relevan yang diambil dari database ke dalam konteks prompt LLM",
+        "C. Menghapus kemampuan generatif model",
+        "D. Menggunakan model yang lebih kecil"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "RAG mengambil (retrieve) dokumen relevan dari knowledge base, lalu menyisipkannya ke prompt sebagai konteks, sehingga LLM menjawab berdasarkan sumber faktual.",
+      "tingkat": "Menengah",
+      "poin": 15
+    },
+    {
+      "id": "quiz_M21_1",
+      "modul_id": "MOD-21",
+      "pertanyaan": "Apa yang menyebabkan chatbot Microsoft Tay (2016) menjadi rasis dalam 24 jam?",
+      "pilihan": [
+        "A. Bug di kode program",
+        "B. Corpus-based chatbot menyerap perilaku adversarial dari pengguna internet tanpa guardrails filter",
+        "C. Microsoft sengaja memprogram demikian",
+        "D. Karena menggunakan N-Gram"
+      ],
+      "jawaban_benar": "B",
+      "penjelasan": "Tay adalah open-domain chatbot yang belajar dari interaksi real-time. Tanpa content filter/guardrails, ia menyerap ujaran kebencian dari troll internet.",
+      "tingkat": "Menengah",
+      "poin": 15
+    }
+  ],
+  "learning_paths": {
+    "tahapan_fundamental": [
+      {
+        "tahap": 1,
+        "nama": "Fondasi AI & Machine Learning Klasik",
+        "deskripsi": "Langkah pertama meramaikan wawasan AI Anda, mulai dari teori dasar hingga algoritma mesin klastering klasik.",
+        "modul": [
+          "MOD-01",
+          "MOD-02",
+          "MOD-03",
+          "MOD-04",
+          "MOD-05"
+        ]
+      },
+      {
+        "tahap": 2,
+        "nama": "Deep Learning & Supervised Advanced",
+        "deskripsi": "Menyelami jaringan saraf tiruan (Neural Networks) dan pemrosesan gambar digital dengan CNN.",
+        "modul": [
+          "MOD-07",
+          "MOD-08"
+        ]
+      },
+      {
+        "tahap": 3,
+        "nama": "Natural Language Processing (NLP)",
+        "deskripsi": "Fokus pada cara mesin mengekstraksi makna dari teks, probabilitas kata, dan mengukur jarak secara semantik.",
+        "modul": [
+          "MOD-17",
+          "MOD-18",
+          "MOD-19"
+        ]
+      },
+      {
+        "tahap": 4,
+        "nama": "Large Language Models (LLM) & Generative AI",
+        "deskripsi": "Bermain dengan pelopor di balik ChatGPT, arsitektur Transformer, RAG, hingga pertimbangan etika komputasi.",
+        "modul": [
+          "MOD-10",
+          "MOD-11",
+          "MOD-20",
+          "MOD-14",
+          "MOD-21",
+          "MOD-16"
+        ]
+      }
+    ],
+    "peminatan_karir": [
+      {
+        "karir": "Data Scientist",
+        "ikon": "ChartBar",
+        "deskripsi": "Fokus pada ekstraksi insight bisnis dari big data dan pemodelan prediktif klasifikasi.",
+        "modul_wajib": [
+          "MOD-01",
+          "MOD-02",
+          "MOD-03",
+          "MOD-04",
+          "MOD-05",
+          "MOD-17",
+          "MOD-18"
+        ]
+      },
+      {
+        "karir": "AI / Deep Learning Engineer",
+        "ikon": "BrainCircuit",
+        "deskripsi": "Merancang arsitektur Neural Networks skala besar dan sistem AI end-to-end berkinerja tinggi.",
+        "modul_wajib": [
+          "MOD-01",
+          "MOD-02",
+          "MOD-07",
+          "MOD-10",
+          "MOD-11",
+          "MOD-14",
+          "MOD-16"
+        ]
+      },
+      {
+        "karir": "Computer Vision Engineer",
+        "ikon": "Eye",
+        "deskripsi": "Membangun sistem deteksi objek dan pemrosesan citra digital spasial untuk dunia nyata.",
+        "modul_wajib": [
+          "MOD-01",
+          "MOD-02",
+          "MOD-07",
+          "MOD-08"
+        ]
+      },
+      {
+        "karir": "NLP / LLM Engineer",
+        "ikon": "MessageSquareText",
+        "deskripsi": "Spesialis pemrosesan bahasa alami, membangun Chatbot, dan merakit Vector RAG pencegah halusinasi.",
+        "modul_wajib": [
+          "MOD-01",
+          "MOD-17",
+          "MOD-18",
+          "MOD-19",
+          "MOD-07",
+          "MOD-10",
+          "MOD-11",
+          "MOD-20",
+          "MOD-14",
+          "MOD-21"
+        ]
+      }
+    ]
+  }
+}
