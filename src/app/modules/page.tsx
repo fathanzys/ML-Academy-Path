@@ -1,15 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Layers, Search } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, BookOpen, Layers, Search, ChevronDown, Check } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import curriculumData from "@/data/curriculum.json";
 
 export default function ModulesPage() {
     const { rumpun, modul } = curriculumData;
     const [search, setSearch] = useState("");
     const [difficulty, setDifficulty] = useState("Semua");
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const difficulties = [
+        { id: "Semua", label: "Semua Tingkat", icon: "🎯" },
+        { id: "Mudah", label: "Mudah", icon: "🟢" },
+        { id: "Menengah", label: "Menengah", icon: "🟡" },
+        { id: "Sulit", label: "Sulit", icon: "🔴" }
+    ];
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const filtered = modul.filter(m => {
         const matchSearch = !search || m.judul.toLowerCase().includes(search.toLowerCase()) || m.objektif.toLowerCase().includes(search.toLowerCase());
@@ -56,16 +75,49 @@ export default function ModulesPage() {
                         className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-colors"
                     />
                 </div>
-                <select
-                    value={difficulty}
-                    onChange={e => setDifficulty(e.target.value)}
-                    className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-200 text-sm focus:outline-none focus:border-violet-500/50 cursor-pointer"
-                >
-                    <option value="Semua">🎯 Semua Tingkat</option>
-                    <option value="Mudah">🟢 Mudah</option>
-                    <option value="Menengah">🟡 Menengah</option>
-                    <option value="Sulit">🔴 Sulit</option>
-                </select>
+                <div className="relative min-w-[200px]" ref={dropdownRef}>
+                    <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-violet-500/50 transition-colors text-gray-200 text-sm focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+                    >
+                        <span className="flex items-center gap-2">
+                            <span>{difficulties.find(d => d.id === difficulty)?.icon}</span>
+                            <span>{difficulties.find(d => d.id === difficulty)?.label}</span>
+                        </span>
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-violet-400' : 'text-gray-500'}`} />
+                    </button>
+
+                    <AnimatePresence>
+                        {isDropdownOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                transition={{ duration: 0.15, ease: "easeOut" }}
+                                className="absolute right-0 top-full mt-2 w-full bg-gray-900 border border-white/10 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 overflow-hidden"
+                            >
+                                <div className="py-1">
+                                    {difficulties.map((diff) => (
+                                        <button
+                                            key={diff.id}
+                                            onClick={() => {
+                                                setDifficulty(diff.id);
+                                                setIsDropdownOpen(false);
+                                            }}
+                                            className="w-full flex items-center justify-between px-4 py-3 text-sm text-left hover:bg-white/5 transition-colors"
+                                        >
+                                            <span className={`flex items-center gap-3 ${difficulty === diff.id ? 'text-white font-medium' : 'text-gray-400'}`}>
+                                                <span className="text-lg">{diff.icon}</span>
+                                                {diff.label}
+                                            </span>
+                                            {difficulty === diff.id && <Check className="w-4 h-4 text-violet-400" />}
+                                        </button>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </motion.div>
 
             {groupedModules.length === 0 && (
