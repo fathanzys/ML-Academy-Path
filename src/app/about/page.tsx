@@ -75,7 +75,7 @@ export default function AboutPage() {
                         Proyek ini bersifat open-source. Kami menerima kontribusi berupa perbaikan konten, penambahan modul baru, visualisasi interaktif, dan pelaporan bug.
                     </p>
                     <div className="flex gap-3">
-                        <a href="https://github.com/fathan-ai/ai-curriculum" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-violet-600 hover:bg-violet-500 rounded-lg text-sm font-medium transition-colors">
+                        <a href="https://github.com/fathanzys/ML-Academy-Path" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-violet-600 hover:bg-violet-500 rounded-lg text-sm font-medium transition-colors">
                             ⭐ Star di GitHub
                         </a>
                         <Link href="/modules" className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-colors">

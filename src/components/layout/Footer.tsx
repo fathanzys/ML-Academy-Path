@@ -17,7 +17,7 @@ export function Footer() {
                     </div>
 
                     <div className="flex space-x-6">
-                        <a href="https://github.com/fathan-ai/ai-curriculum" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                        <a href="https://github.com/fathanzys/ML-Academy-Path" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                             <span className="sr-only">GitHub</span>
                             <Github className="h-5 w-5" />
                         </a>
