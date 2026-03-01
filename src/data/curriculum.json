@@ -287,7 +287,7 @@
           "penjelasan_awam": "Rahasia master AI adalah seni menyeimbangkan antara model yang terlalu kaku (*Bias*) dan model yang terlalu lembek/gampang bergetar (*Variance*). Jika kita turunkan satu, yang lainnya biasanya naik. Kuncinya adalah mencari *Sweet Spot* di tengah.",
           "penjelasan_teknis": "Persamaan dekomposisi Error Generalisasi: $$ Error = Bias^2 + Variance + Irreducible \\_ Noise $$\\nSolusi standar untuk meredam Variance (menghindari hafalan) adalah dengan **L1/L2 Regularization** yang memberikan penalti pajak supaya AI tak membuat bobot parameter yang meledak liar. Jika datanya jomplang parah secara jumlah kelas, kita bisa melakukan interpolasi data palsu menggunakan algoritma sintetik modern bernama **SMOTE**.",
           "contoh_nyata": "Trik mengajari mobil *self-driving* Tesla. Jika mesinnya dibiarkan terlalu liar menghafal trotoar tes, ia akan gampang tabrakan di kota baru. Teknisi Tesla menyetrum modelnya agar lebih disiplin dengan Regularisasi Dropout.",
-          "image": "/images/supervised_vs_unsupervised_concept.png"
+          "image": "/images/mod03_bias_variance.png"
         }
       ],
       "kesulitan": "🟢 Mudah",
@@ -406,7 +406,7 @@
           "penjelasan_awam": "Otak AI (Neural Network) tidak menghitung data dengan cara manual tradisional memecahkan 1+1, melainkan dengan memborbardir perhitungan matematika ribuan kolom bersilangan secara sekaligus serentak di kartu grafis layar komputermu (GPU). Seluruh mesin hitung ini memakai bata dasar arsitektur dimensi jamak yang kita namakan TENSOR.",
           "penjelasan_teknis": "Dalam arsitektur *Deep Learning*, manipulasi tensor difasilitasi penuh melalui operasi dot product aljabar linear: $$\\mathbf{C} = \\mathbf{A} \\cdot \\mathbf{B}$$ Hal yang terpenting untuk dimengerti adalah dimensi matriksnya: Jika perkalian matriks $\\mathbf{A}_{(m \\times n)}$ dipaksa bertabrakan dengan bobot linear neuron $\\mathbf{B}_{(n \\times p)}$, maka ia ajaibnya akan menelurkan transformasi matriks proyeksional hasil $\\mathbf{C} \\in \\mathbb{R}^{m \\times p}$. Konsep reduksi pilar absolut ini digunakan konstan untuk meloncat antar Layer neuron raksasa dari sekian ribu lapis parameter hingga mengerucut jadi satu kesimpulan.",
           "contoh_nyata": "Kenapa NVIDIA harganya ribuan dolar meroket dan cuan pesat jadi raja chip dunia? Jawabnnya karena kartu VGA mutakhir buatan asalnya didesain optimal untuk meloloskan rumus kalkulus raksasa 'Matrix Multiplication' di dalam game, yang ternyata sama mutlak bergunanya untuk melatih AI raksasa ChatGPT.",
-          "image": "/images/mod06_math_details.png"
+          "image": "/images/mod06_tensor.png"
         },
         {
           "judul": "Kalkulus & Turunan Gradien (Chain Rule)",
@@ -445,7 +445,8 @@
           "analogi": "Anggaplah sel otak Neural Network ibarat panitia saringan kompetisi pencarian bakat berlapis panjang berurutan. Panitia seleksi lapis gerbang depan hanya menyaring syarat apakah pelamar bisa tepuk tangan berirama ringan (garis). Apabila lolos disetor ke panitia juri lapis kedua membedah khusus tarikan lengkingan tinggi di pita suara pelamar. Dan panggung akhir direktur besar yang menjustifikasi fnal meramu nilai perpaduan hasil juri semua bawahannya dalam memvonis layak diorbitkan.",
           "penjelasan_awam": "**Neural Network (Jaringan Saraf Buatan)** pada dasarnya merupakan salinan kerangka sangat primitif atas sistem struktur kerangka bilik sel neuron sel neuron yang meledak berkelindan di ruang raksasa otak biologis manusia nyata. Barisan depan penerima rangsang data disebut Input Layer (Mata penglihat). Bagian sel otak hitam tengah pembeda corak disebut kumpulan sarang lebah rumit *Hidden Layers*. Dan final corong penendang probabilitas hasil kesimpulan di ujung moncong tembakan disebut *Output Layer*.",
           "penjelasan_teknis": "Arsitektur Perceptron Multi-lapis berproses lewat komputasi linear maju eksak dan kokoh per lapis tumpukan (Forward Pass Transform): $$ z^{(l)} = \\mathbf{W}^{(l)} \\mathbf{a}^{(l-1)} + \\mathbf{b}^{(l)} $$ Keterangan matriks formal:\n- $\\mathbf{W}^{(l)}$ tumpukan memori sinapsis Weight Matrix kokoh untuk layar lapis $l$\n- $\\mathbf{a}^{(l-1)}$ nilai aktivasi sinyal tembakan voltase arus pijar sel neuron layer penyuntik dari sel terdekat di bawah $l$\n- $\\mathbf{b}$ Bias biner angka kecenderungan tambahan ambang pelatuk pemicu lepasnya peluru signal.",
-          "contoh_nyata": "Kamera CCTV Apple di ponsel iPhone model ID Face untuk mendeteksi kontur tebal wajah pengguna di ruang gulita total mengoperasikan komputasi arsitektur Hidden Layers secara membisu agar presisi total."
+          "contoh_nyata": "Kamera CCTV Apple di ponsel iPhone model ID Face untuk mendeteksi kontur tebal wajah pengguna di ruang gulita total mengoperasikan komputasi arsitektur Hidden Layers secara membisu agar presisi total.",
+          "image": "/images/neural_network_nodes.png"
         },
         {
           "judul": "Bumbu Rahasia: Fungsi Aktivasi Pelatuk Sinyal Tembakan (ReLU)",
@@ -453,7 +454,7 @@
           "penjelasan_awam": "Jika kita hanya terus memperbanyak perkalian layer angka mentah dari depan ke layer seribu dengan linear penggaris lurus tiada hambatan... Maka sistem 'raksasa memukau' puluhan mesin pintar tersebut sejatinya ujungnya hanyalah berfungsi laksana sekedar sebiji sel bodoh yang panjang. Agar saraf mesin mampu menyimpulkan rute keputusan cerdas zig-zag, spiral, bermanuver acak mengarungi batas ruwet dan tak lurus mulus menelikung... Jawabannya diarsiteki dengan injeksi racun lentur sakti berupa saklar non-linear bernama **Fungsi Aktivasi**.",
           "penjelasan_teknis": "Racikan resep keajaiban fungsi mematahkan tren stagnasi di sel AI ini dirajai kuat oleh primadona baru: **ReLU (Rectified Linear Unit)**, persamaan matematik irisan tersimpel memilah dunia: $$ f(x) = \\max(0, x) $$ Artinya ringkasnya: Apabila signal hasil perkalian memunculkan angka setipis debu di bawah nol (minus), sel saraf itu dibunuh dimatikan disetrum paksa ke angka Nol absolut mati tak berguna. Apabila plus (+), silakan dilos bablas meroket berapapun ke surga depan. Ajaibnya, saklar tebang pilih irit daya nan ringkas cepat gila ini menghancurkan mitos kesaktian absolut dari rumus kalkulus usang *Sigmoid/Tanh* (yang memicu epidemi pelambatan sinyal mati mendadak alias the infamous seram *Vanishing Gradient Problem*) saat diterapkan pada raksasa jurang terdalam arsitektur model layer yang bisa menembus ratusan lapisan tebal.",
           "contoh_nyata": "Jutaan implementasi revolusioner revolusi pendeteksi kanker otak mutakhir pada ronsen foto mesin MRI di RS pusat gila menginvestasikan penuh pada kerangka saklar ReLU ketimbang Sigmoid purba untuk mengejar kecepatan proses komputasi paralel layar sentuh seketika saat jarum dipijak operator!",
-          "image": "/images/neural_network_nodes.png"
+          "image": "/images/mod07_relu.png"
         }
       ],
       "kesulitan": "🔴 Sulit",

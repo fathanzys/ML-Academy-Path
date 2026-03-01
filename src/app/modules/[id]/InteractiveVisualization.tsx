@@ -892,49 +892,116 @@ function DecisionTreeVisualizer() {
 // MOD-05: K-Means Clustering
 // ==========================================
 function KMeansVisualizer({ description }: { description: string }) {
+    const [alg, setAlg] = useState<'kmeans' | 'dbscan'>('kmeans');
     const [step, setStep] = useState(0);
 
-    // Hardcoded static steps for visual simplicity
     return (
         <div className="glass-card p-8 border-violet-500/20 bg-gradient-to-br from-violet-900/20 to-transparent">
-            <h3 className="text-2xl font-bold text-violet-400 mb-4 flex items-center"><Target className="mr-3 w-6 h-6" /> K-Means Clustering</h3>
+            <h3 className="text-2xl font-bold text-violet-400 mb-4 flex items-center">
+                <Target className="mr-3 w-6 h-6" /> Unsupervised Learning: Clustering
+            </h3>
             <p className="text-gray-300 mb-6">{description}</p>
 
-            <div className="flex gap-4 mb-6">
-                <button onClick={() => setStep(0)} className="px-4 py-2 bg-black/50 hover:bg-white/10 text-white rounded border border-white/10 text-sm">1. Random Data</button>
-                <button onClick={() => setStep(1)} className="px-4 py-2 bg-black/50 hover:bg-white/10 text-violet-300 rounded border border-violet-500/30 text-sm">2. Init Centroids</button>
-                <button onClick={() => setStep(2)} className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded text-sm">3. Group & Move Centroids</button>
+            {/* Algorithm Toggle */}
+            <div className="flex bg-black/50 p-1 rounded-lg w-fit border border-white/10 mb-6">
+                <button
+                    onClick={() => { setAlg('kmeans'); setStep(0); }}
+                    className={`px-4 py-1.5 text-sm rounded ${alg === 'kmeans' ? 'bg-violet-600 text-white font-bold' : 'text-gray-400 hover:text-white'}`}
+                >
+                    K-Means
+                </button>
+                <button
+                    onClick={() => { setAlg('dbscan'); setStep(0); }}
+                    className={`px-4 py-1.5 text-sm rounded ${alg === 'dbscan' ? 'bg-violet-600 text-white font-bold' : 'text-gray-400 hover:text-white'}`}
+                >
+                    DBSCAN
+                </button>
             </div>
 
-            <div className="h-64 bg-black/40 rounded-xl border border-white/10 relative overflow-hidden">
-                {/* Cluster 1 Points */}
-                <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-fuchsia-500' : 'bg-gray-500'}`} style={{ left: '20%', top: '30%' }} />
-                <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-fuchsia-500' : 'bg-gray-500'}`} style={{ left: '25%', top: '20%' }} />
-                <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-fuchsia-500' : 'bg-gray-500'}`} style={{ left: '30%', top: '35%' }} />
+            {alg === 'kmeans' ? (
+                // --- K-MEANS DEMO ---
+                <>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        <button onClick={() => setStep(0)} className="px-3 py-1.5 bg-black/50 hover:bg-white/10 text-white rounded border border-white/10 text-xs shadow-sm">1. Random Data</button>
+                        <button onClick={() => setStep(1)} className="px-3 py-1.5 bg-black/50 hover:bg-white/10 text-violet-300 rounded border border-violet-500/30 text-xs shadow-sm">2. Init Centroids</button>
+                        <button onClick={() => setStep(2)} className="px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded text-xs shadow-sm">3. Group & Move Centroids</button>
+                    </div>
 
-                {/* Cluster 2 Points */}
-                <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-cyan-500' : 'bg-gray-500'}`} style={{ left: '70%', top: '60%' }} />
-                <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-cyan-500' : 'bg-gray-500'}`} style={{ left: '75%', top: '75%' }} />
-                <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-cyan-500' : 'bg-gray-500'}`} style={{ left: '60%', top: '70%' }} />
+                    <div className="h-64 bg-black/40 rounded-xl border border-white/10 relative overflow-hidden">
+                        {/* Cluster 1 Points */}
+                        <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-fuchsia-500 shadow-[0_0_10px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '20%', top: '30%', transition: 'background 0.5s' }} />
+                        <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-fuchsia-500 shadow-[0_0_10px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '25%', top: '20%', transition: 'background 0.5s' }} />
+                        <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-fuchsia-500 shadow-[0_0_10px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '30%', top: '35%', transition: 'background 0.5s' }} />
 
-                {/* Centroids */}
-                {step >= 1 && (
-                    <>
-                        <div className="absolute w-6 h-6 bg-transparent border-4 border-fuchsia-400 transition-all duration-1000 -ml-3 -mt-3" style={step >= 2 ? { left: '25%', top: '28%' } : { left: '50%', top: '50%' }}>
-                            <span className="absolute -top-6 -left-2 text-xs text-fuchsia-400 font-bold">C1</span>
-                        </div>
-                        <div className="absolute w-6 h-6 bg-transparent border-4 border-cyan-400 transition-all duration-1000 -ml-3 -mt-3" style={step >= 2 ? { left: '68%', top: '68%' } : { left: '40%', top: '40%' }}>
-                            <span className="absolute -top-6 -left-2 text-xs text-cyan-400 font-bold">C2</span>
-                        </div>
-                    </>
-                )}
-            </div>
+                        {/* Cluster 2 Points */}
+                        <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '70%', top: '60%', transition: 'background 0.5s' }} />
+                        <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '75%', top: '75%', transition: 'background 0.5s' }} />
+                        <div className={`absolute w-3 h-3 rounded-full ${step >= 2 ? 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '60%', top: '70%', transition: 'background 0.5s' }} />
 
-            <div className="mt-4 text-center text-sm text-gray-400 italic">
-                {step === 0 && "Data tak berlabel terdistribusi."}
-                {step === 1 && "Centroid ditempatkan secara acak."}
-                {step === 2 && "Data dikelompokkan ke centroid terdekat, lalu centroid bergeser ke tengah kelompok."}
-            </div>
+                        {/* Centroids */}
+                        {step >= 1 && (
+                            <>
+                                <div className="absolute w-6 h-6 bg-transparent border-4 border-fuchsia-400 rounded-full transition-all duration-1000 ease-in-out -ml-3 -mt-3 shadow-[0_0_15px_#d946ef]" style={step >= 2 ? { left: '25%', top: '28%' } : { left: '50%', top: '50%' }}>
+                                    <span className="absolute -top-6 -left-2 text-xs text-fuchsia-400 font-bold bg-black/50 px-1 rounded">C1</span>
+                                </div>
+                                <div className="absolute w-6 h-6 bg-transparent border-4 border-cyan-400 rounded-full transition-all duration-1000 ease-in-out -ml-3 -mt-3 shadow-[0_0_15px_#06b6d4]" style={step >= 2 ? { left: '68%', top: '68%' } : { left: '40%', top: '40%' }}>
+                                    <span className="absolute -top-6 -left-2 text-xs text-cyan-400 font-bold bg-black/50 px-1 rounded">C2</span>
+                                </div>
+                            </>
+                        )}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-black/30 border border-white/5 rounded text-sm text-gray-300 font-mono">
+                        {step === 0 && "🔵 Data mentah belum dikelompokkan (Unlabeled). Titik abu-abu tersebar acak."}
+                        {step === 1 && "📌 2 Centroid inisial (C1 & C2) dijatuhkan secara acak ke kanvas."}
+                        {step === 2 && "✨ Data menempel ke centroid terdekatnya. Centroid lalu bergeser mencari pusat gravitasi kelompok barunya!"}
+                    </div>
+                </>
+            ) : (
+                // --- DBSCAN DEMO ---
+                <>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        <button onClick={() => setStep(0)} className="px-3 py-1.5 bg-black/50 hover:bg-white/10 text-white rounded border border-white/10 text-xs shadow-sm">1. Density Check</button>
+                        <button onClick={() => setStep(1)} className="px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded text-xs shadow-sm">2. Expand & Isolate Noise</button>
+                    </div>
+
+                    <div className="h-64 bg-black/40 rounded-xl border border-white/10 relative overflow-hidden">
+                        {/* Core Points (Dense Region A) */}
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-fuchsia-500 shadow-[0_0_15px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '20%', top: '40%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-fuchsia-500 shadow-[0_0_15px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '22%', top: '45%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-fuchsia-500 shadow-[0_0_15px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '25%', top: '38%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-fuchsia-500 shadow-[0_0_15px_#d946ef]' : 'bg-gray-500'}`} style={{ left: '18%', top: '42%' }} />
+
+                        {/* Core Points (Dense Region B - non-spherical) */}
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-cyan-500 shadow-[0_0_15px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '60%', top: '20%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-cyan-500 shadow-[0_0_15px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '65%', top: '25%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-cyan-500 shadow-[0_0_15px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '70%', top: '35%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-cyan-500 shadow-[0_0_15px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '75%', top: '45%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 ${step >= 1 ? 'bg-cyan-500 shadow-[0_0_15px_#06b6d4]' : 'bg-gray-500'}`} style={{ left: '80%', top: '55%' }} />
+
+                        {/* Noise Points */}
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 border-2 ${step >= 1 ? 'bg-transparent border-red-500 z-10' : 'bg-gray-500 border-transparent'}`} style={{ left: '40%', top: '80%' }} />
+                        <div className={`absolute w-3 h-3 rounded-full transition-all duration-500 border-2 ${step >= 1 ? 'bg-transparent border-red-500 z-10' : 'bg-gray-500 border-transparent'}`} style={{ left: '10%', top: '80%' }} />
+
+                        {step >= 1 && (
+                            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-50">
+                                {/* Connect B */}
+                                <polyline points="60%,20% 65%,25% 70%,35% 75%,45% 80%,55%" fill="none" stroke="#06b6d4" strokeWidth="2" strokeDasharray="4" />
+                            </svg>
+                        )}
+
+                        {/* Epsilon Radius visual helper */}
+                        {step === 0 && (
+                            <div className="absolute w-16 h-16 rounded-full border border-white/20 bg-white/5 -ml-8 -mt-8 animate-pulse" style={{ left: '22%', top: '42%' }}></div>
+                        )}
+                    </div>
+
+                    <div className="mt-4 p-3 bg-black/30 border border-white/5 rounded text-sm text-gray-300 font-mono">
+                        {step === 0 && "🔍 DBSCAN memindai radius sekeliling titik (Epsilon). Jika banyak teman di dekatnya, ia menjadi Core Point."}
+                        {step === 1 && "🔗 Cluster meluas menularkan warnanya ke tetangga yang rapat. Titik yang jauh sendirian (merah) dibuang sebagai 'Noise'!"}
+                    </div>
+                </>
+            )}
         </div>
     );
 }
@@ -959,19 +1026,22 @@ function NeuralNetVisualizer({ description }: { description: string }) {
             <p className="text-gray-300 mb-8">{description}. <br /><strong>Instruksi:</strong> Klik pada garis koneksi bobot (Weights) untuk melemahkan/menguatkan sinyal neuron!</p>
 
             <div className="relative h-64 flex justify-between items-center px-12 border border-white/5 rounded-2xl bg-black/30">
-                <div className="flex flex-col gap-8 z-10">
+                {/* Input Layer */}
+                <div className="flex flex-col gap-6 z-10 relative">
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-bold text-blue-300 uppercase tracking-widest whitespace-nowrap bg-black/50 px-2 py-1 rounded">Input Layer</div>
                     {[0, 1, 2].map(i => (
-                        <div key={i} className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center font-bold shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        <div key={i} className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center font-bold shadow-[0_0_15px_rgba(59,130,246,0.5)] border-2 border-white/20">
                             x{i + 1}
                         </div>
                     ))}
                 </div>
 
+                {/* Connections */}
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
                     {[0, 1, 2].map(i => (
                         <line
                             key={i}
-                            x1="15%" y1={`${20 + i * 30}%`}
+                            x1="15%" y1={`${23 + i * 27}%`}
                             x2="85%" y2="50%"
                             stroke={weights[i] === 1 ? "#06b6d4" : "#334155"}
                             strokeWidth={weights[i] === 1 ? 4 : 2}
@@ -980,18 +1050,32 @@ function NeuralNetVisualizer({ description }: { description: string }) {
                             className="hover:stroke-cyan-300"
                         />
                     ))}
+                    {/* Weight Labels */}
+                    {[0, 1, 2].map(i => (
+                        <text
+                            key={`w-${i}`}
+                            x="45%" y={`${30 + i * 20}%`}
+                            fill={weights[i] === 1 ? "#06b6d4" : "#64748b"}
+                            className="text-[10px] font-mono select-none"
+                            style={{ transition: "fill 0.3s" }}
+                        >
+                            w{i + 1}={weights[i]}
+                        </text>
+                    ))}
                 </svg>
 
-                <div className="flex flex-col justify-center h-full z-10">
+                {/* Output Layer */}
+                <div className="flex flex-col justify-center h-full z-10 relative">
+                    <div className="absolute top-[32%] left-1/2 -translate-x-1/2 text-xs font-bold text-fuchsia-300 uppercase tracking-widest whitespace-nowrap bg-black/50 px-2 py-1 rounded">Output Neuron</div>
                     <div className="w-16 h-16 rounded-full bg-fuchsia-500 flex items-center justify-center font-bold text-lg shadow-[0_0_25px_rgba(217,70,239,0.8)] border-4 border-white/20">
                         Σ
                     </div>
                 </div>
             </div>
 
-            <div className="mt-6 flex justify-between font-mono text-sm bg-black/50 p-4 rounded-lg">
+            <div className="mt-6 flex justify-between font-mono text-sm bg-black/50 p-4 rounded-lg border border-white/5">
                 <div className="text-blue-300">Input: [1.0, 0.5, -0.2]</div>
-                <div className="text-cyan-300">Sum = Σ(w·x) = {(1.0 * weights[0] + 0.5 * weights[1] - 0.2 * weights[2]).toFixed(2)}</div>
+                <div className="text-cyan-300 flex-1 text-center font-bold">Sum = Σ(w·x) = {(1.0 * weights[0] + 0.5 * weights[1] - 0.2 * weights[2]).toFixed(2)}</div>
                 <div className="text-fuchsia-300">Output f(x) = {((1.0 * weights[0] + 0.5 * weights[1] - 0.2 * weights[2]) > 0.5 ? "Kucing" : "Anjing")}</div>
             </div>
         </div>
