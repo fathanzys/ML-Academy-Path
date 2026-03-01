@@ -102,11 +102,11 @@ export default function PathsPage() {
                                                         <div className="text-xs text-indigo-400 font-mono mb-2">{modInfo.id}</div>
                                                         <h3 className="font-bold text-gray-200 group-hover:text-white mb-2 leading-snug">{modInfo.judul}</h3>
                                                         <div className="flex justify-between items-center mt-4">
-                                                            <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded ${modInfo.kesulitan === 'Mudah' ? 'bg-green-500/20 text-green-400' :
-                                                                modInfo.kesulitan === 'Menengah' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                            <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded ${modInfo.kesulitan.includes('Mudah') ? 'bg-green-500/20 text-green-400' :
+                                                                modInfo.kesulitan.includes('Menengah') ? 'bg-yellow-500/20 text-yellow-400' :
                                                                     'bg-red-500/20 text-red-400'
                                                                 }`}>
-                                                                {modInfo.kesulitan}
+                                                                {modInfo.kesulitan.replace(/🟢|🟡|🔴/g, '').trim()}
                                                             </span>
                                                             <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-indigo-400 transition-colors" />
                                                         </div>
@@ -217,11 +217,11 @@ export default function PathsPage() {
                                                                 <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">{modInfo.objektif || ""}</p>
                                                             </div>
                                                             <div className="flex-shrink-0 flex items-center justify-between sm:flex-col sm:items-end sm:justify-center gap-2 mt-2 sm:mt-0">
-                                                                <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded w-fit ${modInfo.kesulitan === 'Mudah' ? 'bg-green-500/20 text-green-400' :
-                                                                    modInfo.kesulitan === 'Menengah' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                                <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded w-fit ${modInfo.kesulitan.includes('Mudah') ? 'bg-green-500/20 text-green-400' :
+                                                                    modInfo.kesulitan.includes('Menengah') ? 'bg-yellow-500/20 text-yellow-400' :
                                                                         'bg-red-500/20 text-red-400'
                                                                     }`}>
-                                                                    {modInfo.kesulitan}
+                                                                    {modInfo.kesulitan.replace(/🟢|🟡|🔴/g, '').trim()}
                                                                 </span>
                                                                 <span className="text-emerald-400 text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">
                                                                     Mulai <ChevronRight className="w-4 h-4 ml-1" />

@@ -7,7 +7,7 @@ export default function InteractiveVisualization({ moduleId, description }: { mo
     switch (moduleId) {
         case "MOD-01": return <AITimelineVisualizer description={description} />
         case "MOD-02": return <MLPipelineVisualizer description={description} />
-        case "MOD-03": return <ImbalanceVisualizer description={description} />
+        case "MOD-03": return <BiasVarianceVisualizers description={description} />
         case "MOD-04": return <SupervisedVisualizers description={description} />
         case "MOD-05": return <KMeansVisualizer description={description} />
         case "MOD-06": return <MathFoundationVisualizer description={description} />
@@ -18,15 +18,15 @@ export default function InteractiveVisualization({ moduleId, description }: { mo
         case "MOD-11": return <TransformerVisualizer description={description} />
         case "MOD-12": return <BERTMaskVisualizer description={description} />
         case "MOD-13": return <DiffusionVisualizer description={description} />
-        case "MOD-14": return <LLMVisualizer description={description} />
-        case "MOD-15": return <MLOpsVisualizer description={description} />
-        case "MOD-16": return <HallucinationVisualizer description={description} />
-        case "MOD-17": return <RegexVisualizer description={description} />
-        case "MOD-18": return <NGramVisualizer description={description} />
-        case "MOD-19": return <VectorVisualizer description={description} />
-        case "MOD-20": return <RAGVisualizer description={description} />
-        case "MOD-21": return <ChatbotVisualizer description={description} />
-        case "MOD-22": return <QLearningVisualizer description={description} />
+        case "MOD-14": return <RAGVisualizer description={description} />
+        case "MOD-15":
+        case "MOD-16": return <QLearningVisualizer description={description} />
+        case "MOD-17": return <DQNVisualizer description={description} />
+        case "MOD-18": return <LLMVisualizer description={description} />
+        case "MOD-19": return <NLPVisualizers description={description} />
+        case "MOD-20": return <ViTVisualizer description={description} />
+        case "MOD-21": return <MLOpsVisualizer description={description} />
+        case "MOD-22": return <ActorCriticVisualizer description={description} />
         case "MOD-23": return <TimeSeriesVisualizer description={description} />
         case "MOD-24": return <ViTVisualizer description={description} />
         case "MOD-25": return <AudioSpectrogramVisualizer description={description} />
@@ -495,6 +495,461 @@ function MLPipelineVisualizer({ description }: { description: string }) {
 // ==========================================
 // MOD-03: Class Imbalance + Confusion Matrix
 // ==========================================
+// ==========================================
+// MOD-03: Bias-Variance Tabbed Visualizers
+// ==========================================
+function BiasVarianceVisualizers({ description }: { description: string }) {
+    const tabs = [
+        { id: 'bv', label: '⚖️ Bias-Variance' },
+        { id: 'roc', label: '📈 ROC Curve' },
+        { id: 'imbalance', label: '🎯 Class Imbalance' },
+    ];
+    const [activeTab, setActiveTab] = useState('bv');
+
+    return (
+        <div className="glass-card p-6 md:p-8 border-orange-500/20 bg-gradient-to-br from-orange-900/20 to-transparent">
+            <h3 className="text-2xl font-bold text-orange-400 mb-2 flex items-center">
+                <Target className="w-6 h-6 mr-3" /> Demo Interaktif: Bias, Variance & Evaluasi Model
+            </h3>
+            <p className="text-gray-400 text-sm mb-6">{description}</p>
+
+            <div className="flex flex-wrap gap-2 mb-6">
+                {tabs.map(tab => (
+                    <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === tab.id
+                            ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/30 border border-orange-400/50'
+                            : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'
+                            }`}>
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+
+            {activeTab === 'bv' && <BiasVarianceDemo />}
+            {activeTab === 'roc' && <ROCCurveDemo />}
+            {activeTab === 'imbalance' && <ImbalanceVisualizer description={description} />}
+        </div>
+    );
+}
+
+function BiasVarianceDemo() {
+    const [complexity, setComplexity] = useState(5);
+
+    const bias = Math.max(0.05, 1 - complexity * 0.12);
+    const variance = Math.max(0.05, complexity * 0.1);
+    const totalError = bias + variance;
+    const sweet = totalError < 0.75;
+
+    return (
+        <div className="space-y-5">
+            <div>
+                <label className="text-xs font-mono text-cyan-400 mb-2 block uppercase tracking-wider">
+                    Kompleksitas Model (1 = Underfitting, 10 = Overfitting)
+                </label>
+                <input type="range" min={1} max={10} value={complexity} onChange={e => setComplexity(+e.target.value)}
+                    className="w-full accent-orange-500" />
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>Sederhana (Linear)</span>
+                    <span>Kompleksitas: {complexity}</span>
+                    <span>Kompleks (Polinomial tinggi)</span>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+                <div className="bg-black/40 rounded-xl border border-blue-500/20 p-4 text-center">
+                    <div className="text-xs font-mono text-blue-400 mb-1 uppercase">Bias²</div>
+                    <div className="text-3xl font-bold text-blue-300">{bias.toFixed(2)}</div>
+                    <div className="h-3 bg-black/50 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-blue-500/60 rounded-full transition-all duration-300" style={{ width: `${bias * 100}%` }} />
+                    </div>
+                </div>
+                <div className="bg-black/40 rounded-xl border border-red-500/20 p-4 text-center">
+                    <div className="text-xs font-mono text-red-400 mb-1 uppercase">Variance</div>
+                    <div className="text-3xl font-bold text-red-300">{variance.toFixed(2)}</div>
+                    <div className="h-3 bg-black/50 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-red-500/60 rounded-full transition-all duration-300" style={{ width: `${variance * 100}%` }} />
+                    </div>
+                </div>
+                <div className={`bg-black/40 rounded-xl border p-4 text-center ${sweet ? 'border-emerald-500/30' : 'border-amber-500/30'}`}>
+                    <div className="text-xs font-mono text-gray-400 mb-1 uppercase">Total Error</div>
+                    <div className={`text-3xl font-bold ${sweet ? 'text-emerald-300' : 'text-amber-300'}`}>{totalError.toFixed(2)}</div>
+                    <div className="h-3 bg-black/50 rounded-full mt-2 overflow-hidden">
+                        <div className={`h-full rounded-full transition-all duration-300 ${sweet ? 'bg-emerald-500/60' : 'bg-amber-500/60'}`} style={{ width: `${Math.min(totalError * 50, 100)}%` }} />
+                    </div>
+                </div>
+            </div>
+
+            <div className={`p-4 rounded-xl text-sm ${complexity <= 2 ? 'bg-blue-500/10 border border-blue-500/20 text-blue-300' : complexity >= 8 ? 'bg-red-500/10 border border-red-500/20 text-red-300' : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-300'}`}>
+                {complexity <= 2 && '⚠️ Underfitting — Model terlalu sederhana, Bias tinggi. Model tidak mampu menangkap pola data.'}
+                {complexity >= 3 && complexity <= 7 && '✅ Sweet Spot — Model cukup kompleks untuk menangkap pola tanpa menghafal noise.'}
+                {complexity >= 8 && '⚠️ Overfitting — Model terlalu kompleks, Variance tinggi. Model menghafal noise pada data training.'}
+            </div>
+        </div>
+    );
+}
+
+function ROCCurveDemo() {
+    const [threshold, setThreshold] = useState(0.5);
+
+    // Simulated data for ROC
+    const points = [
+        { fpr: 0, tpr: 0 },
+        { fpr: 0.05, tpr: 0.35 },
+        { fpr: 0.1, tpr: 0.55 },
+        { fpr: 0.15, tpr: 0.65 },
+        { fpr: 0.2, tpr: 0.72 },
+        { fpr: 0.3, tpr: 0.82 },
+        { fpr: 0.4, tpr: 0.88 },
+        { fpr: 0.5, tpr: 0.92 },
+        { fpr: 0.6, tpr: 0.95 },
+        { fpr: 0.7, tpr: 0.97 },
+        { fpr: 0.8, tpr: 0.98 },
+        { fpr: 0.9, tpr: 0.99 },
+        { fpr: 1, tpr: 1 },
+    ];
+
+    // Calculate current point based on threshold
+    const idx = Math.min(Math.floor((1 - threshold) * (points.length - 1)), points.length - 1);
+    const current = points[idx];
+
+    // AUC approximation
+    const auc = 0.87;
+
+    // Confusion matrix values based on threshold
+    const totalP = 50; const totalN = 50;
+    const tp = Math.round(current.tpr * totalP);
+    const fp = Math.round(current.fpr * totalN);
+    const fn = totalP - tp;
+    const tn = totalN - fp;
+    const precision = tp + fp > 0 ? tp / (tp + fp) : 0;
+    const recall = tp + fn > 0 ? tp / (tp + fn) : 0;
+    const f1 = precision + recall > 0 ? 2 * precision * recall / (precision + recall) : 0;
+
+    return (
+        <div className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* ROC Curve SVG */}
+                <div className="bg-black/50 rounded-xl border border-white/10 p-4">
+                    <div className="text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">ROC Curve (AUC = {auc})</div>
+                    <svg viewBox="0 0 200 200" className="w-full max-w-[300px] mx-auto">
+                        {/* Grid */}
+                        {[0.25, 0.5, 0.75].map(v => (
+                            <g key={v}>
+                                <line x1={v * 180 + 10} y1={10} x2={v * 180 + 10} y2={190} stroke="gray" strokeWidth="0.3" opacity="0.3" />
+                                <line x1={10} y1={190 - v * 180} x2={190} y2={190 - v * 180} stroke="gray" strokeWidth="0.3" opacity="0.3" />
+                            </g>
+                        ))}
+                        {/* Diagonal */}
+                        <line x1={10} y1={190} x2={190} y2={10} stroke="gray" strokeWidth="0.5" strokeDasharray="4" opacity="0.4" />
+                        {/* AUC fill */}
+                        <polygon
+                            points={points.map(p => `${p.fpr * 180 + 10},${190 - p.tpr * 180}`).join(' ') + ' 190,190 10,190'}
+                            fill="rgba(59,130,246,0.15)" stroke="none"
+                        />
+                        {/* ROC line */}
+                        <polyline
+                            points={points.map(p => `${p.fpr * 180 + 10},${190 - p.tpr * 180}`).join(' ')}
+                            fill="none" stroke="#3b82f6" strokeWidth="2"
+                        />
+                        {/* Current point */}
+                        <circle cx={current.fpr * 180 + 10} cy={190 - current.tpr * 180} r="6" fill="#f59e0b" stroke="#fff" strokeWidth="1.5" />
+                        {/* Labels */}
+                        <text x={100} y={205} textAnchor="middle" fill="#9ca3af" fontSize="8">False Positive Rate (FPR)</text>
+                        <text x={-100} y={6} textAnchor="middle" fill="#9ca3af" fontSize="8" transform="rotate(-90)">True Positive Rate (TPR)</text>
+                    </svg>
+                </div>
+
+                {/* Metrics */}
+                <div className="space-y-4">
+                    <div>
+                        <label className="text-xs font-mono text-cyan-400 mb-1 block uppercase tracking-wider">
+                            Threshold Klasifikasi: {threshold.toFixed(2)}
+                        </label>
+                        <input type="range" min={0.05} max={0.95} step={0.05} value={threshold}
+                            onChange={e => setThreshold(+e.target.value)} className="w-full accent-amber-500" />
+                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>Semua Positif</span><span>Semua Negatif</span>
+                        </div>
+                    </div>
+
+                    {/* Confusion Matrix */}
+                    <div className="bg-black/40 rounded-xl border border-white/10 p-3">
+                        <div className="text-xs font-mono text-gray-500 mb-2">Confusion Matrix</div>
+                        <div className="grid grid-cols-2 gap-1 text-center text-xs font-mono">
+                            <div className="bg-emerald-500/15 text-emerald-300 p-2 rounded">TP: {tp}</div>
+                            <div className="bg-red-500/15 text-red-300 p-2 rounded">FP: {fp}</div>
+                            <div className="bg-amber-500/15 text-amber-300 p-2 rounded">FN: {fn}</div>
+                            <div className="bg-blue-500/15 text-blue-300 p-2 rounded">TN: {tn}</div>
+                        </div>
+                    </div>
+
+                    {/* Metrics display */}
+                    <div className="space-y-2">
+                        {[
+                            { label: 'Precision', value: precision, color: 'violet' },
+                            { label: 'Recall (TPR)', value: recall, color: 'blue' },
+                            { label: 'F1-Score', value: f1, color: 'emerald' },
+                        ].map(m => (
+                            <div key={m.label} className="flex items-center gap-3">
+                                <span className="text-xs font-mono text-gray-400 w-24">{m.label}</span>
+                                <div className="flex-1 h-5 bg-black/50 rounded overflow-hidden border border-white/5 relative">
+                                    <div className={`h-full bg-${m.color}-500/50 rounded transition-all duration-300`} style={{ width: `${m.value * 100}%` }} />
+                                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-300">{(m.value * 100).toFixed(1)}%</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-17: DQN Interactive Demo
+// ==========================================
+function DQNVisualizer({ description }: { description: string }) {
+    const [step, setStep] = useState(0);
+    const [replayBuffer, setReplayBuffer] = useState<{ s: string; a: string; r: number; s2: string }[]>([]);
+
+    const actions = ['⬆️ Atas', '➡️ Kanan', '⬇️ Bawah', '⬅️ Kiri'];
+    const states = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'];
+
+    const takeAction = () => {
+        const s = states[Math.floor(Math.random() * states.length)];
+        const a = actions[Math.floor(Math.random() * actions.length)];
+        const r = Math.random() > 0.7 ? +(Math.random() * 10).toFixed(1) : -(Math.random() * 3).toFixed(1);
+        const s2 = states[Math.floor(Math.random() * states.length)];
+        const entry = { s, a, r: +r, s2 };
+        setReplayBuffer(prev => [...prev.slice(-9), entry]);
+        setStep(prev => prev + 1);
+    };
+
+    const trainBatch = () => {
+        if (replayBuffer.length < 3) return;
+        setStep(prev => prev + 1);
+    };
+
+    return (
+        <div className="glass-card p-6 md:p-8 border-red-500/20 bg-gradient-to-br from-red-900/20 to-transparent">
+            <h3 className="text-2xl font-bold text-red-400 mb-2 flex items-center">
+                <Brain className="w-6 h-6 mr-3" /> Demo DQN: Experience Replay & Neural Q-Network
+            </h3>
+            <p className="text-gray-400 text-sm mb-6">{description}</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Controls */}
+                <div className="space-y-4">
+                    <div className="flex gap-3">
+                        <button onClick={takeAction}
+                            className="flex-1 px-4 py-3 bg-red-600/30 hover:bg-red-600/50 border border-red-500/30 rounded-xl text-red-200 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                            <Play className="w-4 h-4" /> Agen Ambil Aksi
+                        </button>
+                        <button onClick={trainBatch} disabled={replayBuffer.length < 3}
+                            className="flex-1 px-4 py-3 bg-violet-600/30 hover:bg-violet-600/50 border border-violet-500/30 rounded-xl text-violet-200 font-bold text-sm transition-all disabled:opacity-30 flex items-center justify-center gap-2">
+                            <Brain className="w-4 h-4" /> Train Mini-Batch
+                        </button>
+                    </div>
+                    <div className="flex gap-4 text-xs font-mono text-gray-500">
+                        <span>Episode Step: {step}</span>
+                        <span>Buffer Size: {replayBuffer.length}/10</span>
+                    </div>
+
+                    {/* Neural Network Q-Values */}
+                    <div className="bg-black/40 rounded-xl border border-white/10 p-4">
+                        <div className="text-xs font-mono text-violet-400 mb-3 uppercase tracking-wider">Neural Network Q(s, a)</div>
+                        <div className="space-y-2">
+                            {actions.map((a, i) => {
+                                const qval = (Math.sin(step * 0.3 + i) * 3 + 5).toFixed(2);
+                                const isMax = i === (step % 4);
+                                return (
+                                    <div key={a} className="flex items-center gap-3">
+                                        <span className="text-xs font-mono w-20 text-gray-400">{a}</span>
+                                        <div className="flex-1 h-6 bg-black/50 rounded overflow-hidden border border-white/5 relative">
+                                            <div className={`h-full rounded transition-all duration-300 ${isMax ? 'bg-emerald-500/60' : 'bg-violet-500/30'}`}
+                                                style={{ width: `${(+qval / 10) * 100}%` }} />
+                                            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-300">
+                                                Q={qval} {isMax && '← argmax'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Experience Replay Buffer */}
+                <div className="bg-black/40 rounded-xl border border-white/10 p-4">
+                    <div className="text-xs font-mono text-red-400 mb-3 uppercase tracking-wider">
+                        Experience Replay Buffer D
+                    </div>
+                    {replayBuffer.length === 0 ? (
+                        <div className="text-gray-500 text-sm italic text-center py-8">Klik &ldquo;Agen Ambil Aksi&rdquo; untuk mengisi buffer...</div>
+                    ) : (
+                        <div className="space-y-1.5 max-h-72 overflow-y-auto">
+                            {replayBuffer.map((entry, i) => (
+                                <div key={i} className={`flex items-center gap-2 text-xs font-mono p-2 rounded-lg border transition-all ${i === replayBuffer.length - 1 ? 'bg-red-500/10 border-red-500/20' : 'bg-black/30 border-white/5'}`}>
+                                    <span className="text-gray-500 w-4">#{i}</span>
+                                    <span className="text-blue-300">{entry.s}</span>
+                                    <span className="text-gray-600">→</span>
+                                    <span className="text-amber-300">{entry.a}</span>
+                                    <span className="text-gray-600">→</span>
+                                    <span className={entry.r >= 0 ? 'text-emerald-300' : 'text-red-300'}>R:{entry.r}</span>
+                                    <span className="text-gray-600">→</span>
+                                    <span className="text-blue-300">{entry.s2}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    <div className="mt-3 pt-2 border-t border-white/5 text-xs text-gray-500 italic">
+                        Saat training, mini-batch acak diambil dari buffer ini untuk memutus korelasi temporal (i.i.d. sampling).
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// MOD-22: Actor-Critic Interactive Demo
+// ==========================================
+function ActorCriticVisualizer({ description }: { description: string }) {
+    const [state, setState] = useState(0);
+    const [history, setHistory] = useState<{ s: number; a: string; r: number; v: number; adv: number }[]>([]);
+
+    const stateNames = ['Mulai', 'Persimpangan A', 'Jalan Sempit', 'Lorong Gelap', 'Dekat Target', 'TARGET 🏆'];
+
+    const takeStep = () => {
+        const s = state;
+        const actions = ['Maju', 'Belok', 'Tunggu'];
+        const a = actions[Math.floor(Math.random() * 3)];
+
+        // Critic estimates value
+        const v = +(s * 1.5 + Math.random() * 2).toFixed(2);
+
+        // Reward
+        const r = a === 'Maju' ? +(2 + Math.random() * 3).toFixed(1) : +(Math.random() * 1.5 - 0.5).toFixed(1);
+
+        // Advantage = R - V (TD error)
+        const adv = +(r - v + (state < 5 ? state * 0.5 : 0)).toFixed(2);
+
+        setHistory(prev => [...prev.slice(-7), { s, a, r: +r, v, adv }]);
+
+        // Progress state
+        if (a === 'Maju' && state < 5) {
+            setState(prev => prev + 1);
+        } else if (Math.random() > 0.7 && state > 0) {
+            setState(prev => prev - 1);
+        }
+    };
+
+    const reset = () => {
+        setState(0);
+        setHistory([]);
+    };
+
+    return (
+        <div className="glass-card p-6 md:p-8 border-purple-500/20 bg-gradient-to-br from-purple-900/20 to-transparent">
+            <h3 className="text-2xl font-bold text-purple-400 mb-2 flex items-center">
+                <Network className="w-6 h-6 mr-3" /> Demo Actor-Critic: Policy & Value Estimation
+            </h3>
+            <p className="text-gray-400 text-sm mb-6">{description}</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* State + Controls */}
+                <div className="space-y-4">
+                    {/* State Progress */}
+                    <div className="bg-black/40 rounded-xl border border-white/10 p-4">
+                        <div className="text-xs font-mono text-purple-400 mb-3 uppercase tracking-wider">State Agen</div>
+                        <div className="flex items-center gap-1">
+                            {stateNames.map((name, i) => (
+                                <div key={i} className="flex items-center">
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${i === state
+                                        ? 'bg-purple-600 border-purple-400 text-white shadow-lg shadow-purple-500/30 scale-110'
+                                        : i < state ? 'bg-emerald-600/30 border-emerald-500/30 text-emerald-300' : 'bg-black/30 border-white/10 text-gray-500'
+                                        }`}>
+                                        {i}
+                                    </div>
+                                    {i < stateNames.length - 1 && <div className={`w-3 h-0.5 ${i < state ? 'bg-emerald-500/50' : 'bg-white/10'}`} />}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="text-sm text-gray-300 mt-2 font-mono">{stateNames[state]}</div>
+                    </div>
+
+                    {/* Actor (Policy) */}
+                    <div className="bg-black/40 rounded-xl border border-violet-500/15 p-4">
+                        <div className="text-xs font-mono text-violet-400 mb-2 uppercase tracking-wider">🎭 Actor — Policy π(a|s)</div>
+                        {['Maju', 'Belok', 'Tunggu'].map(a => {
+                            const prob = a === 'Maju' ? 0.5 + state * 0.05 : a === 'Belok' ? 0.3 - state * 0.02 : 0.2 - state * 0.03;
+                            return (
+                                <div key={a} className="flex items-center gap-2 mb-1">
+                                    <span className="text-xs font-mono text-gray-400 w-14">{a}</span>
+                                    <div className="flex-1 h-4 bg-black/50 rounded overflow-hidden">
+                                        <div className="h-full bg-violet-500/40 rounded transition-all" style={{ width: `${Math.max(prob, 0.05) * 100}%` }} />
+                                    </div>
+                                    <span className="text-xs font-mono text-gray-400 w-12">{(Math.max(prob, 0.05) * 100).toFixed(0)}%</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Critic (Value) */}
+                    <div className="bg-black/40 rounded-xl border border-cyan-500/15 p-4">
+                        <div className="text-xs font-mono text-cyan-400 mb-2 uppercase tracking-wider">🧑‍⚖️ Critic — Value V(s)</div>
+                        <div className="text-2xl font-bold text-cyan-300">V(s{state}) = {(state * 1.5 + 1).toFixed(2)}</div>
+                        <div className="text-xs text-gray-500 mt-1">Estimasi total reward yang diharapkan dari state saat ini</div>
+                    </div>
+
+                    <div className="flex gap-3">
+                        <button onClick={takeStep}
+                            className="flex-1 px-4 py-3 bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/30 rounded-xl text-purple-200 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                            <Play className="w-4 h-4" /> Langkah Berikutnya
+                        </button>
+                        <button onClick={reset}
+                            className="px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-gray-400 text-sm transition-all">
+                            <RefreshCw className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* History / Advantage */}
+                <div className="bg-black/40 rounded-xl border border-white/10 p-4">
+                    <div className="text-xs font-mono text-amber-400 mb-3 uppercase tracking-wider">
+                        Advantage A(s,a) = R + γV(s&apos;) − V(s)
+                    </div>
+                    {history.length === 0 ? (
+                        <div className="text-gray-500 text-sm italic text-center py-8">Klik &ldquo;Langkah Berikutnya&rdquo; untuk memulai...</div>
+                    ) : (
+                        <div className="space-y-2 max-h-80 overflow-y-auto">
+                            {history.map((h, i) => (
+                                <div key={i} className={`p-3 rounded-lg border text-xs font-mono ${h.adv >= 0 ? 'bg-emerald-500/5 border-emerald-500/15' : 'bg-red-500/5 border-red-500/15'}`}>
+                                    <div className="flex items-center gap-2 text-gray-300">
+                                        <span className="text-blue-300">S{h.s}</span>
+                                        <span className="text-gray-600">→</span>
+                                        <span className="text-amber-300">{h.a}</span>
+                                        <span className="text-gray-600">|</span>
+                                        <span className={h.r >= 0 ? 'text-emerald-300' : 'text-red-300'}>R={h.r}</span>
+                                        <span className="text-gray-600">|</span>
+                                        <span className="text-cyan-300">V={h.v}</span>
+                                    </div>
+                                    <div className={`mt-1 font-bold ${h.adv >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                                        Advantage = {h.adv >= 0 ? '+' : ''}{h.adv} {h.adv >= 0 ? '→ Perkuat aksi ini' : '→ Kurangi probabilitas aksi ini'}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    <div className="mt-3 pt-2 border-t border-white/5 text-xs text-gray-500 italic">
+                        Advantage positif → Actor meningkatkan probabilitas aksi tersebut. Negatif → probabilitas diturunkan.
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function ImbalanceVisualizer({ description }: { description: string }) {
     const [minorityPct, setMinorityPct] = useState(10);
     const [threshold, setThreshold] = useState(0.5);
@@ -1557,6 +2012,262 @@ function NGramVisualizer({ description }: { description: string }) {
 // ==========================================
 // MOD-19: Vector Semantics Visualizer 
 // ==========================================
+// ==========================================
+// MOD-19: Multi-Tab NLP Visualizers
+// ==========================================
+function NLPVisualizers({ description }: { description: string }) {
+    const tabs = [
+        { id: 'regex', label: '🔍 Regex', icon: Search },
+        { id: 'ngram', label: '🔗 N-Gram', icon: GitBranch },
+        { id: 'tfidf', label: '📊 TF-IDF', icon: Activity },
+        { id: 'vector', label: '🧭 Embedding', icon: Target },
+    ];
+    const [activeTab, setActiveTab] = useState('regex');
+
+    return (
+        <div className="glass-card p-6 md:p-8 border-indigo-500/20 bg-gradient-to-br from-indigo-900/20 to-transparent">
+            <h3 className="text-2xl font-bold text-indigo-400 mb-2 flex items-center">
+                <Brain className="w-6 h-6 mr-3" /> Laboratorium NLP Interaktif
+            </h3>
+            <p className="text-gray-400 text-sm mb-6">Eksplorasi 4 konsep fundamental NLP melalui demo interaktif. Klik tab untuk berpindah topik.</p>
+
+            {/* Tab Bar */}
+            <div className="flex flex-wrap gap-2 mb-6">
+                {tabs.map(tab => (
+                    <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === tab.id
+                            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 border border-indigo-400/50'
+                            : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-gray-200'
+                            }`}>
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+
+            {/* Tab Content */}
+            {activeTab === 'regex' && <RegexDemo />}
+            {activeTab === 'ngram' && <NGramDemo />}
+            {activeTab === 'tfidf' && <TFIDFDemo />}
+            {activeTab === 'vector' && <VectorVisualizer description={description} />}
+        </div>
+    );
+}
+
+// --- Regex Demo ---
+function RegexDemo() {
+    const [pattern, setPattern] = useState('[A-Z][a-z]+');
+    const [testText, setTestText] = useState('Selamat Pagi Indonesia! Saya sedang Belajar NLP di Jakarta.');
+    const [matches, setMatches] = useState<string[]>([]);
+    const [highlighted, setHighlighted] = useState('');
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        try {
+            if (!pattern) { setMatches([]); setHighlighted(testText); setError(''); return; }
+            const regex = new RegExp(pattern, 'g');
+            const found = testText.match(regex) || [];
+            setMatches(found);
+            setError('');
+            // Highlight matches in the text
+            const hl = testText.replace(regex, (m) => `<mark class="bg-emerald-500/30 text-emerald-200 px-0.5 rounded border border-emerald-500/30">${m}</mark>`);
+            setHighlighted(hl);
+        } catch (e: any) {
+            setError(e.message);
+            setHighlighted(testText);
+            setMatches([]);
+        }
+    }, [pattern, testText]);
+
+    const presets = [
+        { label: 'Kata Kapital', pattern: '[A-Z][a-z]+' },
+        { label: 'Angka', pattern: '\\d+' },
+        { label: 'Email', pattern: '[\\w.]+@[\\w.]+' },
+        { label: 'Tanda Baca', pattern: '[!?.,:;]' },
+    ];
+
+    return (
+        <div className="space-y-4">
+            <div className="flex flex-wrap gap-2">
+                {presets.map(p => (
+                    <button key={p.label} onClick={() => setPattern(p.pattern)}
+                        className={`px-3 py-1 rounded-full text-xs font-mono border transition-all ${pattern === p.pattern ? 'bg-emerald-600/30 border-emerald-500/50 text-emerald-300' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}>
+                        {p.label}
+                    </button>
+                ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label className="text-xs font-mono text-cyan-400 mb-1 block uppercase tracking-wider">Pola Regex</label>
+                    <input value={pattern} onChange={e => setPattern(e.target.value)}
+                        className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-green-400 font-mono text-sm focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/30" placeholder="Masukkan pola regex..." />
+                </div>
+                <div>
+                    <label className="text-xs font-mono text-cyan-400 mb-1 block uppercase tracking-wider">Teks Input</label>
+                    <input value={testText} onChange={e => setTestText(e.target.value)}
+                        className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-gray-200 text-sm focus:border-blue-500/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30" placeholder="Masukkan teks untuk diuji..." />
+                </div>
+            </div>
+            {error && <div className="text-red-400 text-xs font-mono bg-red-500/10 border border-red-500/20 p-2 rounded">⚠️ {error}</div>}
+            <div className="bg-black/40 rounded-xl border border-white/10 p-5">
+                <div className="text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Hasil Pencocokan</div>
+                <div className="text-gray-200 leading-relaxed text-[15px]" dangerouslySetInnerHTML={{ __html: highlighted }} />
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center gap-4">
+                    <span className="text-xs font-mono text-gray-500">{matches.length} kecocokan ditemukan</span>
+                    {matches.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">{matches.map((m, i) => (
+                            <span key={i} className="px-2 py-0.5 bg-emerald-500/15 text-emerald-300 text-xs rounded font-mono border border-emerald-500/20">{m}</span>
+                        ))}</div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// --- N-Gram Demo ---
+function NGramDemo() {
+    const corpus = 'Selamat pagi Indonesia. Selamat pagi dunia. Selamat siang semua. Selamat malam Indonesia.';
+    const [inputWord, setInputWord] = useState('selamat');
+
+    const words = corpus.toLowerCase().replace(/[.!?]/g, '').split(/\s+/);
+    const bigrams: Record<string, Record<string, number>> = {};
+    const unigramCounts: Record<string, number> = {};
+
+    words.forEach((w, i) => {
+        unigramCounts[w] = (unigramCounts[w] || 0) + 1;
+        if (i < words.length - 1) {
+            if (!bigrams[w]) bigrams[w] = {};
+            const next = words[i + 1];
+            bigrams[w][next] = (bigrams[w][next] || 0) + 1;
+        }
+    });
+
+    const predictions = bigrams[inputWord.toLowerCase()] || {};
+    const totalCount = unigramCounts[inputWord.toLowerCase()] || 0;
+    const sorted = Object.entries(predictions).sort((a, b) => b[1] - a[1]);
+    const maxCount = sorted.length > 0 ? sorted[0][1] : 1;
+
+    return (
+        <div className="space-y-4">
+            <div className="bg-black/40 rounded-xl border border-white/10 p-4">
+                <div className="text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Korpus Training</div>
+                <p className="text-gray-300 text-sm italic leading-relaxed">&ldquo;{corpus}&rdquo;</p>
+            </div>
+            <div>
+                <label className="text-xs font-mono text-cyan-400 mb-1 block uppercase tracking-wider">Kata Input (prediksi kata selanjutnya)</label>
+                <div className="flex gap-3">
+                    <input value={inputWord} onChange={e => setInputWord(e.target.value)}
+                        className="flex-1 bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-blue-400 font-mono text-sm focus:border-blue-500/50 focus:outline-none" placeholder="Ketik kata..." />
+                    <div className="flex gap-2">
+                        {['selamat', 'pagi', 'indonesia'].map(w => (
+                            <button key={w} onClick={() => setInputWord(w)} className={`px-3 py-1 rounded-lg text-xs font-mono border transition ${inputWord === w ? 'bg-blue-600/30 border-blue-500/50 text-blue-300' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}>{w}</button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className="bg-black/40 rounded-xl border border-white/10 p-5">
+                <div className="text-xs font-mono text-violet-400 mb-3 uppercase tracking-wider">
+                    Prediksi Bigram: P(? | &ldquo;{inputWord}&rdquo;) — Count(&ldquo;{inputWord}&rdquo;) = {totalCount}
+                </div>
+                {sorted.length > 0 ? (
+                    <div className="space-y-3">
+                        {sorted.map(([word, count]) => {
+                            const prob = totalCount > 0 ? count / totalCount : 0;
+                            return (
+                                <div key={word} className="flex items-center gap-3">
+                                    <span className="font-mono text-sm text-white w-24 text-right font-bold">{word}</span>
+                                    <div className="flex-1 h-8 bg-black/50 rounded-lg overflow-hidden border border-white/5 relative">
+                                        <div className="h-full bg-gradient-to-r from-violet-600/60 to-indigo-500/60 rounded-lg transition-all duration-500" style={{ width: `${(count / maxCount) * 100}%` }} />
+                                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-300">{count}/{totalCount} = {(prob * 100).toFixed(1)}%</span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div className="text-gray-500 text-sm italic text-center py-4">Kata &ldquo;{inputWord}&rdquo; tidak ditemukan dalam korpus. Coba kata lain!</div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+// --- TF-IDF Demo ---
+function TFIDFDemo() {
+    const docs = [
+        { label: 'Dok 1', text: 'kucing makan ikan segar di pasar ikan' },
+        { label: 'Dok 2', text: 'anjing bermain bola di taman kota' },
+        { label: 'Dok 3', text: 'kucing dan anjing bermain bersama di taman' },
+    ];
+    const [selectedWord, setSelectedWord] = useState('kucing');
+
+    // Build TF-IDF
+    const allWords = [...new Set(docs.flatMap(d => d.text.split(/\s+/)))].sort();
+    const N = docs.length;
+
+    const tfIdfScores = allWords.map(word => {
+        const df = docs.filter(d => d.text.includes(word)).length;
+        const idf = df > 0 ? Math.log(N / df) : 0;
+        const scores = docs.map(d => {
+            const words = d.text.split(/\s+/);
+            const tf = words.filter(w => w === word).length;
+            return { tf, idf: +idf.toFixed(3), tfidf: +(tf * idf).toFixed(3) };
+        });
+        return { word, df, idf: +idf.toFixed(3), scores };
+    });
+
+    const selected = tfIdfScores.find(s => s.word === selectedWord);
+    const maxTfIdf = Math.max(...tfIdfScores.flatMap(s => s.scores.map(sc => sc.tfidf)), 0.01);
+
+    return (
+        <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {docs.map((d, i) => (
+                    <div key={i} className="bg-black/40 rounded-xl border border-white/10 p-4">
+                        <div className="text-xs font-mono text-cyan-400 mb-1">{d.label}</div>
+                        <p className="text-gray-300 text-sm">&ldquo;{d.text}&rdquo;</p>
+                    </div>
+                ))}
+            </div>
+            <div>
+                <label className="text-xs font-mono text-cyan-400 mb-2 block uppercase tracking-wider">Pilih kata untuk analisis TF-IDF</label>
+                <div className="flex flex-wrap gap-1.5">
+                    {allWords.map(w => (
+                        <button key={w} onClick={() => setSelectedWord(w)}
+                            className={`px-2.5 py-1 rounded text-xs font-mono border transition ${selectedWord === w ? 'bg-amber-600/30 border-amber-500/50 text-amber-300' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}>{w}</button>
+                    ))}
+                </div>
+            </div>
+            {selected && (
+                <div className="bg-black/40 rounded-xl border border-white/10 p-5 space-y-4">
+                    <div className="flex flex-wrap items-center gap-4 text-sm">
+                        <span className="font-mono text-amber-400">Kata: <strong className="text-white">&ldquo;{selectedWord}&rdquo;</strong></span>
+                        <span className="font-mono text-gray-400">df = {selected.df}/{N}</span>
+                        <span className="font-mono text-gray-400">IDF = log({N}/{selected.df}) = <strong className="text-violet-400">{selected.idf}</strong></span>
+                    </div>
+                    <div className="space-y-3">
+                        {selected.scores.map((sc, i) => (
+                            <div key={i} className="flex items-center gap-3">
+                                <span className="text-xs font-mono text-gray-400 w-12">{docs[i].label}</span>
+                                <span className="text-xs font-mono text-gray-300 w-16">TF={sc.tf}</span>
+                                <div className="flex-1 h-7 bg-black/50 rounded-lg overflow-hidden border border-white/5 relative">
+                                    <div className="h-full bg-gradient-to-r from-amber-600/60 to-orange-500/60 rounded-lg transition-all duration-500" style={{ width: `${maxTfIdf > 0 ? (sc.tfidf / maxTfIdf) * 100 : 0}%` }} />
+                                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-300">TF-IDF = {sc.tfidf}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {selected.idf === 0 && (
+                        <div className="text-xs text-amber-400/70 italic bg-amber-500/5 border border-amber-500/10 p-3 rounded-lg">
+                            ⚠️ Kata ini muncul di semua dokumen sehingga IDF = 0. Artinya kata ini dianggap tidak informatif oleh TF-IDF!
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}
+
 function VectorVisualizer({ description }: { description: string }) {
     return (
         <div className="glass-card p-8 border-indigo-500/20 bg-gradient-to-br from-indigo-900/20 to-transparent">

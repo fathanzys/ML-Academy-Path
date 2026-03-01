@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
 }
 
-// Text formatter to parse LaTeX and bold text
+// Text formatter to parse LaTeX, bold text, lists, and keterangan
 function FormattedText({ text, variant = 'default' }: { text: string; variant?: 'default' | 'technical' }) {
     if (!text) return null;
 
@@ -29,46 +29,149 @@ function FormattedText({ text, variant = 'default' }: { text: string; variant?: 
         <>
             {blockParts.map((part, i) => {
                 if (part.startsWith('$$') && part.endsWith('$$')) {
+                    const rawFormula = part.slice(2, -2).trim();
                     return (
-                        <div key={i} className="my-5 mx-auto max-w-full">
-                            <div className="p-5 bg-gradient-to-r from-violet-950/40 via-black/60 to-violet-950/40 rounded-xl border border-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.08)] overflow-x-auto">
-                                <div className="text-center">
-                                    <BlockMath math={part.slice(2, -2).trim()} />
+                        <div key={i} className="my-6 mx-auto max-w-full">
+                            <div className="relative p-6 bg-gradient-to-br from-violet-950/50 via-[#0c0a1a] to-indigo-950/40 rounded-2xl border border-violet-500/25 shadow-[0_0_30px_rgba(139,92,246,0.08)] overflow-x-auto">
+                                <div className="absolute top-3 left-4 text-[10px] font-mono uppercase tracking-[0.2em] text-violet-400/60 select-none">
+                                    📐 Rumus
+                                </div>
+                                <div className="text-center pt-3 pb-1">
+                                    <BlockMath math={rawFormula} />
                                 </div>
                             </div>
                         </div>
                     );
                 }
 
-                // Split by $ ... $ for inline math
-                const inlineParts = part.split(/(\$[\s\S]*?\$)/g);
-                return (
-                    <span key={i}>
-                        {inlineParts.map((inlinePart, j) => {
-                            if (inlinePart.startsWith('$') && inlinePart.endsWith('$')) {
-                                return (
-                                    <span key={j} className="inline-flex items-baseline mx-0.5 px-1.5 py-0.5 bg-blue-500/10 rounded border border-blue-500/10 text-blue-200">
-                                        <InlineMath math={inlinePart.slice(1, -1)} />
+                // For non-formula text: split by newlines first to handle paragraphs & lists
+                return <TextBlock key={i} text={part} variant={variant} />;
+            })}
+        </>
+    );
+}
+
+// Renders a block of text with newline handling, bullet lists, and inline math/bold
+function TextBlock({ text, variant }: { text: string; variant: 'default' | 'technical' }) {
+    if (!text || !text.trim()) return null;
+
+    // Protect inline math $...$ from newline split breaking LaTeX commands like \nabla
+    const mathMap: string[] = [];
+    const safe = text.replace(/\$[^$]+\$/g, (m) => {
+        mathMap.push(m);
+        return `\x00M${mathMap.length - 1}\x00`;
+    });
+
+    // Split by literal \n (JSON escaped newline) and real newlines
+    const splitLines = safe.split(/\\n|\n/g);
+
+    // Restore math placeholders in each line
+    const lines = splitLines.map(l =>
+        l.replace(/\x00M(\d+)\x00/g, (_, i) => mathMap[parseInt(i)])
+    );
+
+    // Group consecutive list items and regular lines
+    const groups: { type: 'p' | 'list' | 'kh'; content: string[] }[] = [];
+
+    for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) continue;
+
+        const isKH = /^Keterangan\s*[:：]/i.test(line);
+        const isLI = /^[-–•]\s+/.test(line) || /^\d+[.)]\s+/.test(line);
+
+        if (isKH) {
+            groups.push({ type: 'kh', content: [line] });
+        } else if (isLI) {
+            const cleaned = line.replace(/^[-–•]\s+/, '').replace(/^\d+[.)]\s+/, '');
+            const last = groups[groups.length - 1];
+            if (last && last.type === 'list') last.content.push(cleaned);
+            else groups.push({ type: 'list', content: [cleaned] });
+        } else {
+            const last = groups[groups.length - 1];
+            if (last && last.type === 'p') last.content.push(line);
+            else groups.push({ type: 'p', content: [line] });
+        }
+    }
+
+    return (
+        <>
+            {groups.map((group, gi) => {
+                if (group.type === 'kh') {
+                    return (
+                        <div key={gi} className="mt-4 mb-2 text-xs font-mono uppercase tracking-[0.15em] text-violet-400/80 flex items-center gap-2">
+                            <span className="w-4 h-[1px] bg-violet-500/40" />
+                            📝 {group.content[0].replace(/[:：]/, '').trim()}
+                        </div>
+                    );
+                }
+                if (group.type === 'list') {
+                    return (
+                        <div key={gi} className="my-3 space-y-2.5 pl-1" role="list">
+                            {group.content.map((item, li) => (
+                                <div key={li} className="flex items-start gap-3 text-gray-300" role="listitem">
+                                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-violet-400/70 flex-shrink-0" />
+                                    <span className="leading-relaxed">
+                                        <InlineFormatted text={item} />
                                     </span>
-                                );
+                                </div>
+                            ))}
+                        </div>
+                    );
+                }
+                return (
+                    <span key={gi}>
+                        {group.content.map((line, li) => (
+                            <span key={li}>
+                                {li > 0 && <br />}
+                                <InlineFormatted text={line} />
+                            </span>
+                        ))}
+                    </span>
+                );
+            })}
+        </>
+    );
+}
+
+// Renders inline text with $...$ math and **bold** / *italic* formatting
+function InlineFormatted({ text }: { text: string }) {
+    const inlineParts = text.split(/(\$[\s\S]*?\$)/g);
+    return (
+        <>
+            {inlineParts.map((inlinePart, j) => {
+                if (inlinePart.startsWith('$') && inlinePart.endsWith('$') && inlinePart.length > 2) {
+                    return (
+                        <span key={j} className="inline-flex items-baseline mx-0.5 px-1.5 py-0.5 bg-blue-500/10 rounded-md border border-blue-500/15 text-blue-200">
+                            <InlineMath math={inlinePart.slice(1, -1)} />
+                        </span>
+                    );
+                }
+                // Bold **text**
+                const boldParts = inlinePart.split(/(\*\*[\s\S]*?\*\*)/g);
+                return (
+                    <span key={j}>
+                        {boldParts.map((bPart, k) => {
+                            if (bPart.startsWith('**') && bPart.endsWith('**')) {
+                                return <strong key={k} className="text-white font-semibold">{bPart.slice(2, -2)}</strong>;
                             }
-                            // Quick bold parsing for markdown **text** and *text*
-                            const boldParts = inlinePart.split(/(\*\*[\s\S]*?\*\*)/g);
+                            // Single *text* as emphasis
+                            const singleStarParts = bPart.split(/(\*[\s\S]*?\*)/g);
                             return (
-                                <span key={j}>
-                                    {boldParts.map((bPart, k) => {
-                                        if (bPart.startsWith('**') && bPart.endsWith('**')) {
-                                            return <strong key={k} className="text-white font-semibold">{bPart.slice(2, -2)}</strong>;
+                                <span key={k}>
+                                    {singleStarParts.map((sPart, l) => {
+                                        if (sPart.startsWith('*') && sPart.endsWith('*') && sPart.length > 2) {
+                                            return <strong key={l} className="text-white font-semibold">{sPart.slice(1, -1)}</strong>;
                                         }
-                                        // Process single asterisks (*text*) also as bold, per user request
-                                        const singleStarParts = bPart.split(/(\*[\s\S]*?\*)/g);
+                                        // Handle backtick code spans
+                                        const codeParts = sPart.split(/(`[^`]+`)/g);
                                         return (
-                                            <span key={k}>
-                                                {singleStarParts.map((sPart, l) => {
-                                                    if (sPart.startsWith('*') && sPart.endsWith('*') && sPart.length > 2) {
-                                                        return <strong key={l} className="text-white font-semibold">{sPart.slice(1, -1)}</strong>;
+                                            <span key={l}>
+                                                {codeParts.map((cPart, m) => {
+                                                    if (cPart.startsWith('`') && cPart.endsWith('`')) {
+                                                        return <code key={m} className="px-1.5 py-0.5 bg-white/5 rounded text-violet-300 text-[0.9em] font-mono border border-white/5">{cPart.slice(1, -1)}</code>;
                                                     }
-                                                    return <span key={l}>{sPart}</span>;
+                                                    return <span key={m}>{cPart}</span>;
                                                 })}
                                             </span>
                                         );
@@ -133,7 +236,7 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
                     <h3 className="flex items-center text-lg font-semibold text-violet-300 mb-2">
                         <CheckCircle className="w-5 h-5 mr-2" /> Objektif Belajar
                     </h3>
-                    <p className="text-gray-300"><FormattedText text={moduleData.objektif} /></p>
+                    <div className="text-gray-300"><FormattedText text={moduleData.objektif} /></div>
                 </div>
             </header>
 
@@ -144,69 +247,94 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
                 </h2>
 
                 {moduleData.materi_detail ? (
-                    <div className="space-y-16">
+                    <div className="space-y-10">
                         {moduleData.materi_detail.map((materi: any, idx: number) => (
-                            <div key={idx} className="flex flex-col gap-6">
-                                <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                                    <span className="w-8 h-8 rounded-full bg-violet-600/20 text-violet-300 flex items-center justify-center text-sm font-bold border border-violet-500/30">
-                                        {idx + 1}
-                                    </span>
-                                    {materi.judul}
-                                </h3>
+                            <div key={idx}>
+                                <div className="glass-card border-white/[0.06] bg-white/[0.01] p-6 md:p-8 space-y-6">
+                                    {/* Section Title */}
+                                    <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                                        <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-600/30 to-indigo-600/30 text-violet-300 flex items-center justify-center text-sm font-bold border border-violet-500/30 shadow-lg shadow-violet-500/5">
+                                            {idx + 1}
+                                        </span>
+                                        {materi.judul}
+                                    </h3>
 
-                                {materi.image && (
-                                    <div className="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl my-4 object-cover relative h-64 md:h-96">
-                                        <img
-                                            src={materi.image}
-                                            alt={materi.judul}
-                                            className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent pointer-events-none" />
-                                    </div>
-                                )}
-
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                    <div className="lg:col-span-2 space-y-6">
-                                        <div>
-                                            <h4 className="text-sm font-mono text-cyan-400 mb-2 uppercase tracking-widest">Penjelasan Awam</h4>
-                                            <p className="text-gray-300 leading-relaxed text-lg whitespace-pre-line"><FormattedText text={materi.penjelasan_awam} /></p>
+                                    {/* Image */}
+                                    {materi.image && (
+                                        <div className="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl object-cover relative h-64 md:h-96">
+                                            <img
+                                                src={materi.image}
+                                                alt={materi.judul}
+                                                className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-700"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent pointer-events-none" />
                                         </div>
-                                        {(materi.penjelasan_teknis || materi.detail_teknis || materi.detail_teknis_rumus) && (
-                                            <div className="p-6 rounded-xl bg-violet-900/10 border border-violet-500/20">
-                                                <h4 className="text-sm font-mono text-violet-400 mb-4 uppercase tracking-widest flex items-center gap-2">
-                                                    <Microscope className="w-4 h-4" /> Detail Teknis & Rumus
+                                    )}
+
+                                    {/* Content Grid */}
+                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                        {/* Main Content Column */}
+                                        <div className="lg:col-span-2 space-y-6">
+                                            {/* Penjelasan Awam */}
+                                            <div>
+                                                <h4 className="text-xs font-mono text-cyan-400 mb-3 uppercase tracking-[0.15em] flex items-center gap-2">
+                                                    <span className="w-3 h-[2px] bg-cyan-500/40" />
+                                                    Penjelasan Awam
                                                 </h4>
-                                                <div className="text-gray-300 leading-[1.85] text-[15px] whitespace-pre-line">
-                                                    <FormattedText text={materi.penjelasan_teknis || materi.detail_teknis || materi.detail_teknis_rumus} variant="technical" />
+                                                <div className="text-gray-300 leading-relaxed text-[15px]">
+                                                    <FormattedText text={materi.penjelasan_awam} />
                                                 </div>
                                             </div>
-                                        )}
-                                    </div>
 
-                                    <div className="space-y-6">
-                                        {materi.analogi && (
-                                            <div className="p-5 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                                                <h4 className="text-sm font-bold text-orange-400 mb-2 flex items-center gap-2">
-                                                    💡 Analogi Sederhana
-                                                </h4>
-                                                <p className="text-orange-200/80 text-sm leading-relaxed italic">
-                                                    "{materi.analogi}"
-                                                </p>
-                                            </div>
-                                        )}
+                                            {/* Detail Teknis & Rumus */}
+                                            {(materi.penjelasan_teknis || materi.detail_teknis || materi.detail_teknis_rumus) && (
+                                                <div className="p-6 rounded-2xl bg-gradient-to-br from-violet-900/15 to-indigo-900/10 border border-violet-500/15 backdrop-blur-sm">
+                                                    <h4 className="text-xs font-mono text-violet-400 mb-4 uppercase tracking-[0.15em] flex items-center gap-2">
+                                                        <Microscope className="w-4 h-4" />
+                                                        Detail Teknis & Rumus
+                                                    </h4>
+                                                    <div className="text-gray-300 leading-[1.85] text-[15px]">
+                                                        <FormattedText text={materi.penjelasan_teknis || materi.detail_teknis || materi.detail_teknis_rumus} variant="technical" />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
 
-                                        {materi.contoh_nyata && (
-                                            <div className="p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                                                <h4 className="text-sm font-bold text-emerald-400 mb-2 flex items-center gap-2">
-                                                    🌍 Contoh Nyata
-                                                </h4>
-                                                <p className="text-emerald-200/80 text-sm leading-relaxed">
-                                                    {materi.contoh_nyata}
-                                                </p>
-                                            </div>
-                                        )}
+                                        {/* Sidebar Column */}
+                                        <div className="space-y-5">
+                                            {materi.analogi && (
+                                                <div className="p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/15">
+                                                    <h4 className="text-xs font-bold text-amber-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+                                                        💡 Analogi
+                                                    </h4>
+                                                    <div className="text-amber-200/70 text-sm leading-relaxed italic">
+                                                        &ldquo;<FormattedText text={materi.analogi} />&rdquo;
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {materi.contoh_nyata && (
+                                                <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-500/15">
+                                                    <h4 className="text-xs font-bold text-emerald-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+                                                        🌍 Contoh Nyata
+                                                    </h4>
+                                                    <div className="text-emerald-200/70 text-sm leading-relaxed">
+                                                        <FormattedText text={materi.contoh_nyata} />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
+
+                                {/* Divider between sections */}
+                                {idx < moduleData.materi_detail.length - 1 && (
+                                    <div className="flex items-center justify-center my-4">
+                                        <div className="w-1 h-1 rounded-full bg-violet-500/30" />
+                                        <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-violet-500/20 to-transparent mx-2" />
+                                        <div className="w-1 h-1 rounded-full bg-violet-500/30" />
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -230,7 +358,9 @@ export default async function ModuleDetailPage({ params }: { params: Promise<{ i
                     <Lightbulb className="w-6 h-6 mr-3 text-yellow-400" /> Visualisasi Interaktif
                 </h2>
                 <InteractiveVisualization moduleId={moduleData.id} description={moduleData.visualisasi_interaktif} />
-            </section>{/* Academic Citations Section */}
+            </section>
+
+            {/* Academic Citations Section */}
             <section className="mt-16 pt-12 border-t border-white/10">
                 <h2 className="text-2xl font-bold flex items-center mb-6">
                     <Microscope className="w-6 h-6 mr-3 text-fuchsia-400" /> Sitasi Akademik Modul
